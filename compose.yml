@@ -1,0 +1,24 @@
+networks:
+  frontend:
+    name: reverse-proxy
+    external: true
+    driver: ${NETWORKS_DRIVER}
+
+services:
+  bannergen:
+    container_name: bannergen
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - .:/app
+    labels:
+      # enable traefik
+      - "traefik.enable=true"
+      - "traefik.docker.network=reverse-proxy"
+      # http
+      - "traefik.http.routers.bannergen.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.bannergen.entrypoints=web"
+    networks:
+      - frontend
+    command: ./entrypoint.sh
