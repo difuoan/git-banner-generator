@@ -102,7 +102,7 @@ export default function Home() {
         <div className={"flex flex-row gap-8"}>
           <Button label="&#43; Text" onClick={addText} />
         </div>
-        <div className="flex flex-row gap-8 flex-wrap content-center items-center">
+        <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
           <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
             <h6 className="text-lg font-bold dark:text-white">SVG</h6>
             <NumberInput
