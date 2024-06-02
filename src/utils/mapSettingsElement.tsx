@@ -23,7 +23,7 @@ export const mapSettingsElement = (
     title = "Text Element " + element.index;
   }
   return (
-    <div
+    <form
       className="flex flex-col gap-4 border border-gray-400 p-8 rounded"
       key={index}
     >
@@ -40,6 +40,6 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, animation: value })}
         options={animations}
       />
-    </div>
+    </form>
   );
 };

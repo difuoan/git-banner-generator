@@ -26,6 +26,7 @@ export default function Home() {
   const initialHeight = 200;
   const initialBackground = "transparent";
   const [displaySvg, setDisplaySvg] = useState(true);
+  const [elementIndex, setElementIndex] = useState(3);
   const [svgWidth, setSvgWidth] = useState(initialWidth);
   const [svgBackground, setSvgBackground] = useState(initialBackground);
   const [svgHeight, setSvgHeight] = useState(initialHeight);
@@ -42,6 +43,7 @@ export default function Home() {
     setSvgWidth(initialWidth);
     setSvgHeight(initialHeight);
     setSvgBackground(initialBackground);
+    setElementIndex(3);
   };
   const onElementChange = (element: SvgElement) => {
     const elementIndex = elements.findIndex(
@@ -49,11 +51,22 @@ export default function Home() {
     );
     if (elementIndex < 0) return;
     setElements(
-      initialState.map((ele) => {
+      elements.map((ele) => {
         if (ele.index === element.index) return element;
         return ele;
       })
     );
+  };
+  const addText = () => {
+    setElements([
+      ...elements,
+      {
+        index: elementIndex,
+        text: "Your Text Here!",
+        style: "",
+      },
+    ]);
+    setElementIndex(elementIndex + 1);
   };
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(ele, inde, onElementChange)
@@ -86,8 +99,11 @@ export default function Home() {
           <Button label="&#11208; Play animations" onClick={playAnimations} />
           <Button label="&#128190; Download" onClick={downloadSvg} />
         </div>
+        <div className={"flex flex-row gap-8"}>
+          <Button label="&#43; Text" onClick={addText} />
+        </div>
         <div className="flex flex-row gap-8 flex-wrap content-center items-center">
-          <div className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
+          <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
             <h6 className="text-lg font-bold dark:text-white">SVG</h6>
             <NumberInput
               label="Width"
@@ -108,7 +124,7 @@ export default function Home() {
               value={svgBackground}
               onChange={(val: string) => setSvgBackground(val)}
             />
-          </div>
+          </form>
           {settings}
         </div>
       </main>
