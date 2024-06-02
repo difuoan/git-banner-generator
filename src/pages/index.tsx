@@ -13,7 +13,7 @@ export default function Home() {
       text: "Hello World! I'm Lucas Venturini",
       index: 1,
       style: `font-size: 24px;\nfont-weight: bold;\nposition: absolute;\nleft: 100px;\ntop: 80px;`,
-      animation: "slide-in",
+      animation: "slide-in-left",
     },
     {
       text: "👋",

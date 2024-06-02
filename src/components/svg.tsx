@@ -67,21 +67,21 @@ const SVGComponent = (
               animation: wiggle 1.5s linear -0.5s infinite;
             }
             
-            .slide-in {
-              animation: slide-in 1s forwards;
-              -webkit-animation: slide-in 1s forwards;
+            .slide-in-left {
+              animation: slide-in-left 1s forwards;
+              -webkit-animation: slide-in-left 1s forwards;
               transform: translateX(-200%);
               -webkit-transform: translateX(-200%);
             }
-            @keyframes slide-in {
+            @keyframes slide-in-left {
               100% { transform: translateX(0%); }
             }
           
-            .slide-out {
-              animation: slide-out 1s forwards;
-              -webkit-animation: slide-out 1s forwards;
+            .slide-out-left {
+              animation: slide-out-left 1s forwards;
+              -webkit-animation: slide-out-left 1s forwards;
             }
-            @keyframes slide-out {
+            @keyframes slide-out-left {
               0% { transform: translateX(0%); }
               100% { transform: translateX(-200%); }
             }          
