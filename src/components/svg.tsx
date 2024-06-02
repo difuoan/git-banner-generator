@@ -70,11 +70,29 @@ const SVGComponent = (
             .slide-in-left {
               animation: slide-in-left 1s forwards;
               -webkit-animation: slide-in-left 1s forwards;
-              transform: translateX(-200%);
-              -webkit-transform: translateX(-200%);
+              transform: translateX(-` +
+              props.width +
+              `px);
+              -webkit-transform: translateX(-` +
+              props.width +
+              `px);
             }
             @keyframes slide-in-left {
-              100% { transform: translateX(0%); }
+              100% { transform: translateX(0px); }
+            }
+            
+            .slide-in-right {
+              animation: slide-in-right 1s forwards;
+              -webkit-animation: slide-in-right 1s forwards;
+              transform: translateX(` +
+              props.width +
+              `px);
+              -webkit-transform: translateX(` +
+              props.width +
+              `px);
+            }
+            @keyframes slide-in-right {
+              100% { transform: translateX(0px); }
             }
           
             .slide-out-left {
@@ -82,8 +100,21 @@ const SVGComponent = (
               -webkit-animation: slide-out-left 1s forwards;
             }
             @keyframes slide-out-left {
-              0% { transform: translateX(0%); }
-              100% { transform: translateX(-200%); }
+              0% { transform: translateX(0px); }
+              100% { transform: translateX(-` +
+              props.width +
+              `px); }
+            }  
+          
+            .slide-out-right {
+              animation: slide-out-right 1s forwards;
+              -webkit-animation: slide-out-right 1s forwards;
+            }
+            @keyframes slide-out-right {
+              0% { transform: translateX(0px); }
+              100% { transform: translateX(` +
+              props.width +
+              `px); }
             }          
 
             .container {
