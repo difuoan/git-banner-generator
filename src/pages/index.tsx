@@ -1,7 +1,7 @@
 import { downloadSvg } from "@/utils/downloadGeneratedSvg";
 import SVGComponent from "../components/svg";
 import { useState } from "react";
-import { SvgElement, isSvgElement } from "@/types/svgElement";
+import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
 

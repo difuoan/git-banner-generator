@@ -1,5 +1,4 @@
-import { SvgElement, isSvgElement } from "@/types/svgElement";
-import { isSvgTextElement } from "@/types/svgTextElement";
+import { SvgElement } from "@/types/svgElement";
 import { mapElement } from "@/utils/mapElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
