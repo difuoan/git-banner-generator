@@ -45,11 +45,10 @@ const SVGComponent = (
               /* disables selection of elements */
               -webkit-touch-callout: none; /* iOS Safari */
               -webkit-user-select: none; /* Safari */
-               -khtml-user-select: none; /* Konqueror HTML */
-                 -moz-user-select: none; /* Old versions of Firefox */
-                  -ms-user-select: none; /* Internet Explorer/Edge */
-                      user-select: none; /* Non-prefixed version, currently
-                                            supported by Chrome, Edge, Opera and Firefox */
+              -khtml-user-select: none; /* Konqueror HTML */
+              -moz-user-select: none; /* Old versions of Firefox */
+              -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
             }
 
             /* Animations */
@@ -66,6 +65,25 @@ const SVGComponent = (
             .wiggle {
               animation: wiggle 1.5s linear -0.5s infinite;
             }
+            
+            .slide-in {
+              animation: slide-in 1s forwards;
+              -webkit-animation: slide-in 1s forwards;
+              transform: translateX(-200%);
+              -webkit-transform: translateX(-200%);
+            }
+            @keyframes slide-in {
+              100% { transform: translateX(0%); }
+            }
+          
+            .slide-out {
+              animation: slide-out 1s forwards;
+              -webkit-animation: slide-out 1s forwards;
+            }
+            @keyframes slide-out {
+              0% { transform: translateX(0%); }
+              100% { transform: translateX(-200%); }
+            }          
 
             .container {
               width: 100%;
