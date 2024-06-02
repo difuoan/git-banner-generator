@@ -3,6 +3,7 @@ import StringInput from "@/components/stringInput";
 import TextArea from "@/components/textArea";
 import { animations } from "@/types/animations";
 import { SvgElement } from "@/types/svgElement";
+import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 
 export const mapSettingsElement = (
@@ -20,7 +21,16 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, text: value })}
       />
     );
-    title = "Text Element " + element.index;
+    title = "Text #" + element.index;
+  } else if (isSvgImgElement(element)) {
+    content = (
+      <StringInput
+        value={element["src"]}
+        label="Src"
+        onChange={(value: string) => onChange({ ...element, src: value })}
+      />
+    );
+    title = "Image #" + element.index;
   }
   return (
     <form

@@ -1,6 +1,7 @@
 import { SvgElement } from "@/types/svgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { parseStyles } from "./parseStyles";
+import { isSvgImgElement } from "@/types/svgImgElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
   if (isSvgTextElement(element)) {
@@ -12,6 +13,16 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
       >
         {element.text}
       </span>
+    );
+  } else if (isSvgImgElement(element)) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+      <img
+        src={element.src}
+        key={index}
+        style={parseStyles(element.style)}
+        className={element.animation}
+      />
     );
   }
 };
