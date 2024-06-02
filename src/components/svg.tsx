@@ -1,5 +1,5 @@
 import { SvgElement } from "@/types/svgElement";
-import { mapElement } from "@/utils/mapElement";
+import { mapSvgElement } from "@/utils/mapSvgElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
 const SVGComponent = (
@@ -16,16 +16,16 @@ const SVGComponent = (
   // only display client side to avoid stupid "css is not the same on server/client" error
   if (!isClient) return null;
 
-  const elementHtml = props.elements.map(mapElement);
+  const elementHtml = props.elements.map(mapSvgElement);
 
   return (
     <svg
       id="generated-banner"
       fill="none"
       viewBox={"0 0 " + props.svgwidth + " " + props.svgheight}
-      width={props.svgwidth}
-      height={props.svgheight}
       xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ maxWidth: "100%", maxHeight: "auto" }}
       {...props}
     >
       <foreignObject width="100%" height="100%">
@@ -60,6 +60,8 @@ const SVGComponent = (
               props.svgheight +
               `px;
               background: white;
+              max-width: 100%;
+              max-height: 100%;
               
               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
               font-size: 16px;

@@ -33,7 +33,7 @@ const NumberInput = ({
         max={max}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="appearance-none block w-full bg-gray-300 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
+        className="appearance-none block w-full bg-gray-300 text-gray-700 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-400"
       />
     </div>
   );
