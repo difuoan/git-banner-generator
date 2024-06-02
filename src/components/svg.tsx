@@ -42,7 +42,7 @@ const SVGComponent = (
               font-size: 100%;
               font-weight: normal;
               cursor: default;
-              
+
               /* disables selection of elements */
               -webkit-touch-callout: none; /* iOS Safari */
               -webkit-user-select: none; /* Safari */
@@ -66,7 +66,7 @@ const SVGComponent = (
             .wiggle {
               animation: wiggle 1.5s linear -0.5s infinite;
             }
-            
+
             .slide-in-left {
               animation: slide-in-left 1s forwards;
               -webkit-animation: slide-in-left 1s forwards;
@@ -80,7 +80,35 @@ const SVGComponent = (
             @keyframes slide-in-left {
               100% { transform: translateX(0px); }
             }
-            
+
+            .slide-in-top {
+              animation: slide-in-top 1s forwards;
+              -webkit-animation: slide-in-top 1s forwards;
+              transform: translateY(-` +
+              props.height +
+              `px);
+              -webkit-transform: translateY(-` +
+              props.height +
+              `px);
+            }
+            @keyframes slide-in-top {
+              100% { transform: translateY(0px); }
+            }
+
+            .slide-in-bottom {
+              animation: slide-in-bottom 1s forwards;
+              -webkit-animation: slide-in-bottom 1s forwards;
+              transform: translateY(` +
+              props.height +
+              `px);
+              -webkit-transform: translateY(` +
+              props.height +
+              `px);
+            }
+            @keyframes slide-in-bottom {
+              100% { transform: translateY(0px); }
+            }
+
             .slide-in-right {
               animation: slide-in-right 1s forwards;
               -webkit-animation: slide-in-right 1s forwards;
@@ -94,7 +122,7 @@ const SVGComponent = (
             @keyframes slide-in-right {
               100% { transform: translateX(0px); }
             }
-          
+
             .slide-out-left {
               animation: slide-out-left 1s forwards;
               -webkit-animation: slide-out-left 1s forwards;
@@ -104,8 +132,8 @@ const SVGComponent = (
               100% { transform: translateX(-` +
               props.width +
               `px); }
-            }  
-          
+            }
+
             .slide-out-right {
               animation: slide-out-right 1s forwards;
               -webkit-animation: slide-out-right 1s forwards;
@@ -115,7 +143,29 @@ const SVGComponent = (
               100% { transform: translateX(` +
               props.width +
               `px); }
-            }          
+            }
+
+            .slide-out-top {
+              animation: slide-out-top 1s forwards;
+              -webkit-animation: slide-out-top 1s forwards;
+            }
+            @keyframes slide-out-top {
+              0% { transform: translateY(0px); }
+              100% { transform: translateY(-` +
+              props.height +
+              `px); }
+            }
+
+            .slide-out-bottom {
+              animation: slide-out-bottom 1s forwards;
+              -webkit-animation: slide-out-bottom 1s forwards;
+            }
+            @keyframes slide-out-bottom {
+              0% { transform: translateY(0px); }
+              100% { transform: translateY(` +
+              props.height +
+              `px); }
+            }
 
             .container {
               width: 100%;
@@ -127,11 +177,11 @@ const SVGComponent = (
               `;
               max-width: 100%;
               max-height: 100%;
-              
+
               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
               font-size: 16px;
             }
-            
+
             @media (prefers-reduced-motion) {
               * {
                 animation: none;
