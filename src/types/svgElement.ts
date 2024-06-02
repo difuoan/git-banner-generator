@@ -1,8 +1,9 @@
 import { SvgTextElement, isSvgTextElement } from "./svgTextElement";
 import { SvgImgElement, isSvgImgElement } from "./svgImgElement";
 
-export type SvgElement = SvgTextElement | SvgImgElement & {
-    position: "top left" | "top center" | "top right" | "right center" | "right bottom" | "center bottom" | "left bottom" | "left center" | "center center"
+export type SvgElement = (SvgTextElement | SvgImgElement) & {
+    index: number
+    style: string
 }
 
 export const isSvgElement = (element: any): element is SvgElement => {
