@@ -5,6 +5,7 @@ import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
 import { mapSettingsElement } from "@/utils/mapSettingsElement";
+import StringInput from "@/components/stringInput";
 
 export default function Home() {
   const initialState: SvgElement[] = [
@@ -23,8 +24,10 @@ export default function Home() {
   ];
   const initialWidth = 800;
   const initialHeight = 200;
+  const initialBackground = "transparent";
   const [displaySvg, setDisplaySvg] = useState(true);
   const [svgWidth, setSvgWidth] = useState(initialWidth);
+  const [svgBackground, setSvgBackground] = useState(initialBackground);
   const [svgHeight, setSvgHeight] = useState(initialHeight);
   const [elements, setElements] = useState<SvgElement[]>([...initialState]);
   const playAnimations = () => {
@@ -38,6 +41,7 @@ export default function Home() {
     setElements([...initialState]);
     setSvgWidth(initialWidth);
     setSvgHeight(initialHeight);
+    setSvgBackground(initialBackground);
   };
   const onElementChange = (element: SvgElement) => {
     const elementIndex = elements.findIndex(
@@ -72,8 +76,9 @@ export default function Home() {
         <div style={{ maxWidth: "600px", minWidth: "50%", width: "100%" }}>
           <SVGComponent
             elements={elements}
-            svgwidth={svgWidth}
-            svgheight={svgHeight}
+            width={svgWidth}
+            height={svgHeight}
+            background={svgBackground}
           />
         </div>
         <div className={"flex flex-row gap-8"}>
@@ -97,6 +102,11 @@ export default function Home() {
               onChange={(val: number) => setSvgHeight(val)}
               min={1}
               max={500}
+            />
+            <StringInput
+              label="Background"
+              value={svgBackground}
+              onChange={(val: string) => setSvgBackground(val)}
             />
           </div>
           {settings}

@@ -5,8 +5,9 @@ import { JSX, SVGProps, useEffect, useState } from "react";
 const SVGComponent = (
   props: Partial<JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>> & {
     elements: SvgElement[];
-    svgheight: number;
-    svgwidth: number;
+    height: number;
+    width: number;
+    background: string;
   }
 ) => {
   const [isClient, setIsClient] = useState(false);
@@ -22,7 +23,7 @@ const SVGComponent = (
     <svg
       id="generated-banner"
       fill="none"
-      viewBox={"0 0 " + props.svgwidth + " " + props.svgheight}
+      viewBox={"0 0 " + props.width + " " + props.height}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
       style={{ maxWidth: "100%", maxHeight: "auto" }}
@@ -88,9 +89,11 @@ const SVGComponent = (
             .container {
               width: 100%;
               height: ` +
-              props.svgheight +
+              props.height +
               `px;
-              background: white;
+              background: ` +
+              props.background +
+              `;
               max-width: 100%;
               max-height: 100%;
               
