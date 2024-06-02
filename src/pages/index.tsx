@@ -127,6 +127,20 @@ export default function Home() {
           </form>
           {settings}
         </div>
+        <div>
+          <h6 className="text-lg font-bold dark:text-white">Helpful Tools</h6>
+          <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <li>
+              <a
+                href="https://www.base64-image.de/"
+                className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                target="_blank"
+              >
+                image to base64 converter
+              </a>
+            </li>
+          </ul>
+        </div>
       </main>
     );
   } else {
