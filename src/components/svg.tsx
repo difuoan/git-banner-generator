@@ -40,6 +40,16 @@ const SVGComponent = (
               box-sizing: border-box;
               font-size: 100%;
               font-weight: normal;
+              cursor: default;
+              
+              /* disables selection of elements */
+              -webkit-touch-callout: none; /* iOS Safari */
+              -webkit-user-select: none; /* Safari */
+               -khtml-user-select: none; /* Konqueror HTML */
+                 -moz-user-select: none; /* Old versions of Firefox */
+                  -ms-user-select: none; /* Internet Explorer/Edge */
+                      user-select: none; /* Non-prefixed version, currently
+                                            supported by Chrome, Edge, Opera and Firefox */
             }
 
             /* Animations */
@@ -52,6 +62,9 @@ const SVGComponent = (
               50% { transform: rotate(10.0deg) }
               60% { transform: rotate( 0.0deg) }
               100% { transform: rotate( 0.0deg) }
+            }
+            .wiggle {
+              animation: wiggle 1.5s linear -0.5s infinite;
             }
 
             .container {
