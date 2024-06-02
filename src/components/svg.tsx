@@ -1,14 +1,14 @@
 import { SvgElement, isSvgElement } from "@/types/svgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
+import { mapElement } from "@/utils/mapElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
 const SVGComponent = (
-  props: JSX.IntrinsicAttributes &
-    SVGProps<SVGSVGElement> & {
-      elements: SvgElement[];
-      svgHeight: number;
-      svgWidth: number;
-    }
+  props: Partial<JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>> & {
+    elements: SvgElement[];
+    svgheight: number;
+    svgwidth: number;
+  }
 ) => {
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
@@ -17,30 +17,15 @@ const SVGComponent = (
   // only display client side to avoid stupid "css is not the same on server/client" error
   if (!isClient) return null;
 
-  const elementHtml = props.elements.map(
-    (element: SvgElement, index: number) => {
-      if (isSvgTextElement(element)) {
-        return (
-          <span
-            key={index}
-            style={{
-              fontSize: element["font-size"],
-            }}
-          >
-            {element.text}
-          </span>
-        );
-      }
-    }
-  );
+  const elementHtml = props.elements.map(mapElement);
 
   return (
     <svg
       id="generated-banner"
       fill="none"
-      viewBox={"0 0 " + props.svgWidth + " " + props.svgHeight}
-      width={props.svgWidth}
-      height={props.svgHeight}
+      viewBox={"0 0 " + props.svgwidth + " " + props.svgheight}
+      width={props.svgwidth}
+      height={props.svgheight}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
@@ -73,7 +58,7 @@ const SVGComponent = (
             .container {
               width: 100%;
               height: ` +
-              props.svgHeight +
+              props.svgheight +
               `px;
               background: white;
               
