@@ -1,4 +1,7 @@
+import Select from "@/components/select";
 import StringInput from "@/components/stringInput";
+import TextArea from "@/components/textArea";
+import { animations } from "@/types/animations";
 import { SvgElement } from "@/types/svgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 
@@ -26,10 +29,16 @@ export const mapSettingsElement = (
     >
       <h6 className="text-lg font-bold dark:text-white">{title}</h6>
       {content}
-      <StringInput
+      <TextArea
         value={element["style"]}
         label="Style"
         onChange={(value: string) => onChange({ ...element, style: value })}
+      />
+      <Select
+        value={element["animation"]}
+        label="Animation"
+        onChange={(value: string) => onChange({ ...element, animation: value })}
+        options={animations}
       />
     </div>
   );

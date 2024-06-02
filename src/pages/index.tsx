@@ -11,14 +11,13 @@ export default function Home() {
     {
       text: "Hello World! I'm Lucas Venturini",
       index: 1,
-      style:
-        "font-size: 24px; font-weight: bold; position: absolute; left: 100px; top: 80px",
+      style: `font-size: 24px;\nfont-weight: bold;\nposition: absolute;\nleft: 100px;\ntop: 80px;`,
     },
     {
       text: "👋",
       index: 2,
-      style:
-        "font-size: 40px; font-weight: bold; position: absolute; right: 200px; top: 65px",
+      style: `font-size: 40px;\nposition: absolute;\nright: 200px;\ntop: 65px;`,
+      animation: "wiggle",
     },
   ];
   const initialWidth = 800;
@@ -67,7 +66,7 @@ export default function Home() {
           className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
           target="_blank"
         >
-          <small>created by Lucas J. Venturini</small>
+          <small>by Lucas J. Venturini</small>
         </a>
         <div style={{ maxWidth: "600px", minWidth: "50%", width: "100%" }}>
           <SVGComponent

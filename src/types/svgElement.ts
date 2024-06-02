@@ -4,6 +4,7 @@ import { SvgImgElement, isSvgImgElement } from "./svgImgElement";
 export type SvgElement = (SvgTextElement | SvgImgElement) & {
     index: number
     style: string
+    animation?: string
 }
 
 export const isSvgElement = (element: any): element is SvgElement => {
