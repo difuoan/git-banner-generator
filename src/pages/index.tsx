@@ -1,20 +1,34 @@
 import { downloadSvg } from "@/utils/downloadGeneratedSvg";
 import SVGComponent from "../components/svg";
 import { useState } from "react";
+import { SvgElement, isSvgElement } from "@/types/svgElement";
 
 export default function Home() {
-  const [value, setValue] = useState(true);
+  const [displaySvg, setDisplaySvg] = useState(true);
+  const [svgWidth, setSvgWidth] = useState(600);
+  const [svgHeight, setSvgHeight] = useState(200);
+  const [elements, setElements] = useState<SvgElement[]>([
+    {
+      "font-size": "16 px",
+      position: "center center",
+      text: "Hello World!",
+    },
+  ]);
   const playFromStart = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
-    setValue(false);
+    setDisplaySvg(false);
     setTimeout(() => {
-      setValue(true);
+      setDisplaySvg(true);
     }, 0);
   };
-  if (value) {
+  if (displaySvg) {
     return (
       <main className={`flex min-h-screen flex-col items-center p-24 gap-8`}>
-        <SVGComponent />
+        <SVGComponent
+          elements={elements}
+          svgWidth={svgWidth}
+          svgHeight={svgHeight}
+        />
         <div className={"flex flex-row gap-8"}>
           <button
             onClick={playFromStart}
@@ -28,6 +42,28 @@ export default function Home() {
           >
             &#128190; Download
           </button>
+        </div>
+        <div>
+          <div className={"flex flex-row gap-8"}>
+            <span>Width</span>
+            <input
+              type="range"
+              min="100"
+              max="1000"
+              value={svgWidth}
+              onChange={(event) => setSvgWidth(Number(event.target.value))}
+            />
+          </div>
+          <div className={"flex flex-row gap-8"}>
+            <span>Height</span>
+            <input
+              type="range"
+              min="50"
+              max="500"
+              value={svgHeight}
+              onChange={(event) => setSvgHeight(Number(event.target.value))}
+            />
+          </div>
         </div>
       </main>
     );
