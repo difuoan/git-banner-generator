@@ -11,7 +11,7 @@ import { Preset } from "@/types/preset";
 
 export default function Home() {
   let [presetToUse, setPresetToUse] = useState(1);
-  let elementIndex = 4;
+  let [elementIndex, setElementIndex] = useState(4);
   const initialWidth = 800;
   const initialHeight = 200;
   const initialBackground = "transparent";
@@ -23,7 +23,7 @@ export default function Home() {
     ...presets[presetToUse].elements,
   ]);
   useEffect(() => {
-    elementIndex = elements.length + 1;
+    setElementIndex(elements.length + 1);
   }, [elements]);
   const playAnimations = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
@@ -40,12 +40,10 @@ export default function Home() {
   };
   useEffect(() => {
     resetState();
-  }, [presetToUse]);
+  }, [presetToUse]); // eslint-disable-line react-hooks/exhaustive-deps
   const onElementChange = (element: SvgElement) => {
-    const elementIndex = elements.findIndex(
-      (ele) => ele.index === element.index
-    );
-    if (elementIndex < 0) return;
+    const eIndex = elements.findIndex((ele) => ele.index === element.index);
+    if (eIndex < 0) return;
     setElements(
       elements.map((ele) => {
         if (ele.index === element.index) return element;
@@ -62,7 +60,7 @@ export default function Home() {
         style: "",
       },
     ]);
-    elementIndex++;
+    setElementIndex(elementIndex + 1);
   };
   const addImg = () => {
     setElements([
@@ -73,7 +71,7 @@ export default function Home() {
         style: "",
       },
     ]);
-    elementIndex++;
+    setElementIndex(elementIndex + 1);
   };
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(ele, inde, onElementChange)
