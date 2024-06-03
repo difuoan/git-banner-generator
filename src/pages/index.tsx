@@ -1,6 +1,6 @@
 import { downloadSvg } from "@/utils/downloadGeneratedSvg";
 import SVGComponent from "../components/svg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
@@ -10,17 +10,21 @@ import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
 
 export default function Home() {
-  let presetToUse = 1;
-  let initialState = presets[presetToUse].elements;
+  let [presetToUse, setPresetToUse] = useState(1);
+  let elementIndex = 4;
   const initialWidth = 800;
   const initialHeight = 200;
   const initialBackground = "transparent";
   const [displaySvg, setDisplaySvg] = useState(true);
-  const [elementIndex, setElementIndex] = useState(4);
   const [svgWidth, setSvgWidth] = useState(initialWidth);
   const [svgBackground, setSvgBackground] = useState(initialBackground);
   const [svgHeight, setSvgHeight] = useState(initialHeight);
-  const [elements, setElements] = useState<SvgElement[]>([...initialState]);
+  const [elements, setElements] = useState<SvgElement[]>([
+    ...presets[presetToUse].elements,
+  ]);
+  useEffect(() => {
+    elementIndex = elements.length + 1;
+  }, [elements]);
   const playAnimations = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
@@ -29,12 +33,14 @@ export default function Home() {
     }, 0);
   };
   const resetState = () => {
-    setElements([...initialState]);
+    setElements([...presets[presetToUse].elements]);
     setSvgWidth(initialWidth);
     setSvgHeight(initialHeight);
     setSvgBackground(initialBackground);
-    setElementIndex(elements.length + 1);
   };
+  useEffect(() => {
+    resetState();
+  }, [presetToUse]);
   const onElementChange = (element: SvgElement) => {
     const elementIndex = elements.findIndex(
       (ele) => ele.index === element.index
@@ -56,7 +62,7 @@ export default function Home() {
         style: "",
       },
     ]);
-    setElementIndex(elementIndex + 1);
+    elementIndex++;
   };
   const addImg = () => {
     setElements([
@@ -67,15 +73,13 @@ export default function Home() {
         style: "",
       },
     ]);
-    setElementIndex(elementIndex + 1);
+    elementIndex++;
   };
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(ele, inde, onElementChange)
   );
   const changePreset = (presetIndex: number) => {
-    presetToUse = presetIndex;
-    initialState = presets[presetToUse].elements;
-    resetState();
+    setPresetToUse(presetIndex);
   };
   const presetHtml = presets.map((preset: Preset, index: number) => {
     return (
@@ -83,7 +87,7 @@ export default function Home() {
       <img
         src={preset.src}
         alt={preset.src}
-        className="flex flex-col gap-4 border border-gray-400 rounded"
+        className="flex flex-col gap-4 border border-gray-400 rounded cursor-pointer"
         onClick={() => changePreset(index)}
         key={index}
         style={{ maxWidth: "250px", maxHeight: "150px" }}
@@ -160,7 +164,7 @@ export default function Home() {
       </div>
       {/* PRESETS */}
       <h6 className="text-lg font-bold dark:text-white">Explore Presets</h6>
-      <div className="flex flex-row gap-8 flex-wrap content-center justify-center cursor-pointer">
+      <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
         {presetHtml}
       </div>
       {/* LINKS */}
