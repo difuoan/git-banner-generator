@@ -11,20 +11,15 @@ import { Preset } from "@/types/preset";
 
 export default function Home() {
   let [presetToUse, setPresetToUse] = useState(1);
+  let [preset, setPreset] = useState(presets[presetToUse]);
   let [elementIndex, setElementIndex] = useState(4);
-  const initialWidth = 800;
-  const initialHeight = 200;
-  const initialBackground = "transparent";
   const [displaySvg, setDisplaySvg] = useState(true);
-  const [svgWidth, setSvgWidth] = useState(initialWidth);
-  const [svgBackground, setSvgBackground] = useState(initialBackground);
-  const [svgHeight, setSvgHeight] = useState(initialHeight);
-  const [elements, setElements] = useState<SvgElement[]>([
-    ...presets[presetToUse].elements,
-  ]);
-  useEffect(() => {
-    setElementIndex(elements.length + 1);
-  }, [elements]);
+  const [svgWidth, setSvgWidth] = useState(preset.width);
+  const [svgBackground, setSvgBackground] = useState(preset.background);
+  const [svgHeight, setSvgHeight] = useState(preset.height);
+  const [elements, setElements] = useState<SvgElement[]>([...preset.elements]);
+
+  // FUNCTIONS
   const playAnimations = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
@@ -34,13 +29,10 @@ export default function Home() {
   };
   const resetState = () => {
     setElements([...presets[presetToUse].elements]);
-    setSvgWidth(initialWidth);
-    setSvgHeight(initialHeight);
-    setSvgBackground(initialBackground);
+    setSvgWidth(preset.width);
+    setSvgHeight(preset.height);
+    setSvgBackground(preset.background);
   };
-  useEffect(() => {
-    resetState();
-  }, [presetToUse]); // eslint-disable-line react-hooks/exhaustive-deps
   const onElementChange = (element: SvgElement) => {
     const eIndex = elements.findIndex((ele) => ele.index === element.index);
     if (eIndex < 0) return;
@@ -79,6 +71,20 @@ export default function Home() {
   const changePreset = (presetIndex: number) => {
     setPresetToUse(presetIndex);
   };
+
+  // EFFECTS
+  useEffect(() => {
+    // resetState();
+    setPreset(presets[presetToUse]);
+  }, [presetToUse]);
+  useEffect(() => {
+    resetState();
+  }, [preset]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    setElementIndex(elements.length + 1);
+  }, [elements]);
+
+  // HTML
   const presetHtml = presets.map((preset: Preset, index: number) => {
     return (
       // eslint-disable-next-line @next/next/no-img-element
@@ -161,7 +167,7 @@ export default function Home() {
         {settings}
       </div>
       {/* PRESETS */}
-      <h6 className="text-lg font-bold dark:text-white">Explore Presets</h6>
+      <h6 className="text-lg font-bold dark:text-white">Presets</h6>
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
         {presetHtml}
       </div>
