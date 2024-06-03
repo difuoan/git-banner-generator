@@ -9,7 +9,7 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
       <span
         key={index}
         style={parseStyles(element.style)}
-        className={element.animation}
+        className={element.animation + "-" + element.index}
       >
         {element.text}
       </span>
@@ -21,7 +21,7 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         src={element.src}
         key={index}
         style={parseStyles(element.style)}
-        className={element.animation}
+        className={element.animation + "-" + element.index}
       />
     );
   }

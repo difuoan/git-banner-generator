@@ -49,7 +49,7 @@ export default function Home() {
       {
         index: elementIndex,
         text: "Your Text Here!",
-        style: "",
+        style: "position: absolute;",
       },
     ]);
     setElementIndex(elementIndex + 1);
@@ -59,14 +59,14 @@ export default function Home() {
       ...elements,
       {
         index: elementIndex,
-        src: "",
-        style: "",
+        src: "use base64 converter below",
+        style: "position: absolute;",
       },
     ]);
     setElementIndex(elementIndex + 1);
   };
   const settings = elements.map((ele, inde) =>
-    mapSettingsElement(ele, inde, onElementChange)
+    mapSettingsElement(ele, inde, onElementChange, svgHeight, svgWidth)
   );
   const changePreset = (presetIndex: number) => {
     setPresetToUse(presetIndex);

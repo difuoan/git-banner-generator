@@ -1,17 +1,22 @@
 import Select from "@/components/select";
 import StringInput from "@/components/stringInput";
 import TextArea from "@/components/textArea";
+import { aniamtionCSS } from "@/data/animationCss";
 import { animations } from "@/types/animations";
 import { SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
+import { replaceData } from "./replaceData";
 
 export const mapSettingsElement = (
   element: SvgElement,
   index: number,
-  onChange: Function
+  onChange: Function,
+  svgHeight: number,
+  svgWidth: number
 ) => {
   let content = null;
+  let animationCss = null;
   let title = "Element";
   if (isSvgTextElement(element)) {
     content = (
@@ -32,9 +37,27 @@ export const mapSettingsElement = (
     );
     title = "Image #" + element.index;
   }
+  if (element["animation"]) {
+    const animCss = replaceData(
+      element["animationCss"] ?? aniamtionCSS[element["animation"]],
+      element.index,
+      svgHeight,
+      svgWidth
+    );
+    animationCss = (
+      <TextArea
+        value={animCss}
+        label="Animation CSS"
+        onChange={(value: string) =>
+          onChange({ ...element, animationCss: value })
+        }
+      />
+    );
+  }
   return (
     <form
-      className="flex flex-col gap-4 border border-gray-400 p-8 rounded"
+      className="flex flex-col gap-4 border border-gray-400 p-8 rounded resize-x"
+      style={{ overflow: "auto" }}
       key={index}
     >
       <h6 className="text-lg font-bold dark:text-white">{title}</h6>
@@ -50,6 +73,7 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, animation: value })}
         options={animations}
       />
+      {animationCss}
     </form>
   );
 };

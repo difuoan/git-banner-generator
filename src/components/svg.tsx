@@ -1,4 +1,5 @@
 import { SvgElement } from "@/types/svgElement";
+import { mapElementAnimation } from "@/utils/mapElementAnimation";
 import { mapSvgElement } from "@/utils/mapSvgElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
@@ -18,6 +19,12 @@ const SVGComponent = (
   if (!isClient) return null;
 
   const elementHtml = props.elements.map(mapSvgElement);
+  const elementAniamtions = props.elements
+    .map((ele, index) =>
+      mapElementAnimation(ele, index, props.height, props.width)
+    )
+    .filter((val) => val)
+    .join(" ");
 
   return (
     <svg
@@ -52,120 +59,10 @@ const SVGComponent = (
               user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
             }
 
-            /* Animations */
-            @keyframes wiggle  {
-              0% { transform: rotate( 0.0deg) }
-              10% { transform: rotate(14.0deg) }
-              20% { transform: rotate(-8.0deg) }
-              30% { transform: rotate(14.0deg) }
-              40% { transform: rotate(-4.0deg) }
-              50% { transform: rotate(10.0deg) }
-              60% { transform: rotate( 0.0deg) }
-              100% { transform: rotate( 0.0deg) }
-            }
-            .wiggle {
-              animation: wiggle 1.5s linear -0.5s infinite;
-            }
-
-            .slide-in-left {
-              animation: slide-in-left 1s forwards;
-              -webkit-animation: slide-in-left 1s forwards;
-              transform: translateX(-` +
-              props.width +
-              `px);
-              -webkit-transform: translateX(-` +
-              props.width +
-              `px);
-            }
-            @keyframes slide-in-left {
-              100% { transform: translateX(0px); }
-            }
-
-            .slide-in-top {
-              animation: slide-in-top 1s forwards;
-              -webkit-animation: slide-in-top 1s forwards;
-              transform: translateY(-` +
-              props.height +
-              `px);
-              -webkit-transform: translateY(-` +
-              props.height +
-              `px);
-            }
-            @keyframes slide-in-top {
-              100% { transform: translateY(0px); }
-            }
-
-            .slide-in-bottom {
-              animation: slide-in-bottom 1s forwards;
-              -webkit-animation: slide-in-bottom 1s forwards;
-              transform: translateY(` +
-              props.height +
-              `px);
-              -webkit-transform: translateY(` +
-              props.height +
-              `px);
-            }
-            @keyframes slide-in-bottom {
-              100% { transform: translateY(0px); }
-            }
-
-            .slide-in-right {
-              animation: slide-in-right 1s forwards;
-              -webkit-animation: slide-in-right 1s forwards;
-              transform: translateX(` +
-              props.width +
-              `px);
-              -webkit-transform: translateX(` +
-              props.width +
-              `px);
-            }
-            @keyframes slide-in-right {
-              100% { transform: translateX(0px); }
-            }
-
-            .slide-out-left {
-              animation: slide-out-left 1s forwards;
-              -webkit-animation: slide-out-left 1s forwards;
-            }
-            @keyframes slide-out-left {
-              0% { transform: translateX(0px); }
-              100% { transform: translateX(-` +
-              props.width +
-              `px); }
-            }
-
-            .slide-out-right {
-              animation: slide-out-right 1s forwards;
-              -webkit-animation: slide-out-right 1s forwards;
-            }
-            @keyframes slide-out-right {
-              0% { transform: translateX(0px); }
-              100% { transform: translateX(` +
-              props.width +
-              `px); }
-            }
-
-            .slide-out-top {
-              animation: slide-out-top 1s forwards;
-              -webkit-animation: slide-out-top 1s forwards;
-            }
-            @keyframes slide-out-top {
-              0% { transform: translateY(0px); }
-              100% { transform: translateY(-` +
-              props.height +
-              `px); }
-            }
-
-            .slide-out-bottom {
-              animation: slide-out-bottom 1s forwards;
-              -webkit-animation: slide-out-bottom 1s forwards;
-            }
-            @keyframes slide-out-bottom {
-              0% { transform: translateY(0px); }
-              100% { transform: translateY(` +
-              props.height +
-              `px); }
-            }
+            /* ANIMATIONS */
+            ` +
+              elementAniamtions +
+              `
 
             .container {
               width: 100%;

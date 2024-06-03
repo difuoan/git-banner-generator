@@ -1,4 +1,4 @@
-export type Animation =
+export type AnimationName =
     | "wiggle"
     | "slide-out-left"
     | "slide-in-left"
@@ -10,7 +10,7 @@ export type Animation =
     | "slide-in-top"
     | "none";
 
-export const animations: Animation[] = [
+export const animations: AnimationName[] = [
     "wiggle",
     "none",
     "slide-in-left",
