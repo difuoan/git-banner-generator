@@ -58,6 +58,17 @@ export default function Home() {
     ]);
     setElementIndex(elementIndex + 1);
   };
+  const addImg = () => {
+    setElements([
+      ...elements,
+      {
+        index: elementIndex,
+        src: "",
+        style: "",
+      },
+    ]);
+    setElementIndex(elementIndex + 1);
+  };
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(ele, inde, onElementChange)
   );
@@ -105,6 +116,7 @@ export default function Home() {
       </div>
       <div className={"flex flex-row gap-8"}>
         <Button label="&#43; Text" onClick={addText} />
+        <Button label="&#43; Image" onClick={addImg} />
       </div>
       {/* SETTINGS */}
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
