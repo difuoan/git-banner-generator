@@ -2,8 +2,12 @@ import { Preset } from "@/types/preset";
 
 export const presets: Preset[] = [
     {
-        name: "Lucas J. Venturini",
-        data: [
+        src: "/empty.svg",
+        elements: [],
+    },
+    {
+        src: "/ljvBanner.svg",
+        elements: [
             {
                 text: "Hello World! I'm Lucas J. Venturini",
                 index: 1,

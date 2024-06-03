@@ -1,3 +1,3 @@
 import { SvgElement } from "./svgElement";
 
-export type Preset = { name: string; data: SvgElement[] }
+export type Preset = { src: string; elements: SvgElement[] }
