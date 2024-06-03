@@ -6,12 +6,12 @@ import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
 import { mapSettingsElement } from "@/utils/mapSettingsElement";
 import StringInput from "@/components/stringInput";
-import Image from "next/image";
 import { presets } from "@/data/presets";
+import { Preset } from "@/types/preset";
 
 export default function Home() {
-  const [presetToUse, setPresetToUse] = useState(0);
-  const initialState: SvgElement[] = presets[presetToUse].data;
+  let presetToUse = 1;
+  let initialState = presets[presetToUse].elements;
   const initialWidth = 800;
   const initialHeight = 200;
   const initialBackground = "transparent";
@@ -73,9 +73,23 @@ export default function Home() {
     mapSettingsElement(ele, inde, onElementChange)
   );
   const changePreset = (presetIndex: number) => {
-    setPresetToUse(presetIndex);
+    presetToUse = presetIndex;
+    initialState = presets[presetToUse].elements;
     resetState();
   };
+  const presetHtml = presets.map((preset: Preset, index: number) => {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={preset.src}
+        alt={preset.src}
+        className="flex flex-col gap-4 border border-gray-400 rounded"
+        onClick={() => changePreset(index)}
+        key={index}
+        style={{ maxWidth: "250px", maxHeight: "150px" }}
+      />
+    );
+  });
   let svgToDisplay = (
     <div style={{ minHeight: "200px" }}>{/* not really empty */}</div>
   );
@@ -146,17 +160,8 @@ export default function Home() {
       </div>
       {/* PRESETS */}
       <h6 className="text-lg font-bold dark:text-white">Explore Presets</h6>
-      <div
-        className="flex flex-row gap-8 flex-wrap content-center justify-center cursor-pointer"
-        onClick={() => changePreset(0)}
-      >
-        <Image
-          src="/ljvBanner.svg"
-          alt="Lucas J. Venturini Banner"
-          width={250}
-          height={100}
-          className="flex flex-col gap-4 border border-gray-400 rounded"
-        />
+      <div className="flex flex-row gap-8 flex-wrap content-center justify-center cursor-pointer">
+        {presetHtml}
       </div>
       {/* LINKS */}
       <div>
