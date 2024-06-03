@@ -13,7 +13,8 @@ export const mapSettingsElement = (
   index: number,
   onChange: Function,
   svgHeight: number,
-  svgWidth: number
+  svgWidth: number,
+  onDelete: Function
 ) => {
   let content = null;
   let animationCss = null;
@@ -57,9 +58,16 @@ export const mapSettingsElement = (
   return (
     <form
       className="flex flex-col gap-4 border border-gray-400 p-8 rounded resize-x"
-      style={{ overflow: "auto" }}
+      style={{ overflow: "auto", position: "relative" }}
       key={index}
     >
+      <span
+        className="absolute"
+        style={{ right: "2rem", cursor: "pointer" }}
+        onClick={() => onDelete(element.index)}
+      >
+        &#128465;
+      </span>
       <h6 className="text-lg font-bold dark:text-white">{title}</h6>
       {content}
       <TextArea

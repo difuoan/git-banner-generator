@@ -43,6 +43,12 @@ export default function Home() {
       })
     );
   };
+  const onElementDelete = (elementIndex: number) => {
+    const newElements = [...elements];
+    const eleIndex = newElements.findIndex((ele) => (ele.index = elementIndex));
+    newElements.splice(eleIndex, 1);
+    setElements(newElements);
+  };
   const addText = () => {
     setElements([
       ...elements,
@@ -66,7 +72,14 @@ export default function Home() {
     setElementIndex(elementIndex + 1);
   };
   const settings = elements.map((ele, inde) =>
-    mapSettingsElement(ele, inde, onElementChange, svgHeight, svgWidth)
+    mapSettingsElement(
+      ele,
+      inde,
+      onElementChange,
+      svgHeight,
+      svgWidth,
+      onElementDelete
+    )
   );
   const changePreset = (presetIndex: number) => {
     setPresetToUse(presetIndex);
@@ -188,7 +201,7 @@ export default function Home() {
           </li>
           <li>
             <a
-              href="https://www.compart.com/de/unicode/"
+              href="https://www.compart.com/en/unicode/"
               className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
               target="_blank"
             >
