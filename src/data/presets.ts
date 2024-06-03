@@ -21,7 +21,51 @@ export const presets: Preset[] = [
                 text: "💡",
                 index: 2,
                 style: `font-size: 25px;\nposition: absolute;\nright: 25px;\ntop: -6px;\ntransform: rotate(25deg);`,
-                animation: "none",
+                animationCss: `.wiggle-2 {
+    animation-name: slide-in-right-2, wiggle-2;
+    animation-duration: 1s, 1s; 
+    animation-timing-function: ease-in-out; 
+    animation-delay: 0s, 1s;
+    animation-direction: normal;
+    animation-iteration-count: 1, 5;
+    animation-fill-mode: none;
+    animation-play-state: running;
+}
+@keyframes wiggle-2  {
+    0% {
+        transform: rotate(25deg)
+    }
+    10% {
+        transform: rotate(39deg)
+    }
+    20% {
+        transform: rotate(17deg)
+    }
+    30% {
+        transform: rotate(39deg)
+    }
+    40% {
+        transform: rotate(21deg)
+    }
+    50% {
+        transform: rotate(35deg)
+    }
+    60% {
+        transform: rotate(25deg)
+    }
+    100% {
+        transform: rotate(25deg)
+    }
+}
+@keyframes slide-in-right-2 {
+    0% {
+        transform: translateX(800px) rotate(25deg);
+    }
+    100% {
+        transform: translateX(0px) rotate(25deg);
+    }
+}`,
+                animation: "wiggle",
             },
             {
                 index: 3,
