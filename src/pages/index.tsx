@@ -67,21 +67,24 @@ export default function Home() {
       {
         index: elementIndex,
         src: testImg,
-        style: "position: absolute;\nwidth: 100px",
+        style: "position: absolute;\nwidth: 100px;",
       },
     ]);
     setElementIndex(elementIndex + 1);
+    addHistoryElement();
   };
-  const settings = elements.map((ele, inde) =>
-    mapSettingsElement(
-      ele,
-      inde,
-      onElementChange,
-      svgHeight,
-      svgWidth,
-      onElementDelete
-    )
-  );
+  const addDiv = () => {
+    setElements([
+      ...elements,
+      {
+        index: elementIndex,
+        style:
+          "position: absolute;\nwidth: 100px;\nheight: 100px;\nbackground: red;",
+      },
+    ]);
+    setElementIndex(elementIndex + 1);
+    addHistoryElement();
+  };
   const changePreset = (presetIndex: number) => {
     setPresetToUse(presetIndex);
   };
@@ -100,6 +103,16 @@ export default function Home() {
   }, [elements]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // HTML
+  const settings = elements.map((ele, inde) =>
+    mapSettingsElement(
+      ele,
+      inde,
+      onElementChange,
+      svgHeight,
+      svgWidth,
+      onElementDelete
+    )
+  );
   const presetHtml = presets.map((preset: Preset, index: number) => {
     return (
       // eslint-disable-next-line @next/next/no-img-element

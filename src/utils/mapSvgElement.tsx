@@ -24,5 +24,16 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         className={element.animation + "-" + element.index}
       />
     );
+  } else {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+      <div
+        key={index}
+        style={parseStyles(element.style)}
+        className={element.animation + "-" + element.index}
+      >
+        {/* not really empty */}
+      </div>
+    );
   }
 };

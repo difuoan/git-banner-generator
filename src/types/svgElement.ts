@@ -2,7 +2,7 @@ import { SvgTextElement, isSvgTextElement } from "./svgTextElement";
 import { SvgImgElement, isSvgImgElement } from "./svgImgElement";
 import { AnimationName } from "./animations";
 
-export type SvgElement = (SvgTextElement | SvgImgElement) & {
+export type SvgElement = (SvgTextElement | SvgImgElement | {}) & {
     index: number
     style: string
     animation?: AnimationName,
