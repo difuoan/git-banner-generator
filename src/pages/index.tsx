@@ -147,13 +147,22 @@ export default function Home() {
       </div>
       {/* BUTTONS */}
       <div className={"flex flex-row gap-8"}>
-        <Button label="&#10227; Reset" onClick={resetState} />
-        <Button label="&#11208; Play animations" onClick={playAnimations} />
+        <Button label="&#10227; Reset" onClick={resetState} color="amber" />
+        <Button
+          label="&#11208; Play animations"
+          onClick={playAnimations}
+          color="teal"
+        />
         <Button label="&#128190; Download" onClick={downloadSvg} />
       </div>
       <div className={"flex flex-row gap-8"}>
-        <Button label="&#43; Text" onClick={addText} />
-        <Button label="&#43; Image" onClick={addImg} />
+        <Button label="&#43; Text" onClick={addText} color="slate" />
+        <Button label="&#43; Image" onClick={addImg} color="slate" />
+        <Button label="&#43; Div" onClick={addDiv} color="slate" />
+      </div>
+      <div className={"flex flex-row gap-8"}>
+        {prevBtn}
+        {nextBtn}
       </div>
       {/* SETTINGS */}
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">

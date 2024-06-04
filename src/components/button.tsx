@@ -3,14 +3,28 @@ import { MouseEventHandler } from "react";
 const Button = ({
   onClick,
   label,
+  color = "blue",
+  colorStrength = 5,
 }: {
   onClick: MouseEventHandler<HTMLButtonElement>;
   label: string;
+  color?: string;
+  colorStrength?: number;
 }) => {
   return (
     <button
       onClick={onClick}
-      className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`}
+      className={
+        `bg-` +
+        color +
+        `-` +
+        colorStrength * 100 +
+        ` hover:bg-` +
+        color +
+        `-` +
+        (colorStrength * 100 + 200) +
+        ` text-white font-bold py-2 px-4 rounded`
+      }
     >
       {label}
     </button>
