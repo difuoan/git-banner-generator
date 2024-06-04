@@ -12,10 +12,8 @@ import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 
 export default function Home() {
-  console.log("re-render");
-  let [history, setHistory] = useState<HistoryElement[]>([]);
-  let [presetToUse, setPresetToUse] = useState(0);
-  let [historyIndex, setHistoryIndex] = useState(0);
+  const [presetToUse, setPresetToUse] = useState(0);
+  const [historyIndex, setHistoryIndex] = useState(0);
   const [displaySvg, setDisplaySvg] = useState(true);
   const preset = { ...presets[presetToUse] };
   const [svgWidth, setSvgWidth] = useState(preset.width);
@@ -23,10 +21,17 @@ export default function Home() {
   const [svgHeight, setSvgHeight] = useState(preset.height);
   const [elements, setElements] = useState<SvgElement[]>([...preset.elements]);
   const elementIndex = Math.max(...elements.map((ele) => ele.index), 0) + 1;
+  const [history, setHistory] = useState<HistoryElement[]>([
+    {
+      background: svgBackground,
+      elements: elements,
+      height: svgHeight,
+      width: svgWidth,
+    },
+  ]);
 
   // FUNCTIONS
   const playAnimations = () => {
-    console.log("playAnimations");
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
     setTimeout(() => {
@@ -34,7 +39,6 @@ export default function Home() {
     }, 0);
   };
   const resetState = (index = presetToUse) => {
-    console.log("resetState");
     const pre = presets[index];
     setElements([...pre.elements]);
     setSvgWidth(pre.width);
@@ -43,101 +47,107 @@ export default function Home() {
     resetHistory();
   };
   const onElementChange = (element: SvgElement) => {
-    console.log("onElementChange");
     const eIndex = elements.findIndex((ele) => ele.index === element.index);
     if (eIndex < 0) return;
-    setElements(
-      elements.map((ele) => {
-        if (ele.index === element.index) return element;
-        return ele;
-      })
-    );
-    addHistoryElement();
+    const newEles = elements.map((ele) => {
+      if (ele.index === element.index) return element;
+      return ele;
+    });
+    setElements(newEles);
+    addHistoryElement({
+      background: svgBackground,
+      elements: newEles,
+      height: svgHeight,
+      width: svgWidth,
+    });
   };
   const onElementDelete = (elementIndex: number) => {
-    console.log("onElementDelete");
     const newElements = [...elements];
     const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
     newElements.splice(eleIndex, 1);
     setElements(newElements);
-    addHistoryElement();
+    addHistoryElement({
+      background: svgBackground,
+      elements: newElements,
+      height: svgHeight,
+      width: svgWidth,
+    });
   };
   const addText = () => {
-    console.log("addText");
-    setElements([
+    const newElements = [
       ...elements,
       {
         index: elementIndex,
         text: "Your Text Here!",
         style: "position: absolute;",
       },
-    ]);
-    addHistoryElement();
+    ];
+    setElements(newElements);
+    addHistoryElement({
+      background: svgBackground,
+      elements: newElements,
+      height: svgHeight,
+      width: svgWidth,
+    });
   };
   const addImg = () => {
-    console.log("addImg");
-    setElements([
+    const newElements = [
       ...elements,
       {
         index: elementIndex,
         src: testImg,
         style: "position: absolute;\nwidth: 100px;",
       },
-    ]);
-    addHistoryElement();
+    ];
+    setElements(newElements);
+    addHistoryElement({
+      background: svgBackground,
+      elements: newElements,
+      height: svgHeight,
+      width: svgWidth,
+    });
   };
   const addDiv = () => {
-    console.log("addDiv");
-    setElements([
+    const newElements = [
       ...elements,
       {
         index: elementIndex,
         style:
           "position: absolute;\nwidth: 100px;\nheight: 100px;\nbackground: red;",
       },
-    ]);
-    addHistoryElement();
+    ];
+    setElements(newElements);
+    addHistoryElement({
+      background: svgBackground,
+      elements: newElements,
+      height: svgHeight,
+      width: svgWidth,
+    });
   };
   const changePreset = (presetIndex: number) => {
-    console.log("changePreset");
     setPresetToUse(presetIndex);
     resetState(presetIndex);
   };
   const timeTravel = (index: number) => {
-    console.log("timeTravel");
     if (index < 0) return;
-    const histEle = history[index];
-    setElements(histEle.elements);
+    const histEle = { ...history[index] };
+    setElements([...histEle.elements]);
     setSvgBackground(histEle.background);
     setSvgHeight(histEle.height);
     setSvgWidth(histEle.width);
     setHistoryIndex(index);
   };
-  const addHistoryElement = () => {
-    console.log("addHistoryElement", {
-      width: svgWidth,
-      height: svgHeight,
-      background: svgBackground,
-      elements: elements,
-    });
+  const addHistoryElement = (historyElement: HistoryElement) => {
     let remainingHistory = history;
-    const cutHistory: boolean = historyIndex < history.length;
+    const newIndx = historyIndex + 1;
+    const cutHistory: boolean = newIndx < history.length;
     if (cutHistory) {
-      remainingHistory.splice(historyIndex, history.length - historyIndex);
+      remainingHistory.splice(newIndx, history.length - newIndx);
     }
-    setHistory([
-      ...remainingHistory,
-      {
-        width: svgWidth,
-        height: svgHeight,
-        background: svgBackground,
-        elements: elements,
-      },
-    ]);
-    setHistoryIndex(historyIndex + 1);
+    setHistory([...remainingHistory, historyElement]);
+    setHistoryIndex(newIndx);
   };
   const resetHistory = () => {
-    console.log("resetHistory");
     setHistory([]);
     setHistoryIndex(0);
   };
