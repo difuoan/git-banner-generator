@@ -17,10 +17,10 @@ export const mapSettingsElement = (
   svgWidth: number,
   onDelete: Function
 ) => {
-  let content = null;
-  let animCssToDisplay = null;
+  let animationCssInput = null;
+  let typeSpecificInput = null;
   if (isSvgTextElement(element)) {
-    content = (
+    typeSpecificInput = (
       <StringInput
         value={element["text"]}
         label="Text"
@@ -28,7 +28,7 @@ export const mapSettingsElement = (
       />
     );
   } else if (isSvgImgElement(element)) {
-    content = (
+    typeSpecificInput = (
       <StringInput
         value={element["src"]}
         label="Src"
@@ -43,7 +43,7 @@ export const mapSettingsElement = (
       svgHeight,
       svgWidth
     );
-    animCssToDisplay = (
+    animationCssInput = (
       <TextArea
         value={animCss}
         label="Animation CSS"
@@ -64,7 +64,7 @@ export const mapSettingsElement = (
         label="Name"
         onChange={(value: string) => onChange({ ...element, name: value })}
       />
-      {content}
+      {typeSpecificInput}
       <TextArea
         value={element["style"]}
         label="Style"
@@ -82,10 +82,11 @@ export const mapSettingsElement = (
         }}
         options={animations}
       />
-      {animCssToDisplay}
+      {animationCssInput}
       <Button
         label="&#128465; Delete"
         onClick={() => onDelete(element.index)}
+        color="rose"
       />
     </form>
   );

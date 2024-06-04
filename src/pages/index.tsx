@@ -9,9 +9,12 @@ import StringInput from "@/components/stringInput";
 import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
 import { testImg } from "@/data/testImg";
+import { HistoryElement } from "@/types/history";
 
 export default function Home() {
+  let [history, setHistory] = useState<HistoryElement[]>([]);
   let [presetToUse, setPresetToUse] = useState(0);
+  let [historyIndex, setHistoryIndex] = useState(0);
   let [preset, setPreset] = useState(presets[presetToUse]);
   let [elementIndex, setElementIndex] = useState(4);
   const [displaySvg, setDisplaySvg] = useState(true);
@@ -33,6 +36,7 @@ export default function Home() {
     setSvgWidth(preset.width);
     setSvgHeight(preset.height);
     setSvgBackground(preset.background);
+    resetHistory();
   };
   const onElementChange = (element: SvgElement) => {
     const eIndex = elements.findIndex((ele) => ele.index === element.index);
@@ -43,12 +47,14 @@ export default function Home() {
         return ele;
       })
     );
+    addHistoryElement();
   };
   const onElementDelete = (elementIndex: number) => {
     const newElements = [...elements];
     const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
     newElements.splice(eleIndex, 1);
     setElements(newElements);
+    addHistoryElement();
   };
   const addText = () => {
     setElements([
@@ -60,6 +66,7 @@ export default function Home() {
       },
     ]);
     setElementIndex(elementIndex + 1);
+    addHistoryElement();
   };
   const addImg = () => {
     setElements([
@@ -87,11 +94,47 @@ export default function Home() {
   };
   const changePreset = (presetIndex: number) => {
     setPresetToUse(presetIndex);
+    resetHistory();
+  };
+  const historyBack = () => {
+    timeTravel(historyIndex - 1);
+    setHistoryIndex(historyIndex - 1);
+  };
+  const historyNext = () => {
+    timeTravel(historyIndex + 1);
+    setHistoryIndex(historyIndex + 1);
+  };
+  const timeTravel = (index: number) => {
+    if (index < 0) return;
+    const histEle = history[index];
+    setElements(histEle.elements);
+    setSvgBackground(histEle.background);
+    setSvgHeight(histEle.height);
+    setSvgWidth(histEle.width);
+  };
+  const addHistoryElement = () => {
+    let remainingHistory = history;
+    if (historyIndex < history.length - 1) {
+      remainingHistory.splice(historyIndex, history.length - historyIndex);
+    }
+    setHistory([
+      ...remainingHistory,
+      {
+        width: svgWidth,
+        height: svgHeight,
+        background: svgBackground,
+        elements: elements,
+      },
+    ]);
+    setHistoryIndex(historyIndex + 1);
+  };
+  const resetHistory = () => {
+    setHistory([]);
+    setHistoryIndex(0);
   };
 
   // EFFECTS
   useEffect(() => {
-    // resetState();
     setPreset(presets[presetToUse]);
   }, [presetToUse]);
   useEffect(() => {
@@ -103,6 +146,18 @@ export default function Home() {
   }, [elements]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // HTML
+  let nextBtn = null;
+  if (historyIndex > 0 && historyIndex < history.length - 1) {
+    nextBtn = (
+      <Button label="&#9112; Next" onClick={historyNext} color="slate" />
+    );
+  }
+  let prevBtn = null;
+  if (historyIndex > 0) {
+    prevBtn = (
+      <Button label="&#9111; Back" onClick={historyBack} color="slate" />
+    );
+  }
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(
       ele,
