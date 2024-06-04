@@ -11,7 +11,7 @@ import { Preset } from "@/types/preset";
 import { testImg } from "@/data/testImg";
 
 export default function Home() {
-  let [presetToUse, setPresetToUse] = useState(1);
+  let [presetToUse, setPresetToUse] = useState(0);
   let [preset, setPreset] = useState(presets[presetToUse]);
   let [elementIndex, setElementIndex] = useState(4);
   const [displaySvg, setDisplaySvg] = useState(true);
@@ -95,8 +95,9 @@ export default function Home() {
     resetState();
   }, [preset]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    setElementIndex(elements.length + 1);
-  }, [elements]);
+    const maxIndex = Math.max(...elements.map((ele) => ele.index), 0);
+    setElementIndex(maxIndex + 1);
+  }, [elements]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // HTML
   const presetHtml = presets.map((preset: Preset, index: number) => {
