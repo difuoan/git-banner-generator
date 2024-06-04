@@ -7,6 +7,7 @@ import { SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { replaceData } from "./replaceData";
+import Button from "@/components/button";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -18,7 +19,6 @@ export const mapSettingsElement = (
 ) => {
   let content = null;
   let animationCss = null;
-  let title = "Element";
   if (isSvgTextElement(element)) {
     content = (
       <StringInput
@@ -27,7 +27,6 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, text: value })}
       />
     );
-    title = "Text #" + element.index;
   } else if (isSvgImgElement(element)) {
     content = (
       <StringInput
@@ -36,7 +35,6 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, src: value })}
       />
     );
-    title = "Image #" + element.index;
   }
   if (element["animation"]) {
     const animCss = replaceData(
@@ -61,14 +59,11 @@ export const mapSettingsElement = (
       style={{ overflow: "auto", position: "relative" }}
       key={index}
     >
-      <span
-        className="absolute"
-        style={{ right: "2rem", cursor: "pointer" }}
-        onClick={() => onDelete(element.index)}
-      >
-        &#128465;
-      </span>
-      <h6 className="text-lg font-bold dark:text-white">{title}</h6>
+      <StringInput
+        value={element["name"] ?? element.index.toString()}
+        label="Name"
+        onChange={(value: string) => onChange({ ...element, name: value })}
+      />
       {content}
       <TextArea
         value={element["style"]}
@@ -82,6 +77,10 @@ export const mapSettingsElement = (
         options={animations}
       />
       {animationCss}
+      <Button
+        label="&#128465; Delete"
+        onClick={() => onDelete(element.index)}
+      />
     </form>
   );
 };

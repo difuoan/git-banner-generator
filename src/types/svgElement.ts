@@ -7,6 +7,7 @@ export type SvgElement = (SvgTextElement | SvgImgElement) & {
     style: string
     animation?: AnimationName,
     animationCss?: string
+    name?: string
 }
 
 export const isSvgElement = (element: any): element is SvgElement => {
