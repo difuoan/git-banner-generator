@@ -1,6 +1,6 @@
 import { downloadSvg } from "@/utils/downloadGeneratedSvg";
 import SVGComponent from "../components/svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
@@ -12,33 +12,38 @@ import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 
 export default function Home() {
+  console.log("re-render");
   let [history, setHistory] = useState<HistoryElement[]>([]);
   let [presetToUse, setPresetToUse] = useState(0);
   let [historyIndex, setHistoryIndex] = useState(0);
-  let [preset, setPreset] = useState(presets[presetToUse]);
-  let [elementIndex, setElementIndex] = useState(4);
   const [displaySvg, setDisplaySvg] = useState(true);
+  const preset = { ...presets[presetToUse] };
   const [svgWidth, setSvgWidth] = useState(preset.width);
   const [svgBackground, setSvgBackground] = useState(preset.background);
   const [svgHeight, setSvgHeight] = useState(preset.height);
   const [elements, setElements] = useState<SvgElement[]>([...preset.elements]);
+  const elementIndex = Math.max(...elements.map((ele) => ele.index), 0) + 1;
 
   // FUNCTIONS
   const playAnimations = () => {
+    console.log("playAnimations");
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
     setTimeout(() => {
       setDisplaySvg(true);
     }, 0);
   };
-  const resetState = () => {
-    setElements([...presets[presetToUse].elements]);
-    setSvgWidth(preset.width);
-    setSvgHeight(preset.height);
-    setSvgBackground(preset.background);
+  const resetState = (index = presetToUse) => {
+    console.log("resetState");
+    const pre = presets[index];
+    setElements([...pre.elements]);
+    setSvgWidth(pre.width);
+    setSvgHeight(pre.height);
+    setSvgBackground(pre.background);
     resetHistory();
   };
   const onElementChange = (element: SvgElement) => {
+    console.log("onElementChange");
     const eIndex = elements.findIndex((ele) => ele.index === element.index);
     if (eIndex < 0) return;
     setElements(
@@ -50,6 +55,7 @@ export default function Home() {
     addHistoryElement();
   };
   const onElementDelete = (elementIndex: number) => {
+    console.log("onElementDelete");
     const newElements = [...elements];
     const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
     newElements.splice(eleIndex, 1);
@@ -57,6 +63,7 @@ export default function Home() {
     addHistoryElement();
   };
   const addText = () => {
+    console.log("addText");
     setElements([
       ...elements,
       {
@@ -65,10 +72,10 @@ export default function Home() {
         style: "position: absolute;",
       },
     ]);
-    setElementIndex(elementIndex + 1);
     addHistoryElement();
   };
   const addImg = () => {
+    console.log("addImg");
     setElements([
       ...elements,
       {
@@ -77,10 +84,10 @@ export default function Home() {
         style: "position: absolute;\nwidth: 100px;",
       },
     ]);
-    setElementIndex(elementIndex + 1);
     addHistoryElement();
   };
   const addDiv = () => {
+    console.log("addDiv");
     setElements([
       ...elements,
       {
@@ -89,14 +96,15 @@ export default function Home() {
           "position: absolute;\nwidth: 100px;\nheight: 100px;\nbackground: red;",
       },
     ]);
-    setElementIndex(elementIndex + 1);
     addHistoryElement();
   };
   const changePreset = (presetIndex: number) => {
+    console.log("changePreset");
     setPresetToUse(presetIndex);
-    resetHistory();
+    resetState(presetIndex);
   };
   const timeTravel = (index: number) => {
+    console.log("timeTravel");
     if (index < 0) return;
     const histEle = history[index];
     setElements(histEle.elements);
@@ -106,6 +114,12 @@ export default function Home() {
     setHistoryIndex(index);
   };
   const addHistoryElement = () => {
+    console.log("addHistoryElement", {
+      width: svgWidth,
+      height: svgHeight,
+      background: svgBackground,
+      elements: elements,
+    });
     let remainingHistory = history;
     const cutHistory: boolean = historyIndex < history.length;
     if (cutHistory) {
@@ -123,21 +137,10 @@ export default function Home() {
     setHistoryIndex(historyIndex + 1);
   };
   const resetHistory = () => {
+    console.log("resetHistory");
     setHistory([]);
     setHistoryIndex(0);
   };
-
-  // EFFECTS
-  useEffect(() => {
-    setPreset(presets[presetToUse]);
-  }, [presetToUse]);
-  useEffect(() => {
-    resetState();
-  }, [preset]); // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    const maxIndex = Math.max(...elements.map((ele) => ele.index), 0);
-    setElementIndex(maxIndex + 1);
-  }, [elements]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // HTML
   let nextBtn = null;
@@ -217,7 +220,11 @@ export default function Home() {
       </div>
       {/* BUTTONS */}
       <div className={"flex flex-row gap-8"}>
-        <Button label="&#10227; Reset" onClick={resetState} color="amber" />
+        <Button
+          label="&#10227; Reset"
+          onClick={() => resetState()}
+          color="amber"
+        />
         <Button
           label="&#11208; Play animations"
           onClick={playAnimations}
