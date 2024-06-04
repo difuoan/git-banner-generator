@@ -1,8 +1,8 @@
 import Select from "@/components/select";
 import StringInput from "@/components/stringInput";
 import TextArea from "@/components/textArea";
-import { aniamtionCSS } from "@/data/animationCss";
-import { animations } from "@/types/animations";
+import { animationCss } from "@/data/animationCss";
+import { AnimationName, animations } from "@/types/animations";
 import { SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
@@ -18,7 +18,7 @@ export const mapSettingsElement = (
   onDelete: Function
 ) => {
   let content = null;
-  let animationCss = null;
+  let animCssToDisplay = null;
   if (isSvgTextElement(element)) {
     content = (
       <StringInput
@@ -38,12 +38,12 @@ export const mapSettingsElement = (
   }
   if (element["animation"]) {
     const animCss = replaceData(
-      element["animationCss"] ?? aniamtionCSS[element["animation"]],
+      element["animationCss"] ?? animationCss[element["animation"]],
       element.index,
       svgHeight,
       svgWidth
     );
-    animationCss = (
+    animCssToDisplay = (
       <TextArea
         value={animCss}
         label="Animation CSS"
@@ -73,10 +73,16 @@ export const mapSettingsElement = (
       <Select
         value={element["animation"]}
         label="Animation"
-        onChange={(value: string) => onChange({ ...element, animation: value })}
+        onChange={(value: AnimationName) => {
+          onChange({
+            ...element,
+            animation: value,
+            animationCss: animationCss[value],
+          });
+        }}
         options={animations}
       />
-      {animationCss}
+      {animCssToDisplay}
       <Button
         label="&#128465; Delete"
         onClick={() => onDelete(element.index)}

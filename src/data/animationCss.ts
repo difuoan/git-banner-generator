@@ -1,6 +1,6 @@
 import { AnimationCss } from "@/types/animationCss";
 
-export const aniamtionCSS: AnimationCss = {
+export const animationCss: AnimationCss = {
     "slide-in-bottom": `.slide-in-bottom-<element-index> {
     animation-name: slide-in-bottom-<element-index>;
     animation-duration: 1s; 

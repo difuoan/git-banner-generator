@@ -1,4 +1,4 @@
-import { aniamtionCSS } from "@/data/animationCss";
+import { animationCss } from "@/data/animationCss";
 import { SvgElement } from "@/types/svgElement";
 import { replaceData } from "./replaceData";
 
@@ -9,7 +9,7 @@ export const mapElementAnimation = (
   svgWidth: number
 ) => {
   return replaceData(
-    element["animationCss"] ?? aniamtionCSS[element.animation ?? "none"],
+    element["animationCss"] ?? animationCss[element.animation ?? "none"],
     element.index,
     svgHeight,
     svgWidth
