@@ -10,6 +10,7 @@ import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
 import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
+import { debounce } from "lodash";
 
 export default function Home() {
   const [presetToUse, setPresetToUse] = useState(0);
@@ -137,7 +138,7 @@ export default function Home() {
     setSvgWidth(histEle.width);
     setHistoryIndex(index);
   };
-  const addHistoryElement = (historyElement: HistoryElement) => {
+  const addHistoryElement = debounce((historyElement: HistoryElement) => {
     let remainingHistory = history;
     const newIndx = historyIndex + 1;
     const cutHistory: boolean = newIndx < history.length;
@@ -146,7 +147,7 @@ export default function Home() {
     }
     setHistory([...remainingHistory, historyElement]);
     setHistoryIndex(newIndx);
-  };
+  }, 1000);
   const resetHistory = () => {
     setHistory([]);
     setHistoryIndex(0);
@@ -258,21 +259,30 @@ export default function Home() {
           <NumberInput
             label="Width"
             value={svgWidth}
-            onChange={(val: number) => setSvgWidth(val)}
+            onChange={(val: number) => {
+              setSvgWidth(val);
+              addHistoryElement({ ...history[historyIndex], width: val });
+            }}
             min={1}
             max={1000}
           />
           <NumberInput
             label="Height"
             value={svgHeight}
-            onChange={(val: number) => setSvgHeight(val)}
+            onChange={(val: number) => {
+              setSvgHeight(val);
+              addHistoryElement({ ...history[historyIndex], height: val });
+            }}
             min={1}
             max={500}
           />
           <StringInput
             label="Background"
             value={svgBackground}
-            onChange={(val: string) => setSvgBackground(val)}
+            onChange={(val: string) => {
+              setSvgBackground(val);
+              addHistoryElement({ ...history[historyIndex], background: val });
+            }}
           />
         </form>
         {settings}

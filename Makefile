@@ -26,4 +26,4 @@ ps: # print all docker containers
 	docker compose ps
 
 login: # open bash in container
-	docker compose exec --user node bannergen bash
+	docker compose exec --user node bannergen sh
