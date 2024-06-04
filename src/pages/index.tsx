@@ -8,6 +8,7 @@ import { mapSettingsElement } from "@/utils/mapSettingsElement";
 import StringInput from "@/components/stringInput";
 import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
+import { testImg } from "@/data/testImg";
 
 export default function Home() {
   let [presetToUse, setPresetToUse] = useState(1);
@@ -65,8 +66,8 @@ export default function Home() {
       ...elements,
       {
         index: elementIndex,
-        src: "use base64 converter below",
-        style: "position: absolute;",
+        src: testImg,
+        style: "position: absolute;\nwidth: 100px",
       },
     ]);
     setElementIndex(elementIndex + 1);
