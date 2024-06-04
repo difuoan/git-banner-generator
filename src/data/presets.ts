@@ -1,14 +1,10 @@
 import { Preset } from "@/types/preset";
 import { cutout } from "./cutout";
+import { tjv1 } from "./tjv1";
+import { tjv2 } from "./tjv2";
+import { tjv3 } from "./tjv3";
 
 export const presets: Preset[] = [
-    {
-        src: "/empty.svg",
-        elements: [],
-        background: "white",
-        height: 200,
-        width: 800
-    },
     {
         src: "/ljvBanner.svg",
         elements: [
@@ -78,5 +74,31 @@ export const presets: Preset[] = [
         background: "transparent",
         height: 200,
         width: 800
+    },
+    {
+        src: "/tjvBanner.svg",
+        elements: [
+            {
+                index: 1,
+                src: tjv1,
+                style: "position: absolute;",
+                animation: "slide-in-top"
+            },
+            {
+                index: 2,
+                src: tjv2,
+                style: "position: absolute;",
+                animation: "slide-in-left"
+            },
+            {
+                index: 3,
+                src: tjv3,
+                style: "position: absolute;",
+                animation: "slide-in-bottom"
+            },
+        ],
+        background: "black",
+        height: 500,
+        width: 1500
     },
 ];
