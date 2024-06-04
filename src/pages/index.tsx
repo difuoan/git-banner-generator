@@ -120,8 +120,8 @@ export default function Home() {
     svgToDisplay = (
       <SVGComponent
         elements={elements}
-        width={svgWidth}
-        height={svgHeight}
+        svgwidth={svgWidth}
+        svgheight={svgHeight}
         background={svgBackground}
       />
     );

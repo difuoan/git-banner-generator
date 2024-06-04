@@ -6,8 +6,8 @@ import { JSX, SVGProps, useEffect, useState } from "react";
 const SVGComponent = (
   props: Partial<JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>> & {
     elements: SvgElement[];
-    height: number;
-    width: number;
+    svgheight: number;
+    svgwidth: number;
     background: string;
   }
 ) => {
@@ -21,7 +21,7 @@ const SVGComponent = (
   const elementHtml = props.elements.map(mapSvgElement);
   const elementAniamtions = props.elements
     .map((ele, index) =>
-      mapElementAnimation(ele, index, props.height, props.width)
+      mapElementAnimation(ele, index, props.svgheight, props.svgwidth)
     )
     .filter((val) => val)
     .join(" ");
@@ -30,7 +30,7 @@ const SVGComponent = (
     <svg
       id="generated-banner"
       fill="none"
-      viewBox={"0 0 " + props.width + " " + props.height}
+      viewBox={"0 0 " + props.svgwidth + " " + props.svgheight}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
       style={{ maxWidth: "100%", maxHeight: "auto" }}
@@ -67,7 +67,7 @@ const SVGComponent = (
             .container {
               width: 100%;
               height: ` +
-              props.height +
+              props.svgheight +
               `px;
               background: ` +
               props.background +
