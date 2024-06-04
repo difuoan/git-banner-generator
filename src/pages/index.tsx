@@ -96,14 +96,6 @@ export default function Home() {
     setPresetToUse(presetIndex);
     resetHistory();
   };
-  const historyBack = () => {
-    timeTravel(historyIndex - 1);
-    setHistoryIndex(historyIndex - 1);
-  };
-  const historyNext = () => {
-    timeTravel(historyIndex + 1);
-    setHistoryIndex(historyIndex + 1);
-  };
   const timeTravel = (index: number) => {
     if (index < 0) return;
     const histEle = history[index];
@@ -111,10 +103,12 @@ export default function Home() {
     setSvgBackground(histEle.background);
     setSvgHeight(histEle.height);
     setSvgWidth(histEle.width);
+    setHistoryIndex(index);
   };
   const addHistoryElement = () => {
     let remainingHistory = history;
-    if (historyIndex < history.length - 1) {
+    const cutHistory: boolean = historyIndex < history.length;
+    if (cutHistory) {
       remainingHistory.splice(historyIndex, history.length - historyIndex);
     }
     setHistory([
@@ -147,15 +141,23 @@ export default function Home() {
 
   // HTML
   let nextBtn = null;
-  if (historyIndex > 0 && historyIndex < history.length - 1) {
+  if (history.length > 0 && historyIndex < history.length - 1) {
     nextBtn = (
-      <Button label="&#9112; Next" onClick={historyNext} color="slate" />
+      <Button
+        label="&#9112; Next"
+        onClick={() => timeTravel(historyIndex + 1)}
+        color="slate"
+      />
     );
   }
   let prevBtn = null;
   if (historyIndex > 0) {
     prevBtn = (
-      <Button label="&#9111; Back" onClick={historyBack} color="slate" />
+      <Button
+        label="&#9111; Back"
+        onClick={() => timeTravel(historyIndex - 1)}
+        color="slate"
+      />
     );
   }
   const settings = elements.map((ele, inde) =>
