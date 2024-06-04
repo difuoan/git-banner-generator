@@ -46,7 +46,7 @@ export default function Home() {
   };
   const onElementDelete = (elementIndex: number) => {
     const newElements = [...elements];
-    const eleIndex = newElements.findIndex((ele) => (ele.index = elementIndex));
+    const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
     newElements.splice(eleIndex, 1);
     setElements(newElements);
   };
