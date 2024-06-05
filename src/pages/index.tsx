@@ -63,6 +63,16 @@ export default function Home() {
       width: svgWidth,
     });
   };
+  const copyPreset = () => {
+    const newPres: Preset = {
+      background: svgBackground,
+      elements: elements,
+      height: svgHeight,
+      width: svgWidth,
+      src: "",
+    };
+    navigator.clipboard.writeText(JSON.stringify(newPres));
+  };
   const onElementDelete = (elementIndex: number) => {
     const newElements = [...elements];
     const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
@@ -127,6 +137,7 @@ export default function Home() {
     });
   };
   const changePreset = (presetIndex: number) => {
+    window.scrollTo(0, 0);
     setPresetToUse(presetIndex);
     resetState(presetIndex);
   };
@@ -239,7 +250,12 @@ export default function Home() {
           color="teal"
         />
         <Button
-          label="&#128190; Download"
+          label="&#9112; Copy Preset"
+          onClick={copyPreset}
+          disabled={debouncing}
+        />
+        <Button
+          label="&#128427; Download SVG"
           onClick={downloadSvg}
           disabled={debouncing}
         />
@@ -252,7 +268,7 @@ export default function Home() {
       <div className={"flex flex-row gap-8"}>
         <Button
           disabled={debouncing || historyIndex <= 0}
-          label="&#9111; Back"
+          label="&#171; Back"
           onClick={() => timeTravel(historyIndex - 1)}
           color="slate"
         />
@@ -261,7 +277,7 @@ export default function Home() {
             debouncing ||
             !(history.length > 0 && historyIndex < history.length - 1)
           }
-          label="&#9112; Next"
+          label="Next &#187;"
           onClick={() => timeTravel(historyIndex + 1)}
           color="slate"
         />
