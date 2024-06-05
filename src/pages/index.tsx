@@ -336,7 +336,7 @@ export default function Home() {
         {settings}
       </div>
       {/* PRESETS */}
-      <h6 className="text-lg font-bold dark:text-white">Presets</h6>
+      <span className="text-4xl font-extrabold dark:text-white">Presets</span>
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
         {presetHtml}
       </div>
