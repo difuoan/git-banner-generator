@@ -79,18 +79,21 @@ export const presets: Preset[] = [
         src: "/tjvBanner.svg",
         elements: [
             {
+                name: "venturini.codes",
                 index: 1,
                 src: tjv1,
                 style: "position: absolute;",
                 animation: "slide-in-top"
             },
             {
+                name: "thomasventurini.com",
                 index: 2,
                 src: tjv2,
                 style: "position: absolute;",
                 animation: "slide-in-left"
             },
             {
+                name: "edward",
                 index: 3,
                 src: tjv3,
                 style: "position: absolute;",
