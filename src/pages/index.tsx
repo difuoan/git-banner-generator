@@ -158,7 +158,14 @@ export default function Home() {
     1000
   );
   const resetHistory = () => {
-    setHistory([]);
+    setHistory([
+      {
+        background: svgBackground,
+        elements: elements,
+        height: svgHeight,
+        width: svgWidth,
+      },
+    ]);
     setHistoryIndex(0);
   };
 
@@ -268,7 +275,12 @@ export default function Home() {
             value={svgWidth}
             onChange={(val: number) => {
               setSvgWidth(val);
-              addHistoryElement({ ...history[historyIndex], width: val });
+              addHistoryElement({
+                background: svgBackground,
+                elements: elements,
+                height: svgHeight,
+                width: val,
+              });
             }}
             min={1}
             max={1000}
@@ -278,7 +290,12 @@ export default function Home() {
             value={svgHeight}
             onChange={(val: number) => {
               setSvgHeight(val);
-              addHistoryElement({ ...history[historyIndex], height: val });
+              addHistoryElement({
+                background: svgBackground,
+                elements: elements,
+                width: svgWidth,
+                height: val,
+              });
             }}
             min={1}
             max={500}
@@ -288,7 +305,12 @@ export default function Home() {
             value={svgBackground}
             onChange={(val: string) => {
               setSvgBackground(val);
-              addHistoryElement({ ...history[historyIndex], background: val });
+              addHistoryElement({
+                elements: elements,
+                height: svgHeight,
+                width: svgWidth,
+                background: val,
+              });
             }}
           />
         </form>
