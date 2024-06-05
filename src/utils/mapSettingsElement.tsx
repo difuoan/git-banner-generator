@@ -8,6 +8,7 @@ import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { replaceData } from "./replaceData";
 import Button from "@/components/button";
+import FileInput from "@/components/fileInput";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -19,7 +20,9 @@ export const mapSettingsElement = (
 ) => {
   let animationCssInput = null;
   let typeSpecificInput = null;
+  let elementName = "Element";
   if (isSvgTextElement(element)) {
+    elementName = "Text";
     typeSpecificInput = (
       <StringInput
         value={element["text"]}
@@ -28,11 +31,12 @@ export const mapSettingsElement = (
       />
     );
   } else if (isSvgImgElement(element)) {
+    elementName = "Image";
     typeSpecificInput = (
-      <StringInput
-        value={element["src"]}
-        label="Src"
-        onChange={(value: string) => onChange({ ...element, src: value })}
+      <FileInput
+        onFileUpload={(val: string) => {
+          onChange({ ...element, src: val });
+        }}
       />
     );
   }
@@ -60,7 +64,7 @@ export const mapSettingsElement = (
       key={index}
     >
       <StringInput
-        value={element["name"] ?? element.index.toString()}
+        value={element["name"] ?? elementName + " " + element.index.toString()}
         label="Name"
         onChange={(value: string) => onChange({ ...element, name: value })}
       />

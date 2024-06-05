@@ -321,41 +321,6 @@ export default function Home() {
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
         {presetHtml}
       </div>
-      {/* LINKS */}
-      <div>
-        <h6 className="text-lg font-bold dark:text-white">
-          Helpful Tools & Sites
-        </h6>
-        <ul className="max-w-md space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
-          <li>
-            <a
-              href="https://www.base64-image.de/"
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              target="_blank"
-            >
-              image to base64 converter
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.compart.com/en/unicode/"
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              target="_blank"
-            >
-              unicode characters
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://www.w3schools.com/csSref/css_websafe_fonts.php"
-              className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              target="_blank"
-            >
-              websafe fonts
-            </a>
-          </li>
-        </ul>
-      </div>
     </main>
   );
 }
