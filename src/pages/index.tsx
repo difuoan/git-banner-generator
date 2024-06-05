@@ -13,6 +13,7 @@ import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
 
 export default function Home() {
+  const [debouncing, setDebouncing] = useState(false);
   const [presetToUse, setPresetToUse] = useState(0);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [displaySvg, setDisplaySvg] = useState(true);
@@ -138,42 +139,30 @@ export default function Home() {
     setSvgWidth(histEle.width);
     setHistoryIndex(index);
   };
-  const addHistoryElement = debounce((historyElement: HistoryElement) => {
-    let remainingHistory = history;
-    const newIndx = historyIndex + 1;
-    const cutHistory: boolean = newIndx < history.length;
-    if (cutHistory) {
-      remainingHistory.splice(newIndx, history.length - newIndx);
-    }
-    setHistory([...remainingHistory, historyElement]);
-    setHistoryIndex(newIndx);
-  }, 1000);
+  const addHistoryElement = (historyElement: HistoryElement) => {
+    setDebouncing(true);
+    addHistoryElementDebounced(historyElement);
+  };
+  const addHistoryElementDebounced = debounce(
+    (historyElement: HistoryElement) => {
+      let remainingHistory = history;
+      const newIndx = historyIndex + 1;
+      const cutHistory: boolean = newIndx < history.length;
+      if (cutHistory) {
+        remainingHistory.splice(newIndx, history.length - newIndx);
+      }
+      setHistory([...remainingHistory, historyElement]);
+      setHistoryIndex(newIndx);
+      setDebouncing(false);
+    },
+    1000
+  );
   const resetHistory = () => {
     setHistory([]);
     setHistoryIndex(0);
   };
 
   // HTML
-  let nextBtn = null;
-  if (history.length > 0 && historyIndex < history.length - 1) {
-    nextBtn = (
-      <Button
-        label="&#9112; Next"
-        onClick={() => timeTravel(historyIndex + 1)}
-        color="slate"
-      />
-    );
-  }
-  let prevBtn = null;
-  if (historyIndex > 0) {
-    prevBtn = (
-      <Button
-        label="&#9111; Back"
-        onClick={() => timeTravel(historyIndex - 1)}
-        color="slate"
-      />
-    );
-  }
   const settings = elements.map((ele, inde) =>
     mapSettingsElement(
       ele,
@@ -232,6 +221,7 @@ export default function Home() {
       {/* BUTTONS */}
       <div className={"flex flex-row gap-8"}>
         <Button
+          disabled={debouncing}
           label="&#10227; Reset"
           onClick={() => resetState()}
           color="amber"
@@ -241,7 +231,11 @@ export default function Home() {
           onClick={playAnimations}
           color="teal"
         />
-        <Button label="&#128190; Download" onClick={downloadSvg} />
+        <Button
+          label="&#128190; Download"
+          onClick={downloadSvg}
+          disabled={debouncing}
+        />
       </div>
       <div className={"flex flex-row gap-8"}>
         <Button label="&#43; Text" onClick={addText} color="slate" />
@@ -249,8 +243,21 @@ export default function Home() {
         <Button label="&#43; Div" onClick={addDiv} color="slate" />
       </div>
       <div className={"flex flex-row gap-8"}>
-        {prevBtn}
-        {nextBtn}
+        <Button
+          disabled={debouncing || historyIndex <= 0}
+          label="&#9111; Back"
+          onClick={() => timeTravel(historyIndex - 1)}
+          color="slate"
+        />
+        <Button
+          disabled={
+            debouncing ||
+            !(history.length > 0 && historyIndex < history.length - 1)
+          }
+          label="&#9112; Next"
+          onClick={() => timeTravel(historyIndex + 1)}
+          color="slate"
+        />
       </div>
       {/* SETTINGS */}
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
