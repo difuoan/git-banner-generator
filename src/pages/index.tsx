@@ -271,6 +271,7 @@ export default function Home() {
         <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
           <h6 className="text-lg font-bold dark:text-white">SVG</h6>
           <NumberInput
+            keyVal="width"
             label="Width"
             value={svgWidth}
             onChange={(val: number) => {
@@ -286,6 +287,7 @@ export default function Home() {
             max={1000}
           />
           <NumberInput
+            keyVal="height"
             label="Height"
             value={svgHeight}
             onChange={(val: number) => {
@@ -301,6 +303,7 @@ export default function Home() {
             max={500}
           />
           <StringInput
+            keyVal="bg"
             label="Background"
             value={svgBackground}
             onChange={(val: string) => {
@@ -318,7 +321,7 @@ export default function Home() {
       </div>
       {/* PRESETS */}
       <h6 className="text-lg font-bold dark:text-white">Presets</h6>
-      <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
+      <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
         {presetHtml}
       </div>
     </main>

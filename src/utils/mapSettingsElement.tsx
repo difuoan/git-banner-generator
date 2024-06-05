@@ -25,8 +25,10 @@ export const mapSettingsElement = (
     elementName = "Text";
     typeSpecificInput = (
       <StringInput
+        keyVal={element.index + (element.name ?? "")}
         value={element["text"]}
         label="Text"
+        key={element.index.toString()}
         onChange={(value: string) => onChange({ ...element, text: value })}
       />
     );
@@ -34,6 +36,7 @@ export const mapSettingsElement = (
     elementName = "Image";
     typeSpecificInput = (
       <FileInput
+        keyVal={element.index + (element?.name ?? "")}
         onFileUpload={(val: string) => {
           onChange({ ...element, src: val });
         }}
@@ -49,6 +52,7 @@ export const mapSettingsElement = (
     );
     animationCssInput = (
       <TextArea
+        keyVal={element.index + (element.name ?? "")}
         value={animCss}
         label="Animation CSS"
         onChange={(value: string) =>
@@ -61,20 +65,23 @@ export const mapSettingsElement = (
     <form
       className="flex flex-col gap-4 border border-gray-400 p-8 rounded resize-x"
       style={{ overflow: "auto", position: "relative" }}
-      key={index}
+      key={element.index}
     >
       <StringInput
+        keyVal={element.index + (element.name ?? "")}
         value={element["name"] ?? elementName + " " + element.index.toString()}
         label="Name"
         onChange={(value: string) => onChange({ ...element, name: value })}
       />
       {typeSpecificInput}
       <TextArea
+        keyVal={element.index + (element.name ?? "")}
         value={element["style"]}
         label="Style"
         onChange={(value: string) => onChange({ ...element, style: value })}
       />
       <Select
+        keyVal={element.index + (element.name ?? "")}
         value={element["animation"]}
         label="Animation"
         onChange={(value: AnimationName) => {
