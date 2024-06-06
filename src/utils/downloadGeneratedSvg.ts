@@ -8,7 +8,7 @@ export const downloadSvg = () => {
 
     const a = document.createElement("a");
     a.href = url;
-    a.download = "downloaded.svg";
+    a.download = "yourCoolBanner.svg";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
