@@ -1,17 +1,29 @@
-import { SvgTextElement, isSvgTextElement } from "./svgTextElement";
-import { SvgImgElement, isSvgImgElement } from "./svgImgElement";
-import { AnimationName } from "./animations";
+import { Spline } from "@/data/splines"
+import { isSvgImgElement } from "./svgImgElement"
 
-export type SvgElement = (SvgTextElement | SvgImgElement | {}) & {
+export type AnimatableAttribute = "x" | "y"
+
+export type SvgAnimation = {
+    attributeName: AnimatableAttribute
+    from: number
+    to: number
+    dur: number
+    begin: number
+    repeatCount: number | "indefinite"
+    keySplines: Spline
+}
+
+export type SvgElement = {
+    src?: string
     index: number
-    style: string
-    animation?: AnimationName,
-    animationCss?: string
     name?: string
+    x?: number
+    y?: number
+    animations?: SvgAnimation[]
 }
 
 export const isSvgElement = (element: any): element is SvgElement => {
     if (typeof element !== "object") return false
-    if (![isSvgImgElement(element), isSvgTextElement(element)].includes(true)) return false
+    if (![isSvgImgElement(element)].includes(true)) return false
     return true
 }

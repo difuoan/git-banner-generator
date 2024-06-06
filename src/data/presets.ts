@@ -11,101 +11,180 @@ import { ljvIM } from "./ljvIM";
 import { ljvLastName } from "./ljvLastName";
 
 export const presets: Preset[] = [
-    {
-        background: "transparent",
-        elements: [
-            {
-                index: 1,
-                src: ljvBackground,
-                style: "position: absolute;",
-                name: "Background",
-            },
-            {
-                index: 2,
-                src: izzy,
-                style: "position: absolute;",
-                name: "Izzy",
-                animation: "slide-in-left",
-                animationCss:
-                    ".slide-in-left-<element-index> {\n    animation-name: slide-in-left-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-left-<element-index> {\n    0% {\n        transform: translateX(-<svg-width>px);\n    }\n    100% {\n        transform: translateX(0px);\n    }\n}",
-            },
-            {
-                index: 3,
-                src: ljvVenCode,
-                style: "position: absolute;",
-                name: "venturini.codes",
-                animation: "slide-in-right",
-                animationCss:
-                    ".slide-in-right-<element-index> {\n    animation-name: slide-in-right-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-right-<element-index> {\n    0% {\n        transform: translateX(<svg-width>px);\n    }\n    100% {\n        transform: translateX(0px);\n    }\n}",
-            },
-            {
-                index: 4,
-                src: ljvHello,
-                style: "position: absolute;",
-                name: "Hello World!",
-                animation: "slide-in-top",
-                animationCss:
-                    ".slide-in-top-<element-index> {\n    animation-name: slide-in-top-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-top-<element-index> {\n    0% {\n        transform: translateY(-<svg-height>px);\n    }\n    100% {\n        transform: translateY(0px);\n    }\n}",
-            },
-            {
-                index: 5,
-                src: ljvName,
-                style: "position: absolute;",
-                name: "Lucas",
-                animation: "slide-in-left",
-                animationCss:
-                    ".slide-in-left-<element-index> {\n    animation-name: slide-in-left-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-left-<element-index> {\n    0% {\n        transform: translateX(-<svg-width>px);\n    }\n    100% {\n        transform: translateX(0px);\n    }\n}",
-            },
-            {
-                index: 6,
-                src: ljvIM,
-                style: "position: absolute;",
-                name: "I'm",
-                animation: "slide-in-left",
-                animationCss:
-                    ".slide-in-left-<element-index> {\n    animation-name: slide-in-left-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-left-<element-index> {\n    0% {\n        transform: translateX(-<svg-width>px);\n    }\n    100% {\n        transform: translateX(0px);\n    }\n}",
-            },
-            {
-                index: 7,
-                src: ljvLastName,
-                style: "position: absolute;",
-                name: "J. Venturini",
-                animation: "slide-in-bottom",
-                animationCss:
-                    ".slide-in-bottom-<element-index> {\n    animation-name: slide-in-bottom-<element-index>;\n    animation-duration: 1s; \n    animation-timing-function: ease-in-out; \n    animation-delay: 0s;\n    animation-direction: normal;\n    animation-iteration-count: 1;\n    animation-fill-mode: none;\n    animation-play-state: running;\n}\n@keyframes slide-in-bottom-<element-index> {\n    0% {\n        transform: translateY(<svg-height>px);\n    }\n    100% {\n        transform: translateY(0px);\n    }\n}",
-            },
+  {
+    elements: [
+      {
+        index: 1,
+        src: ljvBackground,
+        name: "Background",
+        animations: [],
+      },
+      {
+        index: 2,
+        src: izzy,
+        name: "Izzy",
+        animations: [
+          {
+            attributeName: "x",
+            from: -1500,
+            to: -1500,
+            dur: 4,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+          {
+            attributeName: "x",
+            from: -1500,
+            to: 0,
+            dur: 2,
+            begin: 4,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
         ],
-        height: 500,
-        width: 1500,
-        src: "/ljvBanner.svg",
-    },
-    {
-        src: "/tjvBanner.svg",
-        elements: [
-            {
-                name: "venturini.codes",
-                index: 1,
-                src: tjv1,
-                style: "position: absolute;",
-                animation: "slide-in-top",
-            },
-            {
-                name: "thomasventurini.com",
-                index: 2,
-                src: tjv2,
-                style: "position: absolute;",
-                animation: "slide-in-left",
-            },
-            {
-                name: "edward",
-                index: 3,
-                src: tjv3,
-                style: "position: absolute;",
-                animation: "slide-in-bottom",
-            },
+      },
+      {
+        index: 3,
+        src: ljvVenCode,
+        name: "venturini.codes",
+        animations: [
+          {
+            attributeName: "y",
+            from: 500,
+            to: 500,
+            dur: 6,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+          {
+            attributeName: "y",
+            from: 500,
+            to: 0,
+            dur: 1,
+            begin: 6,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
         ],
-        background: "black",
-        height: 500,
-        width: 1500,
-    },
+      },
+      {
+        index: 4,
+        src: ljvHello,
+        name: "Hello World!",
+        animations: [
+          {
+            attributeName: "x",
+            from: -1500,
+            to: 0,
+            dur: 1,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+        ],
+      },
+      {
+        index: 5,
+        src: ljvName,
+        name: "Lucas",
+        animations: [
+          {
+            attributeName: "x",
+            from: -1500,
+            to: -1500,
+            dur: 1.5,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+          {
+            attributeName: "x",
+            from: -1500,
+            to: 0,
+            dur: 1,
+            begin: 1.5,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+        ],
+      },
+      {
+        index: 6,
+        src: ljvIM,
+        name: "I'm",
+        animations: [
+          {
+            attributeName: "x",
+            from: -1500,
+            to: -1500,
+            dur: 0.5,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+          {
+            attributeName: "x",
+            from: -1500,
+            to: 0,
+            dur: 1,
+            begin: 0.5,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+        ],
+      },
+      {
+        index: 7,
+        src: ljvLastName,
+        name: "J. Venturini",
+        animations: [
+          {
+            attributeName: "x",
+            from: -1500,
+            to: -1500,
+            dur: 2.5,
+            begin: 0,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+          {
+            attributeName: "x",
+            from: -1500,
+            to: 0,
+            dur: 1,
+            begin: 2.5,
+            repeatCount: 1,
+            keySplines: "ease-out",
+          },
+        ],
+      },
+    ],
+    height: 500,
+    width: 1500,
+    src: "/ljvBanner.svg",
+  },
+  {
+    src: "/tjvBanner.svg",
+    elements: [
+      {
+        name: "venturini.codes",
+        index: 1,
+        src: tjv1,
+      },
+      {
+        name: "thomasventurini.com",
+        index: 2,
+        src: tjv2,
+      },
+      {
+        name: "edward",
+        index: 3,
+        src: tjv3,
+      },
+    ],
+    height: 500,
+    width: 1500,
+  },
 ];

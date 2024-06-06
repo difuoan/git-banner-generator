@@ -1,14 +1,10 @@
-import Select from "@/components/select";
 import StringInput from "@/components/stringInput";
-import TextArea from "@/components/textArea";
-import { animationCss } from "@/data/animationCss";
-import { AnimationName, animations } from "@/types/animations";
-import { SvgElement } from "@/types/svgElement";
+import { SvgAnimation, SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
-import { isSvgTextElement } from "@/types/svgTextElement";
-import { replaceData } from "./replaceData";
 import Button from "@/components/button";
 import FileInput from "@/components/fileInput";
+import NumberInput from "@/components/numberInput";
+import Select from "@/components/select";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -18,21 +14,126 @@ export const mapSettingsElement = (
   svgWidth: number,
   onDelete: Function
 ) => {
-  let animationCssInput = null;
   let typeSpecificInput = null;
   let elementName = "Element";
-  if (isSvgTextElement(element)) {
-    elementName = "Text";
-    typeSpecificInput = (
-      <StringInput
-        keyVal={element.index + (element.name ?? "")}
-        value={element["text"]}
-        label="Text"
-        key={element.index.toString()}
-        onChange={(value: string) => onChange({ ...element, text: value })}
-      />
-    );
-  } else if (isSvgImgElement(element)) {
+  const animationSettings = (element.animations ?? []).map(
+    (animation: SvgAnimation, index) => {
+      return (
+        <div key={index} className="flex flex-col gap-4">
+          <h6 className="text-lg font-bold dark:text-white">
+            Animation #{index + 1}
+          </h6>
+          <Select
+            keyVal={element.index + (element.name ?? "") + index}
+            label="Anim"
+            options={["x", "y"]}
+            value={animation.attributeName ?? "x"}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, attributeName: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "") + index}
+            value={animation.from ?? 0}
+            label="From"
+            max={1000}
+            min={-1000}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, from: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "") + index}
+            value={animation.to ?? 0}
+            label="To"
+            max={1000}
+            min={-1000}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, to: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "") + index}
+            value={animation.dur ?? 0}
+            label="Dur"
+            max={10}
+            min={0}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, dur: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "") + index}
+            value={animation.begin ?? 0}
+            label="Begin"
+            max={10}
+            min={0}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, begin: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <Select
+            keyVal={element.index + (element.name ?? "") + index}
+            label="Mode"
+            options={["linear", "ease-in", "ease-out", "ease-in-out"]}
+            value={animation.keySplines ?? "linear"}
+            onChange={(value: number) =>
+              onChange({
+                ...element,
+                animations: element.animations?.map((anim, inde) => {
+                  if (inde === index) return { ...anim, keySplines: value };
+                  return anim;
+                }),
+              })
+            }
+          />
+          <Button
+            label="&#128465; Delete Animation"
+            onClick={() =>
+              onChange({
+                ...element,
+                animations: element.animations?.filter(
+                  (anim, inde) => inde !== index
+                ),
+              })
+            }
+            color="rose"
+          />
+        </div>
+      );
+    }
+  );
+  if (isSvgImgElement(element)) {
     elementName = "Image";
     typeSpecificInput = (
       <FileInput
@@ -40,24 +141,6 @@ export const mapSettingsElement = (
         onFileUpload={(val: string) => {
           onChange({ ...element, src: val });
         }}
-      />
-    );
-  }
-  if (element["animation"]) {
-    const animCss = replaceData(
-      element["animationCss"] ?? animationCss[element["animation"]],
-      element.index,
-      svgHeight,
-      svgWidth
-    );
-    animationCssInput = (
-      <TextArea
-        keyVal={element.index + (element.name ?? "")}
-        value={animCss}
-        label="Animation CSS"
-        onChange={(value: string) =>
-          onChange({ ...element, animationCss: value })
-        }
       />
     );
   }
@@ -74,28 +157,30 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, name: value })}
       />
       {typeSpecificInput}
-      <TextArea
-        keyVal={element.index + (element.name ?? "")}
-        value={element["style"]}
-        label="Style"
-        onChange={(value: string) => onChange({ ...element, style: value })}
-      />
-      <Select
-        keyVal={element.index + (element.name ?? "")}
-        value={element["animation"]}
-        label="Animation"
-        onChange={(value: AnimationName) => {
+      {animationSettings}
+      <Button
+        label="+ Animation"
+        onClick={() =>
           onChange({
             ...element,
-            animation: value,
-            animationCss: animationCss[value],
-          });
-        }}
-        options={animations}
+            animations: [
+              ...(element.animations ?? []),
+              {
+                attributeName: "x",
+                from: 0,
+                to: 0,
+                dur: 0,
+                begin: 0,
+                repeatCount: 1,
+                keySplines: "ease-in-out",
+              },
+            ],
+          })
+        }
+        color="slate"
       />
-      {animationCssInput}
       <Button
-        label="&#128465; Delete"
+        label="&#128465; Delete Element"
         onClick={() => onDelete(element.index)}
         color="rose"
       />

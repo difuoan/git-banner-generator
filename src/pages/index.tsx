@@ -19,13 +19,11 @@ export default function Home() {
   const [displaySvg, setDisplaySvg] = useState(true);
   const preset = { ...presets[presetToUse] };
   const [svgWidth, setSvgWidth] = useState(preset.width);
-  const [svgBackground, setSvgBackground] = useState(preset.background);
   const [svgHeight, setSvgHeight] = useState(preset.height);
   const [elements, setElements] = useState<SvgElement[]>([...preset.elements]);
   const elementIndex = Math.max(...elements.map((ele) => ele.index), 0) + 1;
   const [history, setHistory] = useState<HistoryElement[]>([
     {
-      background: svgBackground,
       elements: elements,
       height: svgHeight,
       width: svgWidth,
@@ -45,7 +43,6 @@ export default function Home() {
     setElements([...pre.elements]);
     setSvgWidth(pre.width);
     setSvgHeight(pre.height);
-    setSvgBackground(pre.background);
     resetHistory();
   };
   const onElementChange = (element: SvgElement) => {
@@ -57,7 +54,6 @@ export default function Home() {
     });
     setElements(newEles);
     addHistoryElement({
-      background: svgBackground,
       elements: newEles,
       height: svgHeight,
       width: svgWidth,
@@ -65,7 +61,6 @@ export default function Home() {
   };
   const copyPreset = () => {
     const newPres: Preset = {
-      background: svgBackground,
       elements: elements,
       height: svgHeight,
       width: svgWidth,
@@ -79,24 +74,6 @@ export default function Home() {
     newElements.splice(eleIndex, 1);
     setElements(newElements);
     addHistoryElement({
-      background: svgBackground,
-      elements: newElements,
-      height: svgHeight,
-      width: svgWidth,
-    });
-  };
-  const addText = () => {
-    const newElements = [
-      ...elements,
-      {
-        index: elementIndex,
-        text: "Your Text Here!",
-        style: "position: absolute;",
-      },
-    ];
-    setElements(newElements);
-    addHistoryElement({
-      background: svgBackground,
       elements: newElements,
       height: svgHeight,
       width: svgWidth,
@@ -113,24 +90,6 @@ export default function Home() {
     ];
     setElements(newElements);
     addHistoryElement({
-      background: svgBackground,
-      elements: newElements,
-      height: svgHeight,
-      width: svgWidth,
-    });
-  };
-  const addDiv = () => {
-    const newElements = [
-      ...elements,
-      {
-        index: elementIndex,
-        style:
-          "position: absolute;\nwidth: 100px;\nheight: 100px;\nbackground: red;",
-      },
-    ];
-    setElements(newElements);
-    addHistoryElement({
-      background: svgBackground,
       elements: newElements,
       height: svgHeight,
       width: svgWidth,
@@ -145,7 +104,6 @@ export default function Home() {
     if (index < 0) return;
     const histEle = { ...history[index] };
     setElements([...histEle.elements]);
-    setSvgBackground(histEle.background);
     setSvgHeight(histEle.height);
     setSvgWidth(histEle.width);
     setHistoryIndex(index);
@@ -171,7 +129,6 @@ export default function Home() {
   const resetHistory = () => {
     setHistory([
       {
-        background: svgBackground,
         elements: elements,
         height: svgHeight,
         width: svgWidth,
@@ -213,7 +170,6 @@ export default function Home() {
         elements={elements}
         svgwidth={svgWidth}
         svgheight={svgHeight}
-        background={svgBackground}
       />
     );
   }
@@ -261,9 +217,7 @@ export default function Home() {
         />
       </div>
       <div className={"flex flex-row gap-8"}>
-        <Button label="&#43; Text" onClick={addText} color="slate" />
         <Button label="&#43; Image" onClick={addImg} color="slate" />
-        <Button label="&#43; Div" onClick={addDiv} color="slate" />
       </div>
       <div className={"flex flex-row gap-8"}>
         <Button
@@ -293,7 +247,6 @@ export default function Home() {
             onChange={(val: number) => {
               setSvgWidth(val);
               addHistoryElement({
-                background: svgBackground,
                 elements: elements,
                 height: svgHeight,
                 width: val,
@@ -309,7 +262,6 @@ export default function Home() {
             onChange={(val: number) => {
               setSvgHeight(val);
               addHistoryElement({
-                background: svgBackground,
                 elements: elements,
                 width: svgWidth,
                 height: val,
@@ -317,20 +269,6 @@ export default function Home() {
             }}
             min={1}
             max={500}
-          />
-          <StringInput
-            keyVal="bg"
-            label="Background"
-            value={svgBackground}
-            onChange={(val: string) => {
-              setSvgBackground(val);
-              addHistoryElement({
-                elements: elements,
-                height: svgHeight,
-                width: svgWidth,
-                background: val,
-              });
-            }}
           />
         </form>
         {settings}

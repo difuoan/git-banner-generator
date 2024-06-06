@@ -4,5 +4,4 @@ export type HistoryElement = {
     width: number
     height: number
     elements: SvgElement[]
-    background: string
 }

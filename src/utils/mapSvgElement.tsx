@@ -1,39 +1,31 @@
-import { SvgElement } from "@/types/svgElement";
-import { isSvgTextElement } from "@/types/svgTextElement";
-import { parseStyles } from "./parseStyles";
+import { splines } from "@/data/splines";
+import { SvgAnimation, SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 
+export const mapSvgAnimation = (animation: SvgAnimation, index: number) => {
+  return (
+    <animate
+      key={index}
+      attributeName={animation?.attributeName}
+      from={animation?.from}
+      to={animation?.to}
+      dur={animation?.dur + "s"}
+      begin={animation?.begin + "s"}
+      repeatCount={animation?.repeatCount}
+      calcMode="spline"
+      keyTimes="0; 1"
+      keySplines={splines[animation?.keySplines]}
+    />
+  );
+};
+
 export const mapSvgElement = (element: SvgElement, index: number) => {
-  if (isSvgTextElement(element)) {
+  const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
+  if (isSvgImgElement(element)) {
     return (
-      <span
-        key={index}
-        style={parseStyles(element.style)}
-        className={element.animation + "-" + element.index}
-      >
-        {element.text}
-      </span>
-    );
-  } else if (isSvgImgElement(element)) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-      <img
-        src={element.src}
-        key={index}
-        style={parseStyles(element.style)}
-        className={element.animation + "-" + element.index}
-      />
-    );
-  } else {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-      <div
-        key={index}
-        style={parseStyles(element.style)}
-        className={element.animation + "-" + element.index}
-      >
-        {/* not really empty */}
-      </div>
+      <image href={element.src} key={index} x={element.x} y={element.y}>
+        {mappedAnimations}
+      </image>
     );
   }
 };
