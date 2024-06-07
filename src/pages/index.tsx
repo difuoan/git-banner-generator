@@ -282,6 +282,7 @@ export default function Home() {
           label="&#9112; Copy Preset"
           onClick={copyPreset}
           disabled={debouncing}
+          color="slate"
         />
         <Button
           label="&#128427; Download SVG"
