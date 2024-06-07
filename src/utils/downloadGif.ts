@@ -18,7 +18,7 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
         repeat: 1,
     });
 
-    const canvgInstance = Canvg.fromString(context, svgText, {
+    const canvgInstance = await Canvg.from(context, svgText, {
         ignoreAnimation: true,
         ignoreMouse: true,
     });
@@ -30,7 +30,7 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
     const renderFrame = async function () {
         canvgInstance.screen.animations.forEach((a, i) => {
             // @ts-ignore
-            if (millisecond >= a.maxDuration) {
+            if (millisecond >= a.maxDuration || a.duration + millisecondsPerFrame >= a.maxDuration) {
                 if (!allAnimationsDone[i]) {
                     allAnimationsDone[i] = true;
                     // @ts-ignore
