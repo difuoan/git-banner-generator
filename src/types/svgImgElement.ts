@@ -2,6 +2,8 @@ import { SvgBaseElement } from "./svgBaseElement"
 
 export type SvgImgElement = {
     src: string
+    width?: number
+    height?: number
 } & SvgBaseElement
 
 export const isSvgImgElement = (element: any): element is SvgImgElement => {

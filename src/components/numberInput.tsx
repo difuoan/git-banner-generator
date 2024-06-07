@@ -5,6 +5,7 @@ const NumberInput = ({
   min,
   max,
   keyVal,
+  className,
 }: {
   onChange: Function;
   value: number;
@@ -12,9 +13,10 @@ const NumberInput = ({
   min: number;
   max: number;
   keyVal: string | number;
+  className?: string;
 }) => {
   return (
-    <div className={"flex flex-row gap-8 items-center"}>
+    <div className={"flex flex-row gap-8 items-center " + className}>
       <label
         htmlFor={label + keyVal}
         className="block mb-2 font-medium text-gray-900 dark:text-white"

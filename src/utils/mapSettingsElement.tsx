@@ -20,12 +20,63 @@ export const mapSettingsElement = (
   if (isSvgImgElement(element)) {
     elementName = "Image";
     typeSpecificInput = (
-      <FileInput
-        keyVal={element.index + (element?.name ?? "")}
-        onFileUpload={(val: string) => {
-          onChange({ ...element, src: val });
-        }}
-      />
+      <>
+        <FileInput
+          keyVal={element.index + (element?.name ?? "")}
+          onFileUpload={(val: string) => {
+            onChange({ ...element, src: val });
+          }}
+        />
+        <details>
+          <summary className="cursor-pointer">
+            <h6 className="text-lg font-bold dark:text-white inline">Scale</h6>
+          </summary>
+          <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
+            <div className="flex flex-row">
+              <NumberInput
+                keyVal={element.index + (element.name ?? "")}
+                value={element.width ?? 0}
+                label="Width"
+                max={1500}
+                min={0}
+                onChange={(value: number) =>
+                  onChange({ ...element, width: value })
+                }
+                className="w-full mr-8"
+              />
+              <Button
+                label="&#128465;"
+                onClick={() => {
+                  const { width, ...newEle } = element;
+                  onChange({ ...newEle });
+                }}
+                color="rose"
+              />
+            </div>
+            <div className="flex flex-row">
+              <NumberInput
+                keyVal={element.index + (element.name ?? "")}
+                value={element.height ?? 0}
+                label="Height"
+                max={500}
+                min={0}
+                onChange={(value: number) =>
+                  onChange({ ...element, height: value })
+                }
+                className="w-full mr-8"
+              />
+              <Button
+                label="&#128465;"
+                onClick={() => {
+                  const { height, ...newEle } = element;
+                  onChange({ ...newEle });
+                }}
+                color="rose"
+              />
+            </div>
+          </div>
+        </details>
+      </>
     );
   } else if (isSvgTextElement(element)) {
     elementName = "Text";

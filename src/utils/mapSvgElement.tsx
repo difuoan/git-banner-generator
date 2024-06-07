@@ -7,7 +7,14 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
   const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
   if (isSvgImgElement(element)) {
     return (
-      <image href={element.src} key={index} x={element.x} y={element.y}>
+      <image
+        href={element.src}
+        key={index}
+        x={element.x}
+        y={element.y}
+        width={element.width}
+        height={element.height}
+      >
         {mappedAnimations}
       </image>
     );
@@ -20,6 +27,8 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         fill={element.color}
         fontSize={element.fontSize}
         fontFamily={element.fontFamily}
+        dominantBaseline="text-before-edge"
+        textAnchor="start"
       >
         {element.text}
       </text>
