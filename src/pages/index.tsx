@@ -1,18 +1,20 @@
 import { downloadSvg } from "@/utils/downloadGeneratedSvg";
 import SVGComponent from "../components/svg";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
 import { mapSettingsElement } from "@/utils/mapSettingsElement";
-import StringInput from "@/components/stringInput";
 import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
 import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
+import { Canvg } from "canvg";
+import GIF from "gif.js";
 
 export default function Home() {
+  const svgContainer = useRef<HTMLDivElement>(null);
   const [debouncing, setDebouncing] = useState(false);
   const [presetToUse, setPresetToUse] = useState(0);
   const [historyIndex, setHistoryIndex] = useState(0);
@@ -31,6 +33,74 @@ export default function Home() {
   ]);
 
   // FUNCTIONS
+  async function convertSVGToGIF() {
+    const svgText = svgContainer.current?.innerHTML;
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = svgWidth;
+    canvas.height = svgHeight;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context || !svgText) return;
+    const gif = new GIF({
+      workers: 2,
+      quality: 10,
+      width: svgWidth,
+      height: svgHeight,
+      debug: true,
+      repeat: 1,
+    });
+
+    const canvgInstance = Canvg.fromString(context, svgText, {
+      ignoreAnimation: true,
+      ignoreMouse: true,
+    });
+
+    const allAnimationsDone: boolean[] = [];
+    let millisecond: number = 0;
+
+    const millisecondsPerFrame = 60;
+    const renderFrame = async function () {
+      canvgInstance.screen.animations.forEach((a, i) => {
+        console.log(a);
+        // @ts-ignore
+        if (millisecond >= a.maxDuration) {
+          if (!allAnimationsDone[i]) {
+            allAnimationsDone[i] = true;
+            // @ts-ignore
+            a.duration = a.maxDuration;
+          }
+        } else {
+          allAnimationsDone[i] = false;
+          a.update(millisecondsPerFrame);
+        }
+      });
+      await canvgInstance.render();
+      gif.addFrame(context, {
+        copy: true,
+        delay: (1 / millisecondsPerFrame) * 1000,
+      });
+      millisecond += millisecondsPerFrame;
+      if (!allAnimationsDone.every((d) => !!d)) {
+        await renderFrame();
+      }
+    };
+    await renderFrame();
+
+    await canvgInstance.render();
+
+    gif.on("finished", function (blob) {
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "yourCoolBanner.gif";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    gif.render();
+  }
   const playAnimations = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
@@ -189,7 +259,10 @@ export default function Home() {
         <small>by Lucas J. Venturini</small>
       </a>
       {/* SVG */}
-      <div style={{ maxWidth: "600px", minWidth: "50%", width: "100%" }}>
+      <div
+        style={{ maxWidth: "600px", minWidth: "50%", width: "100%" }}
+        ref={svgContainer}
+      >
         {svgToDisplay}
       </div>
       {/* BUTTONS */}
@@ -198,7 +271,7 @@ export default function Home() {
           disabled={debouncing}
           label="&#10227; Reset"
           onClick={() => resetState()}
-          color="amber"
+          color="rose"
         />
         <Button
           label="&#11208; Play animations"
@@ -213,6 +286,11 @@ export default function Home() {
         <Button
           label="&#128427; Download SVG"
           onClick={downloadSvg}
+          disabled={debouncing}
+        />
+        <Button
+          label="&#128427; Download GIF"
+          onClick={convertSVGToGIF}
           disabled={debouncing}
         />
       </div>
