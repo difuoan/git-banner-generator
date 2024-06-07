@@ -183,12 +183,12 @@ export default function Home() {
       {/* OVERLAY */}
       <Overlay busy={busy} />
       {/* HEADER */}
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
         GitHub-safe Animated SVG Generator
       </h1>
       <a
         href="https://github.com/difuoan"
-        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        className="font-medium text-blue-600 hover:underline"
         target="_blank"
       >
         <small>by Lucas J. Venturini</small>
@@ -264,42 +264,48 @@ export default function Home() {
       {/* SETTINGS */}
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
         <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
-          <h6 className="text-lg font-bold dark:text-white">SVG</h6>
-          <NumberInput
-            keyVal="width"
-            label="Width"
-            value={svgWidth}
-            onChange={(val: number) => {
-              setSvgWidth(val);
-              addHistoryElement({
-                elements: elements,
-                height: svgHeight,
-                width: val,
-              });
-            }}
-            min={1}
-            max={1000}
-          />
-          <NumberInput
-            keyVal="height"
-            label="Height"
-            value={svgHeight}
-            onChange={(val: number) => {
-              setSvgHeight(val);
-              addHistoryElement({
-                elements: elements,
-                width: svgWidth,
-                height: val,
-              });
-            }}
-            min={1}
-            max={500}
-          />
+          <details open>
+            <summary className="cursor-pointer">
+              <h6 className="text-lg font-bold inline">SVG</h6>
+            </summary>
+            <div>
+              <NumberInput
+                keyVal="width"
+                label="Width"
+                value={svgWidth}
+                onChange={(val: number) => {
+                  setSvgWidth(val);
+                  addHistoryElement({
+                    elements: elements,
+                    height: svgHeight,
+                    width: val,
+                  });
+                }}
+                min={1}
+                max={1000}
+              />
+              <NumberInput
+                keyVal="height"
+                label="Height"
+                value={svgHeight}
+                onChange={(val: number) => {
+                  setSvgHeight(val);
+                  addHistoryElement({
+                    elements: elements,
+                    width: svgWidth,
+                    height: val,
+                  });
+                }}
+                min={1}
+                max={500}
+              />
+            </div>
+          </details>
         </form>
         {settings}
       </div>
       {/* PRESETS */}
-      <span className="text-4xl font-extrabold dark:text-white">Presets</span>
+      <span className="text-4xl font-extrabold">Presets</span>
       <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
         {presetHtml}
       </div>
