@@ -12,6 +12,7 @@ import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
 import { convertSVGToGIF } from "@/utils/downloadGif";
 import Overlay from "@/components/overlay";
+import Header from "@/components/header";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -141,14 +142,7 @@ export default function Home() {
 
   // HTML
   const settings = elements.map((ele, inde) =>
-    mapSettingsElement(
-      ele,
-      inde,
-      onElementChange,
-      svgHeight,
-      svgWidth,
-      onElementDelete
-    )
+    mapSettingsElement(ele, onElementChange, onElementDelete)
   );
   const presetHtml = presets.map((preset: Preset, index: number) => {
     return (
@@ -180,19 +174,7 @@ export default function Home() {
       <div className="fixed w-full text-center lg:mr-9 lg:pl-9">
         {/* OVERLAY */}
         <Overlay busy={busy} />
-        <div className="bg-gray-300 w-full pt-12">
-          {/* HEADER */}
-          <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-5xl lg:text-6xl">
-            GitHub-safe Animated SVG Generator
-          </h1>
-          <a
-            href="https://github.com/difuoan"
-            className="font-medium text-blue-600 hover:underline"
-            target="_blank"
-          >
-            <small>by Lucas J. Venturini</small>
-          </a>
-        </div>
+        <Header />
         <div className="h-12 bg-gradient-to-b from-gray-300 to-transparent">
           {/* not really empty */}
         </div>
@@ -252,7 +234,7 @@ export default function Home() {
           <div className="flex flex-row gap-8">
             <Button
               disabled={debouncing || historyIndex <= 0}
-              label="&#171; Back"
+              label="&#171; Undo"
               onClick={() => timeTravel(historyIndex - 1)}
               color="slate"
             />
@@ -261,7 +243,7 @@ export default function Home() {
                 debouncing ||
                 !(history.length > 0 && historyIndex < history.length - 1)
               }
-              label="Next &#187;"
+              label="Redo &#187;"
               onClick={() => timeTravel(historyIndex + 1)}
               color="slate"
             />
@@ -293,8 +275,8 @@ export default function Home() {
                       width: val,
                     });
                   }}
-                  min={1}
-                  max={1000}
+                  min={50}
+                  max={1500}
                 />
                 <NumberInput
                   keyVal="height"

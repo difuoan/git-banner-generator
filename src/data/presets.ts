@@ -1,14 +1,14 @@
 import { Preset } from "@/types/preset";
-import { tjv1 } from "./tjv1";
-import { tjv2 } from "./tjv2";
-import { tjv3 } from "./tjv3";
-import { ljvBackground } from "./ljvBackground";
-import { izzy } from "./izzy";
-import { ljvVenCode } from "./ljvVenCode";
-import { ljvHello } from "./ljvHello";
-import { ljvName } from "./ljvName";
-import { ljvIM } from "./ljvIM";
-import { ljvLastName } from "./ljvLastName";
+import { tjv1 } from "./preset/tjv1";
+import { tjv2 } from "./preset/tjv2";
+import { tjv3 } from "./preset/tjv3";
+import { ljvBackground } from "./preset/ljvBackground";
+import { izzy } from "./preset/izzy";
+import { ljvVenCode } from "./preset/ljvVenCode";
+import { ljvHello } from "./preset/ljvHello";
+import { ljvName } from "./preset/ljvName";
+import { ljvIM } from "./preset/ljvIM";
+import { ljvLastName } from "./preset/ljvLastName";
 
 export const presets: Preset[] = [
   {
