@@ -12,6 +12,7 @@ import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
 import { Canvg } from "canvg";
 import GIF from "gif.js";
+import { convertSVGToGIF } from "@/utils/downloadGif";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -33,74 +34,6 @@ export default function Home() {
   ]);
 
   // FUNCTIONS
-  async function convertSVGToGIF() {
-    const svgText = svgContainer.current?.innerHTML;
-    const canvas: HTMLCanvasElement = document.createElement("canvas");
-    canvas.width = svgWidth;
-    canvas.height = svgHeight;
-    const context = canvas.getContext("2d", { willReadFrequently: true });
-    if (!context || !svgText) return;
-    const gif = new GIF({
-      workers: 2,
-      quality: 10,
-      width: svgWidth,
-      height: svgHeight,
-      debug: true,
-      repeat: 1,
-    });
-
-    const canvgInstance = Canvg.fromString(context, svgText, {
-      ignoreAnimation: true,
-      ignoreMouse: true,
-    });
-
-    const allAnimationsDone: boolean[] = [];
-    let millisecond: number = 0;
-
-    const millisecondsPerFrame = 60;
-    const renderFrame = async function () {
-      canvgInstance.screen.animations.forEach((a, i) => {
-        console.log(a);
-        // @ts-ignore
-        if (millisecond >= a.maxDuration) {
-          if (!allAnimationsDone[i]) {
-            allAnimationsDone[i] = true;
-            // @ts-ignore
-            a.duration = a.maxDuration;
-          }
-        } else {
-          allAnimationsDone[i] = false;
-          a.update(millisecondsPerFrame);
-        }
-      });
-      await canvgInstance.render();
-      gif.addFrame(context, {
-        copy: true,
-        delay: (1 / millisecondsPerFrame) * 1000,
-      });
-      millisecond += millisecondsPerFrame;
-      if (!allAnimationsDone.every((d) => !!d)) {
-        await renderFrame();
-      }
-    };
-    await renderFrame();
-
-    await canvgInstance.render();
-
-    gif.on("finished", function (blob) {
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "yourCoolBanner.gif";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    });
-
-    gif.render();
-  }
   const playAnimations = () => {
     // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
     setDisplaySvg(false);
@@ -291,7 +224,7 @@ export default function Home() {
         />
         <Button
           label="&#128427; Download GIF"
-          onClick={convertSVGToGIF}
+          onClick={() => convertSVGToGIF(svgContainer, svgWidth, svgHeight)}
           disabled={debouncing}
         />
       </div>

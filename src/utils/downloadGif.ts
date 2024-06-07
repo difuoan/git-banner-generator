@@ -1,0 +1,70 @@
+import { Canvg } from "canvg";
+import GIF from "gif.js";
+import { RefObject } from "react";
+
+export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number) => {
+    const svgText = svgContainer.current?.innerHTML;
+    const canvas: HTMLCanvasElement = document.createElement("canvas");
+    canvas.width = svgWidth;
+    canvas.height = svgHeight;
+    const context = canvas.getContext("2d", { willReadFrequently: true });
+    if (!context || !svgText) return;
+    const gif = new GIF({
+        workers: 2,
+        quality: 10,
+        width: svgWidth,
+        height: svgHeight,
+        repeat: 1,
+    });
+
+    const canvgInstance = Canvg.fromString(context, svgText, {
+        ignoreAnimation: true,
+        ignoreMouse: true,
+    });
+
+    const allAnimationsDone: boolean[] = [];
+    let millisecond: number = 0;
+
+    const millisecondsPerFrame = 60;
+    const renderFrame = async function () {
+        canvgInstance.screen.animations.forEach((a, i) => {
+            // @ts-ignore
+            if (millisecond >= a.maxDuration) {
+                if (!allAnimationsDone[i]) {
+                    allAnimationsDone[i] = true;
+                    // @ts-ignore
+                    a.duration = a.maxDuration;
+                }
+            } else {
+                allAnimationsDone[i] = false;
+                a.update(millisecondsPerFrame);
+            }
+        });
+        await canvgInstance.render();
+        gif.addFrame(context, {
+            copy: true,
+            delay: (1 / millisecondsPerFrame) * 1000,
+        });
+        millisecond += millisecondsPerFrame;
+        if (!allAnimationsDone.every((d) => !!d)) {
+            await renderFrame();
+        }
+    };
+    await renderFrame();
+
+    await canvgInstance.render();
+
+    gif.on("finished", function (blob) {
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "yourCoolBanner.gif";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+
+    gif.render();
+}
