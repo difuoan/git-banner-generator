@@ -151,8 +151,7 @@ export const mapSettingsElement = (
   }
   return (
     <form
-      className="flex flex-col gap-4 border border-gray-400 p-8 rounded resize-x"
-      style={{ overflow: "auto", position: "relative" }}
+      className="flex flex-col gap-4 border border-gray-400 p-8 rounded"
       key={element.index}
     >
       <StringInput

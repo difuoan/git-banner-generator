@@ -177,137 +177,143 @@ export default function Home() {
     );
   }
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center p-24 gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full`}
-    >
-      {/* OVERLAY */}
-      <Overlay busy={busy} />
-      {/* HEADER */}
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-        GitHub-safe Animated SVG Generator
-      </h1>
-      <a
-        href="https://github.com/difuoan"
-        className="font-medium text-blue-600 hover:underline"
-        target="_blank"
-      >
-        <small>by Lucas J. Venturini</small>
-      </a>
-      {/* SVG */}
-      <div
-        style={{ maxWidth: "600px", minWidth: "50%", width: "100%" }}
-        ref={svgContainer}
-      >
-        {svgToDisplay}
+    <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container max-h-screen overflow-hidden">
+      <div className="fixed w-full text-center mr-9 pl-9">
+        {/* OVERLAY */}
+        <Overlay busy={busy} />
+        <div className="bg-gray-300 w-full">
+          {/* HEADER */}
+          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+            GitHub-safe Animated SVG Generator
+          </h1>
+          <a
+            href="https://github.com/difuoan"
+            className="font-medium text-blue-600 hover:underline"
+            target="_blank"
+          >
+            <small>by Lucas J. Venturini</small>
+          </a>
+        </div>
+        <div className="h-16 bg-gradient-to-b from-gray-300 to-transparent">
+          {/* not really empty */}
+        </div>
       </div>
-      {/* BUTTONS */}
-      <div className={"flex flex-row gap-8"}>
-        <Button
-          disabled={debouncing}
-          label="&#10227; Reset"
-          onClick={() => resetState()}
-          color="rose"
-        />
-        <Button
-          label="&#11208; Play animations"
-          onClick={playAnimations}
-          color="teal"
-          disabled={debouncing}
-        />
-        <Button
-          label="&#9112; Copy Preset"
-          onClick={copyPreset}
-          disabled={debouncing}
-          color="slate"
-        />
-        <Button
-          label="&#128427; Download SVG"
-          onClick={downloadSvg}
-          disabled={debouncing}
-        />
-        <Button
-          label="&#128427; Download GIF"
-          onClick={async () => {
-            setBusy(true);
-            convertSVGToGIF(svgContainer, svgWidth, svgHeight, () =>
-              setBusy(false)
-            );
-          }}
-          disabled={debouncing}
-        />
-      </div>
-      <div className={"flex flex-row gap-8"}>
-        <Button
-          label="&#43; Image"
-          onClick={addImg}
-          color="slate"
-          disabled={debouncing}
-        />
-      </div>
-      <div className={"flex flex-row gap-8"}>
-        <Button
-          disabled={debouncing || historyIndex <= 0}
-          label="&#171; Back"
-          onClick={() => timeTravel(historyIndex - 1)}
-          color="slate"
-        />
-        <Button
-          disabled={
-            debouncing ||
-            !(history.length > 0 && historyIndex < history.length - 1)
-          }
-          label="Next &#187;"
-          onClick={() => timeTravel(historyIndex + 1)}
-          color="slate"
-        />
-      </div>
-      {/* SETTINGS */}
-      <div className="flex flex-row gap-8 flex-wrap content-center justify-center">
-        <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
-          <details open>
-            <summary className="cursor-pointer">
-              <h6 className="text-lg font-bold inline">SVG</h6>
-            </summary>
-            <div>
-              <NumberInput
-                keyVal="width"
-                label="Width"
-                value={svgWidth}
-                onChange={(val: number) => {
-                  setSvgWidth(val);
-                  addHistoryElement({
-                    elements: elements,
-                    height: svgHeight,
-                    width: val,
-                  });
-                }}
-                min={1}
-                max={1000}
-              />
-              <NumberInput
-                keyVal="height"
-                label="Height"
-                value={svgHeight}
-                onChange={(val: number) => {
-                  setSvgHeight(val);
-                  addHistoryElement({
-                    elements: elements,
-                    width: svgWidth,
-                    height: val,
-                  });
-                }}
-                min={1}
-                max={500}
-              />
-            </div>
-          </details>
-        </form>
-        {settings}
-      </div>
-      {/* PRESETS */}
-      <span className="text-4xl font-extrabold">Presets</span>
-      <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
-        {presetHtml}
+      <div className="columns-2 gap-8 w-full max-h-screen">
+        <div className="flex flex-col gap-8 items-center pl-24 pb-24 pt-48">
+          {/* SVG */}
+          <div className="w-full" ref={svgContainer}>
+            {svgToDisplay}
+          </div>
+          {/* BUTTONS */}
+          <div className="flex flex-row gap-8">
+            <Button
+              disabled={debouncing}
+              label="&#10227; Reset"
+              onClick={() => resetState()}
+              color="rose"
+            />
+            <Button
+              label="&#11208; Play animations"
+              onClick={playAnimations}
+              color="teal"
+              disabled={debouncing}
+            />
+            <Button
+              label="&#9112; Copy Preset"
+              onClick={copyPreset}
+              disabled={debouncing}
+              color="slate"
+            />
+            <Button
+              label="&#128427; Download SVG"
+              onClick={downloadSvg}
+              disabled={debouncing}
+            />
+            <Button
+              label="&#128427; Download GIF"
+              onClick={async () => {
+                setBusy(true);
+                convertSVGToGIF(svgContainer, svgWidth, svgHeight, () =>
+                  setBusy(false)
+                );
+              }}
+              disabled={debouncing}
+            />
+          </div>
+          <div className="flex flex-row gap-8">
+            <Button
+              disabled={debouncing || historyIndex <= 0}
+              label="&#171; Back"
+              onClick={() => timeTravel(historyIndex - 1)}
+              color="slate"
+            />
+            <Button
+              disabled={
+                debouncing ||
+                !(history.length > 0 && historyIndex < history.length - 1)
+              }
+              label="Next &#187;"
+              onClick={() => timeTravel(historyIndex + 1)}
+              color="slate"
+            />
+          </div>
+          {/* PRESETS */}
+          <span className="text-4xl font-extrabold">Presets</span>
+          <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
+            {presetHtml}
+          </div>
+        </div>
+        <div className="flex flex-col gap-8 overflow-y-scroll max-h-screen pr-24 pb-24 pt-48">
+          <div className="flex flex-row gap-8">
+            <Button
+              label="&#43; Image"
+              onClick={addImg}
+              color="slate"
+              disabled={debouncing}
+            />
+          </div>
+          {/* SETTINGS */}
+          <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
+            <details open>
+              <summary className="cursor-pointer">
+                <h6 className="text-lg font-bold inline">SVG</h6>
+              </summary>
+              <div>
+                <NumberInput
+                  keyVal="width"
+                  label="Width"
+                  value={svgWidth}
+                  onChange={(val: number) => {
+                    setSvgWidth(val);
+                    addHistoryElement({
+                      elements: elements,
+                      height: svgHeight,
+                      width: val,
+                    });
+                  }}
+                  min={1}
+                  max={1000}
+                />
+                <NumberInput
+                  keyVal="height"
+                  label="Height"
+                  value={svgHeight}
+                  onChange={(val: number) => {
+                    setSvgHeight(val);
+                    addHistoryElement({
+                      elements: elements,
+                      width: svgWidth,
+                      height: val,
+                    });
+                  }}
+                  min={1}
+                  max={500}
+                />
+              </div>
+            </details>
+          </form>
+          {settings}
+        </div>
       </div>
     </main>
   );
