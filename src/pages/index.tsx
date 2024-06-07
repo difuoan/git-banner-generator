@@ -11,10 +11,12 @@ import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
 import { convertSVGToGIF } from "@/utils/downloadGif";
+import Overlay from "@/components/overlay";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
   const [debouncing, setDebouncing] = useState(false);
+  const [busy, setBusy] = useState(false);
   const [presetToUse, setPresetToUse] = useState(0);
   const [historyIndex, setHistoryIndex] = useState(0);
   const [displaySvg, setDisplaySvg] = useState(true);
@@ -178,6 +180,8 @@ export default function Home() {
     <main
       className={`flex min-h-screen flex-col items-center p-24 gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full`}
     >
+      {/* OVERLAY */}
+      <Overlay busy={busy} />
       {/* HEADER */}
       <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
         GitHub-safe Animated SVG Generator
@@ -208,6 +212,7 @@ export default function Home() {
           label="&#11208; Play animations"
           onClick={playAnimations}
           color="teal"
+          disabled={debouncing}
         />
         <Button
           label="&#9112; Copy Preset"
@@ -222,12 +227,22 @@ export default function Home() {
         />
         <Button
           label="&#128427; Download GIF"
-          onClick={() => convertSVGToGIF(svgContainer, svgWidth, svgHeight)}
+          onClick={async () => {
+            setBusy(true);
+            convertSVGToGIF(svgContainer, svgWidth, svgHeight, () =>
+              setBusy(false)
+            );
+          }}
           disabled={debouncing}
         />
       </div>
       <div className={"flex flex-row gap-8"}>
-        <Button label="&#43; Image" onClick={addImg} color="slate" />
+        <Button
+          label="&#43; Image"
+          onClick={addImg}
+          color="slate"
+          disabled={debouncing}
+        />
       </div>
       <div className={"flex flex-row gap-8"}>
         <Button

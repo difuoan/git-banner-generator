@@ -3,7 +3,7 @@ import GIF from "gif.js";
 import { RefObject } from "react";
 import { downloadBlob } from "./downloadBlob";
 
-export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number) => {
+export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number, callbackFunction?: Function) => {
     const svgText = svgContainer.current?.innerHTML;
     const canvas: HTMLCanvasElement = document.createElement("canvas");
     canvas.width = svgWidth;
@@ -55,7 +55,10 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
 
     await canvgInstance.render();
 
-    gif.on("finished", (blob) => downloadBlob(blob, "gif"));
+    gif.on("finished", (blob) => {
+        downloadBlob(blob, "gif")
+        if (callbackFunction) callbackFunction()
+    });
 
     gif.render();
 }
