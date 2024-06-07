@@ -30,16 +30,24 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
     const renderFrame = async function () {
         canvgInstance.screen.animations.forEach((a, i) => {
             // @ts-ignore
-            if (millisecond >= a.maxDuration || a.duration + millisecondsPerFrame >= a.maxDuration) {
+            if (a.duration + millisecondsPerFrame >= a.maxDuration) {
                 if (!allAnimationsDone[i]) {
                     allAnimationsDone[i] = true;
                     // @ts-ignore
-                    a.duration = a.maxDuration;
+                    a.update(a.maxDuration - a.duration);
                 }
-            } else {
-                allAnimationsDone[i] = false;
-                a.update(millisecondsPerFrame);
-            }
+            } else
+                // @ts-ignore
+                if (millisecond >= a.maxDuration) {
+                    if (!allAnimationsDone[i]) {
+                        allAnimationsDone[i] = true;
+                        // @ts-ignore
+                        a.duration = a.maxDuration;
+                    }
+                } else {
+                    allAnimationsDone[i] = false;
+                    a.update(millisecondsPerFrame);
+                }
         });
         await canvgInstance.render();
         gif.addFrame(context, {
