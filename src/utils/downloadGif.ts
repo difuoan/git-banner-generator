@@ -1,6 +1,7 @@
 import { Canvg } from "canvg";
 import GIF from "gif.js";
 import { RefObject } from "react";
+import { downloadBlob } from "./downloadBlob";
 
 export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number) => {
     const svgText = svgContainer.current?.innerHTML;
@@ -54,17 +55,7 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
 
     await canvgInstance.render();
 
-    gif.on("finished", function (blob) {
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "yourCoolBanner.gif";
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    });
+    gif.on("finished", (blob) => downloadBlob(blob, "gif"));
 
     gif.render();
 }
