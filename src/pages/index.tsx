@@ -171,7 +171,7 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container lg:max-h-screen overflow-hidden">
-      <div className="fixed w-full text-center lg:mr-9 lg:pl-9">
+      <div className="fixed w-full text-center lg:mr-9">
         {/* OVERLAY */}
         <Overlay busy={busy} />
         <Header />
@@ -180,7 +180,7 @@ export default function Home() {
         </div>
       </div>
       <div className="lg:columns-2 gap-8 w-full lg:max-h-screen">
-        <div className="flex flex-col gap-8 items-center lg:pl-24 lg:pb-24 pt-48 overflow-y-hidden">
+        <div className="flex flex-col gap-8 lg:overflow-y-auto lg:max-h-screen lg:pl-24 lg:pr-8 pb-24 pt-8 lg:pt-48 items-center">
           {/* SVG */}
           <div className="w-full" ref={svgContainer}>
             {svgToDisplay}
