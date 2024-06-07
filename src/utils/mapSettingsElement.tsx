@@ -151,7 +151,7 @@ export const mapSettingsElement = (
   }
   return (
     <form
-      className="flex flex-col gap-4 border border-gray-400 p-8 rounded"
+      className="flex flex-col gap-4 border border-gray-400 p-8 rounded w-full"
       key={element.index}
     >
       <StringInput

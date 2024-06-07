@@ -6,6 +6,7 @@ const Button = ({
   color = "blue",
   disabled,
   colorStrength = 5,
+  className,
 }: Partial<
   JSX.IntrinsicAttributes & ButtonHTMLAttributes<HTMLButtonElement>
 > & {
@@ -26,7 +27,7 @@ const Button = ({
       disabled={disabled}
       type="button"
       onClick={onClick}
-      className={classesToUse}
+      className={classesToUse + " " + className}
     >
       {label}
     </button>

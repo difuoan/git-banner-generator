@@ -88,7 +88,6 @@ export default function Home() {
       {
         index: elementIndex,
         src: testImg,
-        style: "position: absolute;\nwidth: 100px;",
       },
     ];
     setElements(newElements);
@@ -157,7 +156,7 @@ export default function Home() {
       <img
         src={preset.src}
         alt={preset.src}
-        className="flex flex-col gap-4 border border-gray-400 rounded cursor-pointer"
+        className="border border-gray-400 rounded cursor-pointer"
         onClick={() => changePreset(index)}
         key={index}
         style={{ maxWidth: "250px", maxHeight: "150px" }}
@@ -177,13 +176,13 @@ export default function Home() {
     );
   }
   return (
-    <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container max-h-screen overflow-hidden">
-      <div className="fixed w-full text-center mr-9 pl-9">
+    <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container lg:max-h-screen overflow-hidden">
+      <div className="fixed w-full text-center lg:mr-9 lg:pl-9">
         {/* OVERLAY */}
         <Overlay busy={busy} />
-        <div className="bg-gray-300 w-full">
+        <div className="bg-gray-300 w-full pt-12">
           {/* HEADER */}
-          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+          <h1 className="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 lg:text-5xl lg:text-6xl">
             GitHub-safe Animated SVG Generator
           </h1>
           <a
@@ -194,18 +193,18 @@ export default function Home() {
             <small>by Lucas J. Venturini</small>
           </a>
         </div>
-        <div className="h-16 bg-gradient-to-b from-gray-300 to-transparent">
+        <div className="h-12 bg-gradient-to-b from-gray-300 to-transparent">
           {/* not really empty */}
         </div>
       </div>
-      <div className="columns-2 gap-8 w-full max-h-screen">
-        <div className="flex flex-col gap-8 items-center pl-24 pb-24 pt-48">
+      <div className="lg:columns-2 gap-8 w-full lg:max-h-screen">
+        <div className="flex flex-col gap-8 items-center lg:pl-24 lg:pb-24 pt-48 overflow-y-hidden">
           {/* SVG */}
           <div className="w-full" ref={svgContainer}>
             {svgToDisplay}
           </div>
           {/* BUTTONS */}
-          <div className="flex flex-row gap-8">
+          <div className="flex flex-row gap-y-8 gap-x-4 flex-wrap justify-center">
             <Button
               disabled={debouncing}
               label="&#10227; Reset"
@@ -223,6 +222,7 @@ export default function Home() {
               onClick={copyPreset}
               disabled={debouncing}
               color="slate"
+              className="hidden xl:block"
             />
             <Button
               label="&#128427; Download SVG"
@@ -240,6 +240,15 @@ export default function Home() {
               disabled={debouncing}
             />
           </div>
+          {/* PRESETS BIG*/}
+          <div className="hidden lg:block text-center w-full">
+            <span className="text-4xl font-extrabold">Presets</span>
+            <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full mt-8">
+              {presetHtml}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col gap-8 lg:overflow-y-scroll lg:max-h-screen lg:pr-24 pb-24 pt-8 lg:pt-48 items-center">
           <div className="flex flex-row gap-8">
             <Button
               disabled={debouncing || historyIndex <= 0}
@@ -257,13 +266,6 @@ export default function Home() {
               color="slate"
             />
           </div>
-          {/* PRESETS */}
-          <span className="text-4xl font-extrabold">Presets</span>
-          <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full">
-            {presetHtml}
-          </div>
-        </div>
-        <div className="flex flex-col gap-8 overflow-y-scroll max-h-screen pr-24 pb-24 pt-48">
           <div className="flex flex-row gap-8">
             <Button
               label="&#43; Image"
@@ -273,7 +275,7 @@ export default function Home() {
             />
           </div>
           {/* SETTINGS */}
-          <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded">
+          <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded w-full">
             <details open>
               <summary className="cursor-pointer">
                 <h6 className="text-lg font-bold inline">SVG</h6>
@@ -313,6 +315,13 @@ export default function Home() {
             </details>
           </form>
           {settings}
+          {/* PRESETS SMALL*/}
+          <div className="lg:hidden block text-center w-full">
+            <span className="text-4xl font-extrabold">Presets</span>
+            <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full mt-8">
+              {presetHtml}
+            </div>
+          </div>
         </div>
       </div>
     </main>
