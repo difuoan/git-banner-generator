@@ -13,6 +13,7 @@ import { debounce } from "lodash";
 import { convertSVGToGIF } from "@/utils/downloadGif";
 import Overlay from "@/components/overlay";
 import Header from "@/components/header";
+import StringInput from "@/components/stringInput";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -23,6 +24,7 @@ export default function Home() {
   const [displaySvg, setDisplaySvg] = useState(true);
   const preset = { ...presets[presetToUse] };
   const [svgWidth, setSvgWidth] = useState(preset.width);
+  const [svgBackground, setSvgBackground] = useState(preset.background);
   const [svgHeight, setSvgHeight] = useState(preset.height);
   const [elements, setElements] = useState<SvgElement[]>([...preset.elements]);
   const elementIndex = Math.max(...elements.map((ele) => ele.index), 0) + 1;
@@ -31,6 +33,7 @@ export default function Home() {
       elements: elements,
       height: svgHeight,
       width: svgWidth,
+      background: svgBackground,
     },
   ]);
 
@@ -47,6 +50,7 @@ export default function Home() {
     setElements([...pre.elements]);
     setSvgWidth(pre.width);
     setSvgHeight(pre.height);
+    setSvgBackground(pre.background);
     resetHistory();
   };
   const onElementChange = (element: SvgElement) => {
@@ -61,6 +65,7 @@ export default function Home() {
       elements: newEles,
       height: svgHeight,
       width: svgWidth,
+      background: svgBackground,
     });
   };
   const copyPreset = () => {
@@ -69,6 +74,7 @@ export default function Home() {
       height: svgHeight,
       width: svgWidth,
       src: "",
+      background: "white",
     };
     navigator.clipboard.writeText(JSON.stringify(newPres));
   };
@@ -81,6 +87,7 @@ export default function Home() {
       elements: newElements,
       height: svgHeight,
       width: svgWidth,
+      background: svgBackground,
     });
   };
   const addImg = () => {
@@ -89,13 +96,37 @@ export default function Home() {
       {
         index: elementIndex,
         src: testImg,
-      },
+        x: 0,
+        y: 0,
+      } as SvgElement,
     ];
     setElements(newElements);
     addHistoryElement({
       elements: newElements,
       height: svgHeight,
       width: svgWidth,
+      background: svgBackground,
+    });
+  };
+  const addText = () => {
+    const newElements = [
+      ...elements,
+      {
+        index: elementIndex,
+        text: "your text",
+        x: 0,
+        y: 0,
+        color: "black",
+        fontSize: 12,
+        fontFamily: "impact",
+      } as SvgElement,
+    ];
+    setElements(newElements);
+    addHistoryElement({
+      elements: newElements,
+      height: svgHeight,
+      width: svgWidth,
+      background: svgBackground,
     });
   };
   const changePreset = (presetIndex: number) => {
@@ -135,6 +166,7 @@ export default function Home() {
         elements: elements,
         height: svgHeight,
         width: svgWidth,
+        background: svgBackground,
       },
     ]);
     setHistoryIndex(0);
@@ -166,6 +198,7 @@ export default function Home() {
         elements={elements}
         svgwidth={svgWidth}
         svgheight={svgHeight}
+        svgbackground={svgBackground}
       />
     );
   }
@@ -215,8 +248,12 @@ export default function Home() {
               label="&#128427; Download GIF"
               onClick={async () => {
                 setBusy(true);
-                convertSVGToGIF(svgContainer, svgWidth, svgHeight, () =>
-                  setBusy(false)
+                convertSVGToGIF(
+                  svgContainer,
+                  svgWidth,
+                  svgHeight,
+                  svgBackground,
+                  () => setBusy(false)
                 );
               }}
               disabled={debouncing}
@@ -255,14 +292,20 @@ export default function Home() {
               color="slate"
               disabled={debouncing}
             />
+            <Button
+              label="&#43; Text"
+              onClick={addText}
+              color="slate"
+              disabled={debouncing}
+            />
           </div>
           {/* SETTINGS */}
-          <form className="flex flex-col gap-4 border border-gray-400 p-8 rounded w-full">
+          <form className="border border-gray-400 p-8 rounded w-full">
             <details open>
               <summary className="cursor-pointer">
                 <h6 className="text-lg font-bold inline">SVG</h6>
               </summary>
-              <div>
+              <div className="flex flex-col gap-4 ">
                 <NumberInput
                   keyVal="width"
                   label="Width"
@@ -273,6 +316,7 @@ export default function Home() {
                       elements: elements,
                       height: svgHeight,
                       width: val,
+                      background: svgBackground,
                     });
                   }}
                   min={50}
@@ -288,10 +332,25 @@ export default function Home() {
                       elements: elements,
                       width: svgWidth,
                       height: val,
+                      background: svgBackground,
                     });
                   }}
                   min={1}
                   max={500}
+                />
+                <StringInput
+                  keyVal="background"
+                  value={svgBackground}
+                  label="Background"
+                  onChange={(val: string) => {
+                    setSvgBackground(val);
+                    addHistoryElement({
+                      elements: elements,
+                      width: svgWidth,
+                      height: svgHeight,
+                      background: val,
+                    });
+                  }}
                 />
               </div>
             </details>

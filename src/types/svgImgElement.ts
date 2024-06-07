@@ -1,6 +1,8 @@
+import { SvgBaseElement } from "./svgBaseElement"
+
 export type SvgImgElement = {
     src: string
-}
+} & SvgBaseElement
 
 export const isSvgImgElement = (element: any): element is SvgImgElement => {
     if (typeof element !== "object") return false

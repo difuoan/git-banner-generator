@@ -4,6 +4,7 @@ export type HistoryElement = {
     width: number;
     height: number;
     elements: SvgElement[];
+    background: string
 };
 
 export const isHistoryElement = (element: any): element is HistoryElement => {
@@ -13,8 +14,10 @@ export const isHistoryElement = (element: any): element is HistoryElement => {
             "width" in element,
             "height" in element,
             "elements" in element,
+            "background" in element,
             typeof element.elements === "object",
             typeof element.width === "number",
+            typeof element.background === "string",
             typeof element.height === "number",
         ].every((val) => val === true)
     )

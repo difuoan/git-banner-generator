@@ -7,6 +7,7 @@ const SVGComponent = (
     elements: SvgElement[];
     svgheight: number;
     svgwidth: number;
+    svgbackground: string;
   }
 ) => {
   const [isClient, setIsClient] = useState(false);
@@ -25,9 +26,19 @@ const SVGComponent = (
       viewBox={"0 0 " + props.svgwidth + " " + props.svgheight}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid meet"
-      style={{ maxWidth: "100%", maxHeight: "auto" }}
+      style={{
+        maxWidth: "100%",
+        maxHeight: "auto",
+      }}
       {...props}
     >
+      <rect
+        width={props.svgwidth}
+        height={props.svgheight}
+        fill={props.svgbackground}
+        x={0}
+        y={0}
+      ></rect>
       {elementHtml}
     </svg>
   );

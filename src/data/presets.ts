@@ -12,14 +12,18 @@ import { ljvLastName } from "./preset/ljvLastName";
 
 export const presets: Preset[] = [
   {
+    background: "orange",
     elements: [
       {
         index: 1,
         src: ljvBackground,
         name: "Background",
-        animations: [],
+        x: 0,
+        y: 0
       },
       {
+        x: 0,
+        y: 0,
         index: 2,
         src: izzy,
         name: "Izzy",
@@ -45,6 +49,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         index: 3,
         src: ljvVenCode,
         name: "venturini.codes",
@@ -70,6 +76,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         index: 4,
         src: ljvHello,
         name: "Hello World!",
@@ -86,6 +94,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         index: 5,
         src: ljvName,
         name: "Lucas",
@@ -111,6 +121,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         index: 6,
         src: ljvIM,
         name: "I'm",
@@ -136,6 +148,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         index: 7,
         src: ljvLastName,
         name: "J. Venturini",
@@ -167,8 +181,11 @@ export const presets: Preset[] = [
   },
   {
     src: "/tjvBanner.svg",
+    background: "black",
     elements: [
       {
+        x: 0,
+        y: 0,
         name: "venturini.codes",
         index: 1,
         src: tjv1,
@@ -194,6 +211,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         name: "thomasventurini.com",
         index: 2,
         src: tjv2,
@@ -219,6 +238,8 @@ export const presets: Preset[] = [
         ],
       },
       {
+        x: 0,
+        y: 0,
         name: "edward",
         index: 3,
         src: tjv3,
