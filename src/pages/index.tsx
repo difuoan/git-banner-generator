@@ -10,8 +10,6 @@ import { Preset } from "@/types/preset";
 import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
-import { Canvg } from "canvg";
-import GIF from "gif.js";
 import { convertSVGToGIF } from "@/utils/downloadGif";
 
 export default function Home() {
