@@ -2,7 +2,7 @@ export default function Overlay({ busy }: { busy: boolean }) {
   return (
     <div
       role="status"
-      className="w-full content-center h-full fixed bg-gray-100/75 top-0 left-0 z-50 text-center"
+      className="w-full content-center h-full fixed bg-gradient-to-b from-gray-100/25 via-gray-100 to-gray-100/75 top-0 left-0 z-50 text-center"
       style={{ display: busy ? "block" : "none" }}
     >
       <svg
