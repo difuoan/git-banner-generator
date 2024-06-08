@@ -11,8 +11,8 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context || !svgText) return;
     const gif = new GIF({
-        workers: 2,
-        quality: 10,
+        workers: 10,
+        quality: 1,
         width: svgWidth,
         height: svgHeight,
         repeat: 1,
@@ -60,8 +60,6 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
         }
     };
     await renderFrame();
-
-    await canvgInstance.render();
 
     gif.on("finished", (blob) => {
         downloadBlob(blob, "gif")
