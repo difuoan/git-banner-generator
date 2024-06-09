@@ -5,12 +5,18 @@ export type SvgTextElement = {
     color: string;
     fontSize: number
     fontFamily: string
+    x: number
+    y: number
 } & SvgBaseElement;
 
 export const isSvgTextElement = (element: any): element is SvgTextElement => {
     if (typeof element !== "object") return false;
     if (
         ![
+            "x" in element,
+            typeof element.x === "number",
+            "y" in element,
+            typeof element.y === "number",
             "text" in element,
             typeof element.text === "string",
             "color" in element,

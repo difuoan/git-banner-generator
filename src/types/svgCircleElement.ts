@@ -1,8 +1,8 @@
 import { SvgBaseElement } from "./svgBaseElement";
 
 export type SvgCircleElement = {
-    x: number;
-    y: number;
+    cx: number;
+    cy: number;
     r: number;
     fill: string;
 } & SvgBaseElement;
@@ -13,10 +13,10 @@ export const isSvgCircleElement = (
     if (typeof element !== "object") return false;
     if (
         ![
-            "x" in element,
-            typeof element.x === "number",
-            "y" in element,
-            typeof element.y === "number",
+            "cx" in element,
+            typeof element.cx === "number",
+            "cy" in element,
+            typeof element.cy === "number",
             "r" in element,
             typeof element.r === "number",
             "fill" in element,
