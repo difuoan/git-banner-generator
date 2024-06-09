@@ -55,6 +55,7 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
       <rect
         width={element.width}
         height={element.height}
+        key={index}
         rx={element.rx}
         ry={element.ry}
         x={element.x}
