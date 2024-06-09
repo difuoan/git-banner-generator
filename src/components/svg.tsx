@@ -10,13 +10,6 @@ const SVGComponent = (
     svgbackground: string;
   }
 ) => {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  // only display client side to avoid stupid "css is not the same on server/client" error
-  if (!isClient) return null;
-
   const elementHtml = props.elements.map(mapSvgElement);
 
   return (
