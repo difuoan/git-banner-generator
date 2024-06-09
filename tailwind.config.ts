@@ -49,6 +49,7 @@ const config: Config = {
     "bg-gray-500",
     "bg-gray-600",
     "bg-gray-700",
+    "mt-4"
   ],
   theme: {
     extend: {

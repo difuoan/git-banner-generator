@@ -8,7 +8,9 @@ import { testImg } from "@/data/testImg";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
-  const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
+  const mappedAnimations = (element.animations ?? []).map(() =>
+    mapSvgAnimation(animation, index)
+  );
   if (isSvgImgElement(element)) {
     return (
       <image
@@ -23,21 +25,26 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
       </image>
     );
   } else if (isSvgTextElement(element)) {
-    return (
-      <text
-        x={element.x}
-        y={element.y}
-        key={index}
-        fill={element.color}
-        fontSize={element.fontSize}
-        fontFamily={fontFamilies[element.fontFamily]}
-        dominantBaseline="text-before-edge"
-        textAnchor="start"
-      >
-        {element.text}
-        {mappedAnimations}
-      </text>
-    );
+    const texts = element.text.split("\n").map((text, txtidx) => {
+      return (
+        <text
+          x={element.x}
+          y={element.y}
+          dx={(element.dx ?? 0) * txtidx}
+          dy={(element.dy ?? element.fontSize * 1.4) * txtidx}
+          key={txtidx}
+          fill={element.color}
+          fontSize={element.fontSize}
+          fontFamily={fontFamilies[element.fontFamily]}
+          dominantBaseline="text-before-edge"
+          textAnchor="start"
+        >
+          {text}
+          {mappedAnimations}
+        </text>
+      );
+    });
+    return <g key={index}>{texts}</g>;
   } else if (isSvgCircleElement(element)) {
     return (
       <circle

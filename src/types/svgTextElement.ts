@@ -7,6 +7,8 @@ export type SvgTextElement = {
     fontFamily: string
     x: number
     y: number
+    dx: number,
+    dy: number
 } & SvgBaseElement;
 
 export const isSvgTextElement = (element: any): element is SvgTextElement => {

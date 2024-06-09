@@ -1,10 +1,13 @@
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
 
-export const mapSvgAnimation = (animation: SvgAnimation, index: number) => {
+export const mapSvgAnimation = (
+  animation: SvgAnimation,
+  animationIndex: number
+) => {
   return (
     <animate
-      key={index}
+      key={animationIndex}
       attributeName={animation.attributeName}
       from={animation.from}
       to={animation.to}

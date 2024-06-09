@@ -38,7 +38,7 @@ export const generateCircleSettings = (
         <summary className="cursor-pointer">
           <h6 className="text-lg font-bold dark:text-white inline">Position</h6>
         </summary>
-        <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
+        <div className="flex flex-col gap-4 mt-4">
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.cx ?? 0}

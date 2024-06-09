@@ -29,7 +29,7 @@ export const mapSettingAnimation = (
           Animation #{index + 1}
         </h6>
       </summary>
-      <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
+      <div className="flex flex-col gap-4 mt-4">
         <Select
           keyVal={element.index + (element.name ?? "") + index}
           label="Anim"
