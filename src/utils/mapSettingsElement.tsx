@@ -34,7 +34,7 @@ export const mapSettingsElement = (
             <h6 className="text-lg font-bold dark:text-white inline">Scale</h6>
           </summary>
           <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
-            <div className="flex flex-row">
+            <div className="flex flex-row gap-4">
               <NumberInput
                 keyVal={element.index + (element.name ?? "")}
                 value={element.width ?? 0}
@@ -55,7 +55,7 @@ export const mapSettingsElement = (
                 color="rose"
               />
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row gap-4">
               <NumberInput
                 keyVal={element.index + (element.name ?? "")}
                 value={element.height ?? 0}
