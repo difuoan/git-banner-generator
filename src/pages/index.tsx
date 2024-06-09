@@ -162,7 +162,7 @@ export default function Home() {
         </div>
       </div>
       <div className="lg:columns-2 gap-8 w-full lg:max-h-screen">
-        <div className="flex flex-col gap-8 lg:overflow-y-auto lg:max-h-screen lg:pl-24 lg:pr-8 pb-24 pt-8 lg:pt-48 items-center">
+        <div className="flex flex-col gap-8 lg:overflow-y-auto lg:max-h-screen lg:pl-24 lg:pr-8 pb-24 pt-8 pt-48 items-center">
           {/* SVG */}
           <div className="w-full" ref={svgContainer}>
             <SVGComponent
