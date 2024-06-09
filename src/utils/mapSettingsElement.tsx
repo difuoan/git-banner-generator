@@ -6,6 +6,8 @@ import FileInput from "@/components/fileInput";
 import { mapSettingAnimation } from "./mapSettingAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
+import Select from "@/components/select";
+import { fontFamilies } from "@/types/fonts";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -103,13 +105,17 @@ export const mapSettingsElement = (
                 onChange({ ...element, color: val });
               }}
             />
-            <StringInput
+            <Select
               keyVal={element.index + (element?.name ?? "")}
-              value={element["fontFamily"] ?? ""}
               label="Font"
-              onChange={(val: string) => {
-                onChange({ ...element, fontFamily: val });
-              }}
+              options={Object.keys(fontFamilies).sort()}
+              value={element.fontFamily ?? "Impact"}
+              onChange={(value: string) =>
+                onChange({
+                  ...element,
+                  fontFamily: value,
+                })
+              }
             />
             <NumberInput
               keyVal={element.index + (element.name ?? "")}

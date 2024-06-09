@@ -2,6 +2,7 @@ import { SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { mapSvgAnimation } from "./mapSvgAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
+import { fontFamilies } from "@/types/fonts";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
   const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
@@ -26,7 +27,7 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         key={index}
         fill={element.color}
         fontSize={element.fontSize}
-        fontFamily={element.fontFamily}
+        fontFamily={fontFamilies[element.fontFamily]}
         dominantBaseline="text-before-edge"
         textAnchor="start"
       >
