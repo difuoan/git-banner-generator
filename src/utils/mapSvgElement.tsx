@@ -3,6 +3,7 @@ import { isSvgImgElement } from "@/types/svgImgElement";
 import { mapSvgAnimation } from "./mapSvgAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { fontFamilies } from "@/types/fonts";
+import { isSvgCircleElement } from "@/types/svgCircleElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
   const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
@@ -32,7 +33,20 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         textAnchor="start"
       >
         {element.text}
+        {mappedAnimations}
       </text>
+    );
+  } else if (isSvgCircleElement(element)) {
+    return (
+      <circle
+        r={element.r}
+        cx={element.x}
+        cy={element.y}
+        key={index}
+        fill={element.fill}
+      >
+        {mappedAnimations}
+      </circle>
     );
   }
 };

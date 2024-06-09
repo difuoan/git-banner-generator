@@ -8,6 +8,10 @@ import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
 import Select from "@/components/select";
 import { fontFamilies } from "@/types/fonts";
+import { generateImgSettings } from "./generateImgSettings";
+import { generateTextSettings } from "./generateTextSettings";
+import { generateCircleSettings } from "./generateCircleSettings";
+import { isSvgCircleElement } from "@/types/svgCircleElement";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -21,116 +25,13 @@ export const mapSettingsElement = (
   );
   if (isSvgImgElement(element)) {
     elementName = "Image";
-    typeSpecificInput = (
-      <>
-        <FileInput
-          keyVal={element.index + (element?.name ?? "")}
-          onFileUpload={(val: string) => {
-            onChange({ ...element, src: val });
-          }}
-        />
-        <details>
-          <summary className="cursor-pointer">
-            <h6 className="text-lg font-bold dark:text-white inline">Scale</h6>
-          </summary>
-          <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
-            <div className="flex flex-row gap-4">
-              <NumberInput
-                keyVal={element.index + (element.name ?? "")}
-                value={element.width ?? 0}
-                label="Width"
-                max={1500}
-                min={0}
-                onChange={(value: number) =>
-                  onChange({ ...element, width: value })
-                }
-                className="w-full mr-8"
-              />
-              <Button
-                label="&#128465;"
-                onClick={() => {
-                  const { width, ...newEle } = element;
-                  onChange({ ...newEle });
-                }}
-                color="rose"
-              />
-            </div>
-            <div className="flex flex-row gap-4">
-              <NumberInput
-                keyVal={element.index + (element.name ?? "")}
-                value={element.height ?? 0}
-                label="Height"
-                max={500}
-                min={0}
-                onChange={(value: number) =>
-                  onChange({ ...element, height: value })
-                }
-                className="w-full mr-8"
-              />
-              <Button
-                label="&#128465;"
-                onClick={() => {
-                  const { height, ...newEle } = element;
-                  onChange({ ...newEle });
-                }}
-                color="rose"
-              />
-            </div>
-          </div>
-        </details>
-      </>
-    );
+    typeSpecificInput = generateImgSettings(element, onChange, onDelete);
   } else if (isSvgTextElement(element)) {
     elementName = "Text";
-    typeSpecificInput = (
-      <>
-        <StringInput
-          keyVal={element.index + (element?.name ?? "")}
-          value={element["text"] ?? ""}
-          label="Text"
-          onChange={(val: string) => {
-            onChange({ ...element, text: val });
-          }}
-        />
-        <details>
-          <summary className="cursor-pointer">
-            <h6 className="text-lg font-bold dark:text-white inline">Style</h6>
-          </summary>
-          <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
-            <StringInput
-              keyVal={element.index + (element?.name ?? "")}
-              value={element["color"] ?? ""}
-              label="Color"
-              onChange={(val: string) => {
-                onChange({ ...element, color: val });
-              }}
-            />
-            <Select
-              keyVal={element.index + (element?.name ?? "")}
-              label="Font"
-              options={Object.keys(fontFamilies).sort()}
-              value={element.fontFamily ?? "Impact"}
-              onChange={(value: string) =>
-                onChange({
-                  ...element,
-                  fontFamily: value,
-                })
-              }
-            />
-            <NumberInput
-              keyVal={element.index + (element.name ?? "")}
-              value={element.fontSize ?? 0}
-              label="Size"
-              max={100}
-              min={1}
-              onChange={(value: number) =>
-                onChange({ ...element, fontSize: value })
-              }
-            />
-          </div>
-        </details>
-      </>
-    );
+    typeSpecificInput = generateTextSettings(element, onChange, onDelete);
+  } else if (isSvgCircleElement(element)) {
+    elementName = "Circle";
+    typeSpecificInput = generateCircleSettings(element, onChange, onDelete);
   }
   return (
     <form

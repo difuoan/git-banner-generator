@@ -14,6 +14,7 @@ import { convertSVGToGIF } from "@/utils/downloadGif";
 import Overlay from "@/components/overlay";
 import Header from "@/components/header";
 import StringInput from "@/components/stringInput";
+import { SvgCircleElement } from "@/types/svgCircleElement";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -90,37 +91,8 @@ export default function Home() {
       background: svgBackground,
     });
   };
-  const addImg = () => {
-    const newElements = [
-      ...elements,
-      {
-        index: elementIndex,
-        src: testImg,
-        x: 0,
-        y: 0,
-      } as SvgElement,
-    ];
-    setElements(newElements);
-    addHistoryElement({
-      elements: newElements,
-      height: svgHeight,
-      width: svgWidth,
-      background: svgBackground,
-    });
-  };
-  const addText = () => {
-    const newElements = [
-      ...elements,
-      {
-        index: elementIndex,
-        text: "your text",
-        x: 0,
-        y: 0,
-        color: "black",
-        fontSize: 12,
-        fontFamily: "impact",
-      } as SvgElement,
-    ];
+  const addElement = (element: SvgElement) => {
+    const newElements = [...elements, { ...element }];
     setElements(newElements);
     addHistoryElement({
       elements: newElements,
@@ -288,13 +260,44 @@ export default function Home() {
           <div className="flex flex-row gap-8">
             <Button
               label="&#43; Image"
-              onClick={addImg}
+              onClick={() =>
+                addElement({
+                  index: elementIndex,
+                  src: testImg,
+                  x: 0,
+                  y: 0,
+                })
+              }
               color="slate"
               disabled={debouncing}
             />
             <Button
               label="&#43; Text"
-              onClick={addText}
+              onClick={() =>
+                addElement({
+                  index: elementIndex,
+                  text: "your text",
+                  x: 0,
+                  y: 0,
+                  color: "black",
+                  fontSize: 12,
+                  fontFamily: "impact",
+                })
+              }
+              color="slate"
+              disabled={debouncing}
+            />
+            <Button
+              label="&#43; Circle"
+              onClick={() =>
+                addElement({
+                  index: elementIndex,
+                  fill: "red",
+                  r: 50,
+                  x: 0,
+                  y: 0,
+                })
+              }
               color="slate"
               disabled={debouncing}
             />
