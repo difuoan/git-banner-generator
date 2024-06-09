@@ -2,9 +2,14 @@ import Github from "./icons/github";
 import Linkedin from "./icons/linkedin";
 import Twitter from "./icons/twitter";
 
-export default function Socials() {
+export default function Socials({ visible }: { visible: boolean }) {
   return (
-    <div className="flex flex-row justify-center gap-4">
+    <div
+      className={
+        (!visible ? "hidden" : "visible") +
+        " flex flex-row justify-center gap-4"
+      }
+    >
       <a
         href="https://github.com/difuoan"
         className="font-medium text-blue-600 hover:underline"
