@@ -20,11 +20,11 @@ import { defaultImg } from "@/data/defaultImg";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
+  const [animationKey, setAnimationKey] = useState(0);
   const [debouncing, setDebouncing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [presetToUse, setPresetToUse] = useState(0);
   const [historyIndex, setHistoryIndex] = useState(0);
-  const [displaySvg, setDisplaySvg] = useState(true);
   const preset = { ...presets[presetToUse] };
   const [svgWidth, setSvgWidth] = useState(preset.width);
   const [svgBackground, setSvgBackground] = useState(preset.background);
@@ -41,13 +41,6 @@ export default function Home() {
   ]);
 
   // FUNCTIONS
-  const playAnimations = () => {
-    // removes and then adds the svg which triggers a re-render of the element and thus starts the animations from 0
-    setDisplaySvg(false);
-    setTimeout(() => {
-      setDisplaySvg(true);
-    }, 0);
-  };
   const resetState = (index = presetToUse) => {
     const pre = presets[index];
     setElements([...pre.elements]);
@@ -154,19 +147,6 @@ export default function Home() {
       />
     );
   });
-  let svgToDisplay = (
-    <div style={{ minHeight: "200px" }}>{/* not really empty */}</div>
-  );
-  if (displaySvg) {
-    svgToDisplay = (
-      <SVGComponent
-        elements={elements}
-        svgwidth={svgWidth}
-        svgheight={svgHeight}
-        svgbackground={svgBackground}
-      />
-    );
-  }
   return (
     <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container lg:max-h-screen overflow-hidden">
       <div className="fixed w-full text-center lg:mr-9">
@@ -181,7 +161,13 @@ export default function Home() {
         <div className="flex flex-col gap-8 lg:overflow-y-auto lg:max-h-screen lg:pl-24 lg:pr-8 pb-24 pt-8 lg:pt-48 items-center">
           {/* SVG */}
           <div className="w-full" ref={svgContainer}>
-            {svgToDisplay}
+            <SVGComponent
+              elements={elements}
+              svgwidth={svgWidth}
+              svgheight={svgHeight}
+              svgbackground={svgBackground}
+              key={animationKey}
+            />
           </div>
           {/* BUTTONS */}
           <div className="flex flex-row gap-y-8 gap-x-4 flex-wrap justify-center">
@@ -193,7 +179,7 @@ export default function Home() {
             />
             <Button
               label="&#11208; Play animations"
-              onClick={playAnimations}
+              onClick={() => setAnimationKey((prevKey) => prevKey + 1)}
               color="teal"
               disabled={debouncing}
             />
