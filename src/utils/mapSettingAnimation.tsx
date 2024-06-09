@@ -3,6 +3,10 @@ import Button from "@/components/button";
 import NumberInput from "@/components/numberInput";
 import Select from "@/components/select";
 import { SvgAnimation } from "@/types/svgAnimation";
+import { isSvgCircleElement } from "@/types/svgCircleElement";
+import { animatableAttributes } from "@/data/animatableAttributes";
+import { isSvgImgElement } from "@/types/svgImgElement";
+import { isSvgTextElement } from "@/types/svgTextElement";
 
 export const mapSettingAnimation = (
   animation: SvgAnimation,
@@ -10,6 +14,14 @@ export const mapSettingAnimation = (
   element: SvgElement,
   onChange: Function
 ) => {
+  let animAttr = [];
+  if (isSvgCircleElement(element)) {
+    animAttr = animatableAttributes["circle"];
+  } else if (isSvgImgElement(element)) {
+    animAttr = animatableAttributes["img"];
+  } else if (isSvgTextElement(element)) {
+    animAttr = animatableAttributes["text"];
+  }
   return (
     <details key={index}>
       <summary className="cursor-pointer">
@@ -21,8 +33,8 @@ export const mapSettingAnimation = (
         <Select
           keyVal={element.index + (element.name ?? "") + index}
           label="Anim"
-          options={["x", "y"]}
-          value={animation.attributeName ?? "x"}
+          options={animAttr}
+          value={animation.attributeName ?? animAttr[0]}
           onChange={(value: number) =>
             onChange({
               ...element,

@@ -4,13 +4,15 @@ import { mapSvgAnimation } from "./mapSvgAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { fontFamilies } from "@/types/fonts";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
+import { testImg } from "@/data/testImg";
+import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
   const mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
   if (isSvgImgElement(element)) {
     return (
       <image
-        href={element.src}
+        href={element.src ?? testImg}
         key={index}
         x={element.x}
         y={element.y}
@@ -40,13 +42,27 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
     return (
       <circle
         r={element.r}
-        cx={element.x}
-        cy={element.y}
+        cx={element.cx}
+        cy={element.cy}
         key={index}
         fill={element.fill}
       >
         {mappedAnimations}
       </circle>
+    );
+  } else if (isSvgRectangleElement(element)) {
+    return (
+      <rect
+        width={element.width}
+        height={element.height}
+        rx={element.rx}
+        ry={element.ry}
+        x={element.x}
+        y={element.y}
+        fill={element.fill}
+      >
+        {mappedAnimations}
+      </rect>
     );
   }
 };

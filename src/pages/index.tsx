@@ -17,6 +17,7 @@ import { SvgCircleElement } from "@/types/svgCircleElement";
 import { defaultCircle } from "@/data/defaultCircle";
 import { defaultText } from "@/data/defaultText";
 import { defaultImg } from "@/data/defaultImg";
+import { defaultRectangle } from "@/data/defaultRectangle";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -172,7 +173,6 @@ export default function Home() {
           {/* BUTTONS */}
           <div className="flex flex-row gap-y-8 gap-x-4 flex-wrap justify-center">
             <Button
-              disabled={debouncing}
               label="&#10227; Reset"
               onClick={() => resetState()}
               color="rose"
@@ -181,20 +181,14 @@ export default function Home() {
               label="&#11208; Play animations"
               onClick={() => setAnimationKey((prevKey) => prevKey + 1)}
               color="teal"
-              disabled={debouncing}
             />
             <Button
               label="&#9112; Copy Preset"
               onClick={copyPreset}
-              disabled={debouncing}
               color="slate"
               className="hidden xl:block"
             />
-            <Button
-              label="&#128427; Download SVG"
-              onClick={downloadSvg}
-              disabled={debouncing}
-            />
+            <Button label="&#128427; Download SVG" onClick={downloadSvg} />
             <Button
               label="&#128427; Download GIF"
               onClick={async () => {
@@ -207,7 +201,6 @@ export default function Home() {
                   () => setBusy(false)
                 );
               }}
-              disabled={debouncing}
             />
           </div>
           {/* PRESETS BIG*/}
@@ -241,7 +234,6 @@ export default function Home() {
               label="&#43; Image"
               onClick={() => addElement({ ...defaultImg, index: elementIndex })}
               color="slate"
-              disabled={debouncing}
             />
             <Button
               label="&#43; Text"
@@ -249,7 +241,6 @@ export default function Home() {
                 addElement({ ...defaultText, index: elementIndex })
               }
               color="slate"
-              disabled={debouncing}
             />
             <Button
               label="&#43; Circle"
@@ -257,7 +248,13 @@ export default function Home() {
                 addElement({ ...defaultCircle, index: elementIndex })
               }
               color="slate"
-              disabled={debouncing}
+            />
+            <Button
+              label="&#43; Rectangle"
+              onClick={() =>
+                addElement({ ...defaultRectangle, index: elementIndex })
+              }
+              color="slate"
             />
           </div>
           {/* SETTINGS */}

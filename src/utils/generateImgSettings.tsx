@@ -72,6 +72,29 @@ export const generateImgSettings = (
           </div>
         </div>
       </details>
+      <details>
+        <summary className="cursor-pointer">
+          <h6 className="text-lg font-bold dark:text-white inline">Position</h6>
+        </summary>
+        <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.x ?? 0}
+            label="X"
+            max={1500}
+            min={-1500}
+            onChange={(value: number) => onChange({ ...element, x: value })}
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.y ?? 0}
+            label="Y"
+            max={500}
+            min={-500}
+            onChange={(value: number) => onChange({ ...element, y: value })}
+          />
+        </div>
+      </details>
     </>
   );
 };
