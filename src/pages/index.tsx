@@ -13,6 +13,7 @@ import { convertSVGToGIF } from "@/utils/downloadGif";
 import Overlay from "@/components/overlay";
 import Header from "@/components/header";
 import StringInput from "@/components/stringInput";
+import ColorInput from "@/components/colorInput";
 import { SvgCircleElement } from "@/types/svgCircleElement";
 import { defaultCircle } from "@/data/defaultCircle";
 import { defaultText } from "@/data/defaultText";
@@ -286,7 +287,7 @@ export default function Home() {
                   min={1}
                   max={500}
                 />
-                <StringInput
+                <ColorInput
                   keyVal="background"
                   value={svgBackground}
                   label="Background"

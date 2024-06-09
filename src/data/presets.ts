@@ -12,7 +12,7 @@ import { ljvLastName } from "./preset/ljvLastName";
 
 export const presets: Preset[] = [
   {
-    background: "orange",
+    background: "#fec039",
     elements: [
       {
         index: 1,
@@ -181,7 +181,7 @@ export const presets: Preset[] = [
   },
   {
     src: "/tjvBanner.svg",
-    background: "black",
+    background: "#000000",
     elements: [
       {
         x: 0,

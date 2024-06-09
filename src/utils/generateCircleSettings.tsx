@@ -8,6 +8,7 @@ import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
 import Select from "@/components/select";
 import { fontFamilies } from "@/types/fonts";
+import ColorInput from "@/components/colorInput";
 
 export const generateCircleSettings = (
   element: SvgElement,
@@ -17,7 +18,7 @@ export const generateCircleSettings = (
   let elementName = "Circle";
   return (
     <>
-      <StringInput
+      <ColorInput
         keyVal={element.index + (element?.name ?? "")}
         value={element["fill"] ?? ""}
         label="Color"

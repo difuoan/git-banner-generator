@@ -7,6 +7,7 @@ import { mapSettingAnimation } from "./mapSettingAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
 import Select from "@/components/select";
+import ColorInput from "@/components/colorInput";
 import { fontFamilies } from "@/types/fonts";
 
 export const generateRectangleSettings = (
@@ -17,7 +18,7 @@ export const generateRectangleSettings = (
   let elementName = "Rectangle";
   return (
     <>
-      <StringInput
+      <ColorInput
         keyVal={element.index + (element?.name ?? "")}
         value={element["fill"] ?? ""}
         label="Color"
