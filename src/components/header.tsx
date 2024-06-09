@@ -10,7 +10,22 @@ export default function Header() {
         className="absolute right-8 top-8 cursor-pointer"
         onClick={() => setVisible(!visible)}
       >
-        👁
+        <span
+          className={
+            (!visible ? "text-2xl" : "text-xl") +
+            " absolute right-2/4 top-2/4 cursor-pointer translate-x-1/2 -translate-y-1/2 pt-2"
+          }
+        >
+          👁
+        </span>
+        <span
+          className={
+            (!visible ? "hidden" : "visible") +
+            " absolute right-2/4 top-2/4 cursor-pointer text-5xl translate-x-1/2 -translate-y-1/2"
+          }
+        >
+          ⊘
+        </span>
       </span>
       <h1
         className={
