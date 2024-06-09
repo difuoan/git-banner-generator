@@ -1,8 +1,7 @@
 import { Spline, isSpline } from "@/data/splines"
-import { AnimatableAttribute, isAnimatableAttribute } from "./animatableAttribute"
 
 export type SvgAnimation = {
-    attributeName: AnimatableAttribute
+    attributeName: string
     from: number
     to: number
     dur: number
@@ -22,7 +21,6 @@ export const isSvgAnimation = (element: any): element is SvgAnimation => {
             "begin" in element,
             "repeatCount" in element,
             "keySplines" in element,
-            isAnimatableAttribute(element.attributeName),
             typeof element.from === "number",
             typeof element.to === "number",
             typeof element.dur === "number",
