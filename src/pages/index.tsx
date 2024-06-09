@@ -50,6 +50,7 @@ export default function Home() {
     setSvgHeight(pre.height);
     setSvgBackground(pre.background);
     resetHistory();
+    setAnimationKey((prevKey) => prevKey + 1);
   };
   const onElementChange = (element: SvgElement) => {
     const eIndex = elements.findIndex((ele) => ele.index === element.index);
@@ -87,6 +88,7 @@ export default function Home() {
     window.scrollTo(0, 0);
     setPresetToUse(presetIndex);
     resetState(presetIndex);
+    setAnimationKey((prevKey) => prevKey + 1);
   };
   const timeTravel = (index: number) => {
     if (index < 0) return;
