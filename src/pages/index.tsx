@@ -7,7 +7,6 @@ import Button from "@/components/button";
 import { mapSettingsElement } from "@/utils/mapSettingsElement";
 import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
-import { testImg } from "@/data/testImg";
 import { HistoryElement } from "@/types/history";
 import { debounce } from "lodash";
 import { convertSVGToGIF } from "@/utils/downloadGif";
@@ -15,6 +14,9 @@ import Overlay from "@/components/overlay";
 import Header from "@/components/header";
 import StringInput from "@/components/stringInput";
 import { SvgCircleElement } from "@/types/svgCircleElement";
+import { defaultCircle } from "@/data/defaultCircle";
+import { defaultText } from "@/data/defaultText";
+import { defaultImg } from "@/data/defaultImg";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -62,12 +64,7 @@ export default function Home() {
       return ele;
     });
     setElements(newEles);
-    addHistoryElement({
-      elements: newEles,
-      height: svgHeight,
-      width: svgWidth,
-      background: svgBackground,
-    });
+    addHistoryElement({ elements: newEles });
   };
   const copyPreset = () => {
     const newPres: Preset = {
@@ -84,22 +81,12 @@ export default function Home() {
     const eleIndex = newElements.findIndex((ele) => ele.index === elementIndex);
     newElements.splice(eleIndex, 1);
     setElements(newElements);
-    addHistoryElement({
-      elements: newElements,
-      height: svgHeight,
-      width: svgWidth,
-      background: svgBackground,
-    });
+    addHistoryElement({ elements: newElements });
   };
   const addElement = (element: SvgElement) => {
     const newElements = [...elements, { ...element }];
     setElements(newElements);
-    addHistoryElement({
-      elements: newElements,
-      height: svgHeight,
-      width: svgWidth,
-      background: svgBackground,
-    });
+    addHistoryElement({ elements: newElements });
   };
   const changePreset = (presetIndex: number) => {
     window.scrollTo(0, 0);
@@ -116,7 +103,13 @@ export default function Home() {
   };
   const addHistoryElement = (historyElement: HistoryElement) => {
     setDebouncing(true);
-    addHistoryElementDebounced(historyElement);
+    addHistoryElementDebounced({
+      elements: elements,
+      height: svgHeight,
+      width: svgWidth,
+      background: svgBackground,
+      ...historyElement,
+    });
   };
   const addHistoryElementDebounced = debounce(
     (historyElement: HistoryElement) => {
@@ -260,29 +253,14 @@ export default function Home() {
           <div className="flex flex-row gap-8">
             <Button
               label="&#43; Image"
-              onClick={() =>
-                addElement({
-                  index: elementIndex,
-                  src: testImg,
-                  x: 0,
-                  y: 0,
-                })
-              }
+              onClick={() => addElement({ ...defaultImg, index: elementIndex })}
               color="slate"
               disabled={debouncing}
             />
             <Button
               label="&#43; Text"
               onClick={() =>
-                addElement({
-                  index: elementIndex,
-                  text: "your text",
-                  x: 0,
-                  y: 0,
-                  color: "black",
-                  fontSize: 12,
-                  fontFamily: "impact",
-                })
+                addElement({ ...defaultText, index: elementIndex })
               }
               color="slate"
               disabled={debouncing}
@@ -290,13 +268,7 @@ export default function Home() {
             <Button
               label="&#43; Circle"
               onClick={() =>
-                addElement({
-                  index: elementIndex,
-                  fill: "red",
-                  r: 50,
-                  x: 0,
-                  y: 0,
-                })
+                addElement({ ...defaultCircle, index: elementIndex })
               }
               color="slate"
               disabled={debouncing}
@@ -315,12 +287,7 @@ export default function Home() {
                   value={svgWidth}
                   onChange={(val: number) => {
                     setSvgWidth(val);
-                    addHistoryElement({
-                      elements: elements,
-                      height: svgHeight,
-                      width: val,
-                      background: svgBackground,
-                    });
+                    addHistoryElement({ width: val });
                   }}
                   min={50}
                   max={1500}
@@ -331,12 +298,7 @@ export default function Home() {
                   value={svgHeight}
                   onChange={(val: number) => {
                     setSvgHeight(val);
-                    addHistoryElement({
-                      elements: elements,
-                      width: svgWidth,
-                      height: val,
-                      background: svgBackground,
-                    });
+                    addHistoryElement({ height: val });
                   }}
                   min={1}
                   max={500}
@@ -347,12 +309,7 @@ export default function Home() {
                   label="Background"
                   onChange={(val: string) => {
                     setSvgBackground(val);
-                    addHistoryElement({
-                      elements: elements,
-                      width: svgWidth,
-                      height: svgHeight,
-                      background: val,
-                    });
+                    addHistoryElement({ background: val });
                   }}
                 />
               </div>
