@@ -2,6 +2,7 @@ import NumberInput from "@/components/numberInput";
 import StringInput from "@/components/stringInput";
 import Select from "@/components/select";
 import { fontFamilies } from "@/types/fonts";
+import ColorInput from "@/components/colorInput";
 
 export const generateTextSettings = (
   element: SvgElement,
@@ -46,7 +47,7 @@ export const generateTextSettings = (
           <h6 className="text-lg font-bold dark:text-white inline">Style</h6>
         </summary>
         <div className="flex flex-col gap-4" style={{ marginTop: "1rem" }}>
-          <StringInput
+          <ColorInput
             keyVal={element.index + (element?.name ?? "")}
             value={element["color"] ?? ""}
             label="Color"
