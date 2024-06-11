@@ -17,19 +17,19 @@ export const generateCircleSettings = (
           onChange({ ...element, fill: val });
         }}
       />
-      <NumberInput
-        keyVal={element.index + (element.name ?? "")}
-        value={element.r ?? 0}
-        label="Radius"
-        max={1000}
-        min={0}
-        onChange={(value: number) => onChange({ ...element, r: value })}
-      />
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold inline">Position</h6>
+          <h6 className="text-lg font-bold inline">Position & Size</h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.r ?? 0}
+            label="Radius"
+            max={1000}
+            min={0}
+            onChange={(value: number) => onChange({ ...element, r: value })}
+          />
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.x ?? 0}
