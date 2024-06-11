@@ -1,4 +1,4 @@
-import { Canvg } from "canvg";
+import { AnimateElement, Canvg } from "canvg";
 import GIF from "gif.js";
 import { RefObject } from "react";
 import { downloadBlob } from "./downloadBlob";
@@ -29,24 +29,21 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
     const millisecondsPerFrame = 60;
     const renderFrame = async function () {
         canvgInstance.screen.animations.forEach((a, i) => {
-            // @ts-ignore
-            if (a.duration + millisecondsPerFrame >= a.maxDuration) {
+            const anim = a as AnimateElement & { duration: number, maxDuration: number }
+            if (anim.duration + millisecondsPerFrame >= anim.maxDuration) {
                 if (!allAnimationsDone[i]) {
                     allAnimationsDone[i] = true;
-                    // @ts-ignore
-                    a.update(a.maxDuration - a.duration);
+                    anim.update(anim.maxDuration - anim.duration);
                 }
             } else
-                // @ts-ignore
-                if (millisecond >= a.maxDuration) {
+                if (millisecond >= anim.maxDuration) {
                     if (!allAnimationsDone[i]) {
                         allAnimationsDone[i] = true;
-                        // @ts-ignore
-                        a.duration = a.maxDuration;
+                        anim.duration = anim.maxDuration;
                     }
                 } else {
                     allAnimationsDone[i] = false;
-                    a.update(millisecondsPerFrame);
+                    anim.update(millisecondsPerFrame);
                 }
         });
         await canvgInstance.render();
