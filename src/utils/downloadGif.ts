@@ -16,7 +16,7 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
         quality: 1,
         width: svgWidth,
         height: svgHeight,
-        repeat: 1,
+        repeat: -1,
     });
 
     const canvgInstance = await Canvg.from(context, svgText, {
