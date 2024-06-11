@@ -18,6 +18,7 @@ import { defaultText } from "@/data/defaultText";
 import { defaultImg } from "@/data/defaultImg";
 import { defaultRectangle } from "@/data/defaultRectangle";
 import { defaultPattern } from "@/data/defaultPattern";
+import UsefulLinks from "@/components/usefulLinks";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -232,6 +233,9 @@ export default function Home() {
               {presetHtml}
             </div>
           </div>
+          <div className="hidden lg:block text-center w-full">
+            <UsefulLinks />
+          </div>
         </div>
         <div className="flex flex-col gap-8 lg:overflow-y-scroll lg:max-h-screen lg:pr-24 pb-24 pt-8 lg:pt-48 items-center">
           <div className="flex flex-row gap-8">
@@ -334,6 +338,9 @@ export default function Home() {
             <div className="flex flex-row gap-8 flex-wrap content-center justify-center w-full mt-8">
               {presetHtml}
             </div>
+          </div>
+          <div className="lg:hidden block text-center w-full">
+            <UsefulLinks />
           </div>
         </div>
       </div>
