@@ -1,8 +1,13 @@
-export const defaultText = {
-    text: "your text",
+import { SvgTextElement } from "@/types/svgTextElement";
+
+export const defaultText: SvgTextElement = {
+    color: "#000",
+    dx: 0,
+    dy: 0,
+    fontFamily: "impact",
+    fontSize: 12,
+    index: 0,
+    text: "test",
     x: 0,
     y: 0,
-    color: "#000000",
-    fontSize: 12,
-    fontFamily: "impact",
 }

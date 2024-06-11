@@ -1,6 +1,9 @@
-export const defaultCircle = {
+import { SvgCircleElement } from "@/types/svgCircleElement";
+
+export const defaultCircle: SvgCircleElement = {
     fill: "#ff0000",
     r: 50,
-    cx: 0,
-    cy: 0,
+    index: 0,
+    cx: 50,
+    cy: 50,
 }
