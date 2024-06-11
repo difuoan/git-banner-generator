@@ -8,6 +8,7 @@ import { animatableAttributes } from "@/data/animatableAttributes";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
+import { isSvgPatternElement } from "@/types/svgPatternElement";
 
 export const mapSettingAnimation = (
   animation: SvgAnimation,
@@ -22,6 +23,8 @@ export const mapSettingAnimation = (
     animAttr = animatableAttributes["img"];
   } else if (isSvgTextElement(element)) {
     animAttr = animatableAttributes["text"];
+  } else if (isSvgPatternElement(element)) {
+    animAttr = animatableAttributes["pattern"];
   } else if (isSvgRectangleElement(element)) {
     animAttr = animatableAttributes["rectangle"];
   }

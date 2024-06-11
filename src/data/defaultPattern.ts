@@ -1,4 +1,5 @@
 import { SvgPatternElement } from "@/types/svgPatternElement";
+import { testImg } from "./testImg";
 
 export const defaultPattern: SvgPatternElement = {
     rx: 0,
@@ -6,10 +7,10 @@ export const defaultPattern: SvgPatternElement = {
     index: 0,
     x: 0,
     y: 0,
-    width: 100,
-    height: 100,
-    initialWidth: 100,
-    initialHeight: 100,
-    src: "",
+    width: 825,
+    height: 510,
+    initialWidth: 825,
+    initialHeight: 510,
+    src: testImg,
     isPattern: true
 }
