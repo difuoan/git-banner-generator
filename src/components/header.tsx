@@ -13,49 +13,27 @@ export default function Header({
   return (
     <div className={modeCSS + " w-full pt-12 text-center lg:pl-9"}>
       {/* HEADER */}
-      <div
-        className="absolute right-8 top-8 cursor-pointer"
-        onClick={() => setVisible(!visible)}
-      >
-        <span
+      <div className="absolute top-8 right-8 flex flex-col">
+        <button
           className={
-            (!visible ? "text-2xl" : "text-xl") +
-            " absolute right-2/4 top-2/4 cursor-pointer translate-x-1/2 -translate-y-1/2 pt-2"
+            (visible ? "line-through" : "") +
+            " cursor-pointer text-2xl text-center"
           }
+          onClick={() => setVisible(!visible)}
         >
           👁
-        </span>
-        <span
+        </button>
+        <button
           className={
-            (!visible ? "hidden" : "visible") +
-            " absolute right-2/4 top-2/4 cursor-pointer text-5xl translate-x-1/2 -translate-y-1/2"
+            (!darkMode ? "line-through" : "") +
+            " cursor-pointer text-2xl text-center"
           }
-        >
-          ⊘
-        </span>
-      </div>
-      <div
-        className="absolute right-8 top-16 cursor-pointer"
-        onClick={() => {
-          toggleDarkMode();
-        }}
-      >
-        <span
-          className={
-            (darkMode ? "text-2xl" : "text-xl") +
-            " absolute right-2/4 top-2/4 cursor-pointer translate-x-1/2 -translate-y-1/2 pt-2"
-          }
+          onClick={() => {
+            toggleDarkMode();
+          }}
         >
           💡
-        </span>
-        <span
-          className={
-            (darkMode ? "hidden" : "visible") +
-            " absolute right-2/4 top-2/4 cursor-pointer text-5xl translate-x-1/2 -translate-y-1/2"
-          }
-        >
-          ⊘
-        </span>
+        </button>
       </div>
       <h1
         className={
