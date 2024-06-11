@@ -2,8 +2,9 @@ import { AnimateElement, Canvg } from "canvg";
 import GIF from "gif.js";
 import { RefObject } from "react";
 import { downloadBlob } from "./downloadBlob";
+import BezierEasing from 'bezier-easing';
 
-export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number, svgBackground: string, callbackFunction?: Function) => {
+export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, svgWidth: number, svgHeight: number, _svgBackground: string, callbackFunction?: Function) => {
     const svgText = svgContainer.current?.innerHTML;
     const canvas: HTMLCanvasElement = document.createElement("canvas");
     canvas.width = svgWidth;
@@ -25,26 +26,26 @@ export const convertSVGToGIF = async (svgContainer: RefObject<HTMLDivElement>, s
 
     const allAnimationsDone: boolean[] = [];
     let millisecond: number = 0;
-
     const millisecondsPerFrame = 60;
     const renderFrame = async function () {
         canvgInstance.screen.animations.forEach((a, i) => {
             const anim = a as AnimateElement & { duration: number, maxDuration: number }
-            if (anim.duration + millisecondsPerFrame >= anim.maxDuration) {
+
+            // @ts-ignore
+            const keySplines = anim.attributes.keySplines.value.split(' ').map(Number);
+            const easingFunction = BezierEasing(keySplines[0], keySplines[1], keySplines[2], keySplines[3]);
+
+            if (millisecond >= anim.maxDuration) {
                 if (!allAnimationsDone[i]) {
                     allAnimationsDone[i] = true;
-                    anim.update(anim.maxDuration - anim.duration);
+                    anim.duration = anim.maxDuration;
                 }
-            } else
-                if (millisecond >= anim.maxDuration) {
-                    if (!allAnimationsDone[i]) {
-                        allAnimationsDone[i] = true;
-                        anim.duration = anim.maxDuration;
-                    }
-                } else {
-                    allAnimationsDone[i] = false;
-                    anim.update(millisecondsPerFrame);
-                }
+            } else if (!allAnimationsDone[i]) {
+                allAnimationsDone[i] = false;
+                const progress = millisecond / anim.maxDuration;
+                const easedProgress = easingFunction(progress);
+                anim.update(anim.maxDuration * easedProgress - anim.duration);
+            }
         });
         await canvgInstance.render();
         gif.addFrame(context, {
