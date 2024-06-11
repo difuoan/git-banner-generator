@@ -64,8 +64,6 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
           fill={element.color}
           fontSize={element.fontSize}
           fontFamily={fontFamilies[element.fontFamily]}
-          dominantBaseline="text-before-edge"
-          textAnchor="start"
         >
           {text}
           {mappedAnimations}

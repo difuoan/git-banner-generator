@@ -7,5 +7,5 @@ export const defaultText: SvgTextElement = {
     index: 0,
     text: "Enter your text here!",
     x: 0,
-    y: 0,
+    y: 50,
 }
