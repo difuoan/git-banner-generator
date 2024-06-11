@@ -66,7 +66,7 @@ export default function Home() {
       height: svgHeight,
       width: svgWidth,
       src: "",
-      background: "white",
+      background: "#ffffff",
     };
     navigator.clipboard.writeText(JSON.stringify(newPres));
   };

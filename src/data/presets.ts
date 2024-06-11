@@ -5,10 +5,6 @@ import { tjv3 } from "./preset/tjv3";
 import { ljvBackground } from "./preset/ljvBackground";
 import { izzy } from "./preset/izzy";
 import { ljvVenCode } from "./preset/ljvVenCode";
-import { ljvHello } from "./preset/ljvHello";
-import { ljvName } from "./preset/ljvName";
-import { ljvIM } from "./preset/ljvIM";
-import { ljvLastName } from "./preset/ljvLastName";
 
 export const presets: Preset[] = [
   {
@@ -21,6 +17,10 @@ export const presets: Preset[] = [
         y: 0,
       },
       {
+        cx: 0,
+        cy: 0,
+        dx: 0,
+        dy: 0,
         text: "Hello World!",
         x: 60,
         y: 40,
@@ -78,6 +78,10 @@ export const presets: Preset[] = [
         ],
       },
       {
+        cx: 0,
+        cy: 0,
+        dx: 0,
+        dy: 0,
         text: "I'm Lucas",
         x: 52,
         y: 100,
@@ -108,6 +112,10 @@ export const presets: Preset[] = [
         ],
       },
       {
+        cx: 0,
+        cy: 0,
+        dx: 0,
+        dy: 0,
         text: "J. Venturini",
         x: 60,
         y: 210,
@@ -168,7 +176,7 @@ export const presets: Preset[] = [
     height: 500,
     width: 1500,
     src: "/ljvBanner.svg",
-    background: "white",
+    background: "#ffffff",
   },
   {
     src: "/tjvBanner.svg",
