@@ -8,20 +8,20 @@ import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
 import Select from "@/components/select";
 import { fontFamilies } from "@/types/fonts";
-import { generateImgSettings } from "./generateImgSettings";
-import { generateTextSettings } from "./generateTextSettings";
-import { generateCircleSettings } from "./generateCircleSettings";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
 import { animatableAttributes } from "@/data/animatableAttributes";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 import { generateRectangleSettings } from "./generateRectangleSettings";
+import { generateImgSettings } from "./generateImgSettings";
+import { generateTextSettings } from "./generateTextSettings";
+import { generateCircleSettings } from "./generateCircleSettings";
 
 export const mapSettingsElement = (
   element: SvgElement,
   onChange: Function,
   onDelete: Function
 ) => {
-  let animAttr = [];
+  let animAttr: string[] = [];
   let typeSpecificInput = null;
   let elementName = "Element";
   const animationSettings = (element.animations ?? []).map((animation, index) =>

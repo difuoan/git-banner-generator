@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { SvgElement } from "@/types/svgElement";
 import NumberInput from "@/components/numberInput";
 import Button from "@/components/button";
-import { mapSettingsElement } from "@/utils/mapSettingsElement";
+import { mapSettingsElement } from "@/utils/settings/mapSettingsElement";
 import { presets } from "@/data/presets";
 import { Preset } from "@/types/preset";
 import { HistoryElement } from "@/types/history";

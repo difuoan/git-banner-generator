@@ -1,5 +1,5 @@
 import { SvgElement } from "@/types/svgElement";
-import { mapSvgElement } from "@/utils/mapSvgElement";
+import { mapSvgElement } from "@/utils/elements/mapSvgElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
 const SVGComponent = (

@@ -1,12 +1,12 @@
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
-import { SvgElement } from "@/types/svgElement";
+import { SvgTextElement } from "@/types/svgTextElement";
 
 export const mapSvgTextAnimation = (
   animation: SvgAnimation,
   animationIndex: number,
-  element: SvgElement,
-  elementIndex: number,
+  element: SvgTextElement,
+  _elementIndex: number,
   textIndex: number
 ) => {
   let from = animation.from;
