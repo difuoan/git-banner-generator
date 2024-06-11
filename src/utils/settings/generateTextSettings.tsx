@@ -1,15 +1,15 @@
 import NumberInput from "@/components/numberInput";
-import StringInput from "@/components/stringInput";
 import Select from "@/components/select";
 import { fontFamilies } from "@/types/fonts";
 import ColorInput from "@/components/colorInput";
 import TextArea from "@/components/textArea";
 import Button from "@/components/button";
+import { SvgTextElement } from "@/types/svgTextElement";
 
 export const generateTextSettings = (
-  element: SvgElement,
+  element: SvgTextElement,
   onChange: Function,
-  onDelete: Function
+  _onDelete: Function
 ) => {
   return (
     <>

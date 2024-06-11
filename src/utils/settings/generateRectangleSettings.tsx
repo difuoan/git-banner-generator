@@ -1,19 +1,11 @@
-import StringInput from "@/components/stringInput";
-import { SvgElement } from "@/types/svgElement";
-import { isSvgImgElement } from "@/types/svgImgElement";
-import Button from "@/components/button";
-import FileInput from "@/components/fileInput";
-import { mapSettingAnimation } from "./mapSettingAnimation";
-import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
-import Select from "@/components/select";
 import ColorInput from "@/components/colorInput";
-import { fontFamilies } from "@/types/fonts";
+import { SvgRectangleElement } from "@/types/svgRectangleElement";
 
 export const generateRectangleSettings = (
-  element: SvgElement,
+  element: SvgRectangleElement,
   onChange: Function,
-  onDelete: Function
+  _onDelete: Function
 ) => {
   let elementName = "Rectangle";
   return (

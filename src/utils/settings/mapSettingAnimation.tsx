@@ -14,7 +14,7 @@ export const mapSettingAnimation = (
   element: SvgElement,
   onChange: Function
 ) => {
-  let animAttr = [];
+  let animAttr: string[] = [];
   if (isSvgCircleElement(element)) {
     animAttr = animatableAttributes["circle"];
   } else if (isSvgImgElement(element)) {

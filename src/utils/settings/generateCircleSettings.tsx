@@ -1,19 +1,11 @@
-import StringInput from "@/components/stringInput";
-import { SvgElement } from "@/types/svgElement";
-import { isSvgImgElement } from "@/types/svgImgElement";
-import Button from "@/components/button";
-import FileInput from "@/components/fileInput";
-import { mapSettingAnimation } from "./mapSettingAnimation";
-import { isSvgTextElement } from "@/types/svgTextElement";
 import NumberInput from "@/components/numberInput";
-import Select from "@/components/select";
-import { fontFamilies } from "@/types/fonts";
 import ColorInput from "@/components/colorInput";
+import { SvgCircleElement } from "@/types/svgCircleElement";
 
 export const generateCircleSettings = (
-  element: SvgElement,
+  element: SvgCircleElement,
   onChange: Function,
-  onDelete: Function
+  _onDelete: Function
 ) => {
   let elementName = "Circle";
   return (
