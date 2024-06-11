@@ -17,8 +17,6 @@ export const presets: Preset[] = [
         y: 0,
       },
       {
-        cx: 0,
-        cy: 0,
         dx: 0,
         dy: 0,
         text: "Hello World!",
@@ -78,8 +76,6 @@ export const presets: Preset[] = [
         ],
       },
       {
-        cx: 0,
-        cy: 0,
         dx: 0,
         dy: 0,
         text: "I'm Lucas",
@@ -112,8 +108,6 @@ export const presets: Preset[] = [
         ],
       },
       {
-        cx: 0,
-        cy: 0,
         dx: 0,
         dy: 0,
         text: "J. Venturini",

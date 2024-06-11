@@ -21,7 +21,9 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
     transformString += ` skewY(${element.skewY})`;
   }
   if (isSvgImgElement(element)) {
-    let mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
+    let mappedAnimations = (element.animations ?? []).map((ele, eleInde) =>
+      mapSvgAnimation(ele, eleInde, element, index)
+    );
     return (
       <image
         href={element.src ?? testImg}
@@ -31,7 +33,6 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         width={element.width}
         height={element.height}
         transform={transformString}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </image>
@@ -55,7 +56,6 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
           dominantBaseline="text-before-edge"
           textAnchor="start"
           transform={transformString}
-          style={{ transformBox: "fill-box", transformOrigin: "center" }}
         >
           {text}
           {mappedAnimations}
@@ -67,31 +67,31 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         mapSvgTextGroupAnimation(animation, aniamtionIndex)
     );
     return (
-      <g
-        key={index}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
-      >
+      <g key={index}>
         {texts}
         {mappedGroupAnimations}
       </g>
     );
   } else if (isSvgCircleElement(element)) {
-    let mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
+    let mappedAnimations = (element.animations ?? []).map((ele, eleInde) =>
+      mapSvgAnimation(ele, eleInde, element, index)
+    );
     return (
       <circle
         r={element.r}
-        cx={element.cx}
-        cy={element.cy}
+        cx={element.x}
+        cy={element.y}
         key={index}
         fill={element.fill}
         transform={transformString}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </circle>
     );
   } else if (isSvgRectangleElement(element)) {
-    let mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
+    let mappedAnimations = (element.animations ?? []).map((ele, eleInde) =>
+      mapSvgAnimation(ele, eleInde, element, index)
+    );
     return (
       <rect
         width={element.width}
@@ -103,7 +103,6 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         y={element.y}
         fill={element.fill}
         transform={transformString}
-        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </rect>

@@ -2,19 +2,25 @@ import { SvgImgElement } from "@/types/svgImgElement";
 import Button from "@/components/button";
 import FileInput from "@/components/fileInput";
 import NumberInput from "@/components/numberInput";
+import { getImageDimensions } from "../getImageDimensions";
 
 export const generateImgSettings = (
   element: SvgImgElement,
   onChange: Function,
   _onDelete: Function
 ) => {
-  let elementName = "Image";
   return (
     <>
       <FileInput
         keyVal={element.index + (element?.name ?? "")}
-        onFileUpload={(val: string) => {
-          onChange({ ...element, src: val });
+        onFileUpload={async (val: string) => {
+          const dimensions = await getImageDimensions(val);
+          onChange({
+            ...element,
+            src: val,
+            width: dimensions.x,
+            height: dimensions.y,
+          });
         }}
       />
       <details>
