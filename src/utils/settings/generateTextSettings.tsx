@@ -23,9 +23,7 @@ export const generateTextSettings = (
       />
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">
-            Position & Size
-          </h6>
+          <h6 className="text-lg font-bold inline">Position & Size</h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex flex-col gap-4">
@@ -98,7 +96,7 @@ export const generateTextSettings = (
       </details>
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Style</h6>
+          <h6 className="text-lg font-bold inline">Style</h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <ColorInput

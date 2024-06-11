@@ -7,7 +7,7 @@ export default function Overlay({ busy }: { busy: boolean }) {
     >
       <svg
         aria-hidden="true"
-        className="w-20 h-20 text-white animate-spin dark:text-gray-600 fill-blue-600 m-auto"
+        className="w-20 h-20 animate-spin fill-blue-600 m-auto"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -24,13 +24,11 @@ export default function Overlay({ busy }: { busy: boolean }) {
         />
       </svg>
       <div className="pt-8">
-        <p className="text-lg font-bold dark:text-white">
-          &#128640; Calculating! &#128640;
-        </p>
-        <p className="text-lg font-bold dark:text-white">
+        <p className="text-lg font-bold">&#128640; Calculating! &#128640;</p>
+        <p className="text-lg font-bold">
           This could take a couple of seconds...
         </p>
-        <p className="text-lg font-bold dark:text-white">
+        <p className="text-lg font-bold">
           You should probably grab something to drink &#128521;
         </p>
       </div>

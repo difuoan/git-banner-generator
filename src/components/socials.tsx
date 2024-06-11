@@ -12,21 +12,21 @@ export default function Socials({ visible }: { visible: boolean }) {
     >
       <a
         href="https://github.com/difuoan"
-        className="font-medium text-blue-600 hover:underline"
+        className="font-medium hover:underline"
         target="_blank"
       >
         <Github />
       </a>
       <a
         href="http://www.linkedin.com/in/lucas-venturini-73a392206"
-        className="font-medium text-blue-600 hover:underline"
+        className="font-medium hover:underline"
         target="_blank"
       >
         <Linkedin />
       </a>
       <a
         href="https://www.x.com/LJVenturini"
-        className="font-medium text-blue-600 hover:underline"
+        className="font-medium hover:underline"
         target="_blank"
       >
         <Twitter />

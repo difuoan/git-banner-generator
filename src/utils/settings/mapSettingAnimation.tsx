@@ -28,9 +28,7 @@ export const mapSettingAnimation = (
   return (
     <details key={index}>
       <summary className="cursor-pointer">
-        <h6 className="text-lg font-bold dark:text-white inline">
-          Animation #{index + 1}
-        </h6>
+        <h6 className="text-lg font-bold inline">Animation #{index + 1}</h6>
       </summary>
       <div className="flex flex-col gap-4 mt-4">
         <Select

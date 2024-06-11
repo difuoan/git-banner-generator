@@ -21,6 +21,7 @@ import { defaultRectangle } from "@/data/defaultRectangle";
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
   const [animationKey, setAnimationKey] = useState(0);
+  const [darkMode, setDarkMode] = useState(false);
   const [debouncing, setDebouncing] = useState(false);
   const [busy, setBusy] = useState(false);
   const [presetToUse, setPresetToUse] = useState(0);
@@ -41,6 +42,9 @@ export default function Home() {
   ]);
 
   // FUNCTIONS
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
   const resetState = (index = presetToUse) => {
     const pre = presets[index];
     setElements([...pre.elements]);
@@ -149,13 +153,29 @@ export default function Home() {
       />
     );
   });
+  let headerTransitionCSS = "from-gray-300";
+  let mainCss = "from-gray-300 bg-gray-100 text-gray-900";
+  if (darkMode) {
+    headerTransitionCSS = "from-gray-900";
+    mainCss = "bg-black from-gray-900 text-gray-100";
+  }
   return (
-    <main className="flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b from-gray-300 bg-gray-100 max-w-full container lg:max-h-screen overflow-hidden">
+    <main
+      className={
+        mainCss +
+        " flex min-h-screen flex-col items-center gap-8 bg-gradient-to-b max-w-full container lg:max-h-screen overflow-hidden"
+      }
+    >
       <div className="fixed w-full text-center lg:mr-9">
         {/* OVERLAY */}
         <Overlay busy={busy} />
-        <Header />
-        <div className="h-12 bg-gradient-to-b from-gray-300 to-transparent">
+        <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <div
+          className={
+            headerTransitionCSS +
+            " h-12 bg-gradient-to-b from-gray-300 to-transparent"
+          }
+        >
           {/* not really empty */}
         </div>
       </div>

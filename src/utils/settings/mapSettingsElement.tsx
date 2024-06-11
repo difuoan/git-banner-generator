@@ -55,9 +55,7 @@ export const mapSettingsElement = (
       {typeSpecificInput}
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">
-            Transform
-          </h6>
+          <h6 className="text-lg font-bold inline">Transform</h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <NumberInput
