@@ -11,6 +11,7 @@ import { generateRectangleSettings } from "./generateRectangleSettings";
 import { generateImgSettings } from "./generateImgSettings";
 import { generateTextSettings } from "./generateTextSettings";
 import { generateCircleSettings } from "./generateCircleSettings";
+import NumberInput from "@/components/numberInput";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -52,6 +53,41 @@ export const mapSettingsElement = (
         onChange={(value: string) => onChange({ ...element, name: value })}
       />
       {typeSpecificInput}
+      <details>
+        <summary className="cursor-pointer">
+          <h6 className="text-lg font-bold dark:text-white inline">
+            Transform
+          </h6>
+        </summary>
+        <div className="flex flex-col gap-4 mt-4">
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.rotation ?? 0}
+            label="Rotation"
+            max={360}
+            min={-360}
+            onChange={(value: number) =>
+              onChange({ ...element, rotation: value })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.skewX ?? 0}
+            label="skewX"
+            max={90}
+            min={-90}
+            onChange={(value: number) => onChange({ ...element, skewX: value })}
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.skewY ?? 0}
+            label="skewY"
+            max={90}
+            min={-90}
+            onChange={(value: number) => onChange({ ...element, skewY: value })}
+          />
+        </div>
+      </details>
       {animationSettings}
       <Button
         label="+ Animation"

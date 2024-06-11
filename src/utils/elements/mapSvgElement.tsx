@@ -9,6 +9,16 @@ import { testImg } from "@/data/testImg";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
+  let transformString: string = "";
+  if (!!element.rotation) {
+    transformString += ` rotate(${element.rotation})`;
+  }
+  if (!!element.skewX) {
+    transformString += ` skewX(${element.skewX})`;
+  }
+  if (!!element.skewY) {
+    transformString += ` skewY(${element.skewY})`;
+  }
   if (isSvgImgElement(element)) {
     let mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
     return (
@@ -19,6 +29,8 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         y={element.y}
         width={element.width}
         height={element.height}
+        transform={transformString}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </image>
@@ -41,6 +53,8 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
           fontFamily={fontFamilies[element.fontFamily]}
           dominantBaseline="text-before-edge"
           textAnchor="start"
+          transform={transformString}
+          style={{ transformBox: "fill-box", transformOrigin: "center" }}
         >
           {text}
           {mappedAnimations}
@@ -57,6 +71,8 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         cy={element.cy}
         key={index}
         fill={element.fill}
+        transform={transformString}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </circle>
@@ -73,6 +89,8 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         x={element.x}
         y={element.y}
         fill={element.fill}
+        transform={transformString}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
       >
         {mappedAnimations}
       </rect>
