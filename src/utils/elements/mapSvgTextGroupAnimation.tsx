@@ -1,19 +1,29 @@
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
+import { SvgElement } from "@/types/svgElement";
+import { isSvgTextElement } from "@/types/svgTextElement";
 
 export const mapSvgTextGroupAnimation = (
   animation: SvgAnimation,
-  animationIndex: number
+  animationIndex: number,
+  element: SvgElement,
+  _elementIndex: number
 ) => {
   if (!["rotate", "skewX", "skewY"].includes(animation.attributeName)) return;
+  let transformSuffix: string = "";
+  if (animation.attributeName === "rotate") {
+    transformSuffix += `  ${element.x + (element.rotationOffsetX ?? 0)} ${
+      element.y + (element.rotationOffsetY ?? 0)
+    }`;
+  }
   return (
     <animateTransform
       key={animationIndex}
       attributeName="transform"
       type={animation.attributeName}
       attributeType="XML"
-      from={`${animation.from} 0 0`}
-      to={`${animation.to} 0 0`}
+      from={`${animation.from}${transformSuffix}`}
+      to={`${animation.to}${transformSuffix}`}
       dur={animation.dur + "s"}
       begin={animation.begin + "s"}
       repeatCount={animation.repeatCount}

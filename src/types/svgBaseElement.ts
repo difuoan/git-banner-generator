@@ -7,4 +7,6 @@ export type SvgBaseElement = {
     rotation?: number
     skewX?: number
     skewY?: number
+    rotationOffsetX?: number
+    rotationOffsetY?: number
 }

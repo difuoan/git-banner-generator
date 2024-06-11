@@ -8,8 +8,8 @@ export type SvgTextElement = {
     fontFamily: Font
     x: number
     y: number
-    dx: number,
-    dy: number
+    dx?: number,
+    dy?: number
 } & SvgBaseElement;
 
 export const isSvgTextElement = (element: any): element is SvgTextElement => {

@@ -72,6 +72,26 @@ export const mapSettingsElement = (
           />
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
+            value={element.rotationOffsetX ?? 0}
+            label="Rotation Offset X"
+            max={360}
+            min={-360}
+            onChange={(value: number) =>
+              onChange({ ...element, rotationOffsetX: value })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
+            value={element.rotationOffsetY ?? 0}
+            label="Rotation Offset Y"
+            max={360}
+            min={-360}
+            onChange={(value: number) =>
+              onChange({ ...element, rotationOffsetY: value })
+            }
+          />
+          <NumberInput
+            keyVal={element.index + (element.name ?? "")}
             value={element.skewX ?? 0}
             label="skewX"
             max={90}

@@ -12,7 +12,18 @@ import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 export const mapSvgElement = (element: SvgElement, index: number) => {
   let transformString: string = "";
   if (!!element.rotation) {
-    transformString += ` rotate(${element.rotation})`;
+    let x = 0;
+    let y = 0;
+    if (isSvgCircleElement(element) || isSvgTextElement(element)) {
+      x = element.x;
+      y = element.y;
+    } else {
+      x = element.x + (element.width ?? 0) / 2;
+      y = element.y + (element.height ?? 0) / 2;
+    }
+    transformString += ` rotate(${element.rotation} ${
+      x + (element.rotationOffsetX ?? 0)
+    } ${y + (element.rotationOffsetY ?? 0)})`;
   }
   if (!!element.skewX) {
     transformString += ` skewX(${element.skewX})`;
@@ -55,7 +66,6 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
           fontFamily={fontFamilies[element.fontFamily]}
           dominantBaseline="text-before-edge"
           textAnchor="start"
-          transform={transformString}
         >
           {text}
           {mappedAnimations}
@@ -64,10 +74,10 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
     });
     let mappedGroupAnimations = (element.animations ?? []).map(
       (animation, aniamtionIndex) =>
-        mapSvgTextGroupAnimation(animation, aniamtionIndex)
+        mapSvgTextGroupAnimation(animation, aniamtionIndex, element, index)
     );
     return (
-      <g key={index}>
+      <g key={index} transform={transformString}>
         {texts}
         {mappedGroupAnimations}
       </g>
