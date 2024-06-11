@@ -2,6 +2,7 @@ import { SvgElement } from "@/types/svgElement";
 import { isSvgImgElement } from "@/types/svgImgElement";
 import { mapSvgAnimation } from "./mapSvgAnimation";
 import { mapSvgTextAnimation } from "./mapSvgTextAnimation";
+import { mapSvgTextGroupAnimation } from "./mapSvgTextGroupAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { fontFamilies } from "@/types/fonts";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
@@ -61,7 +62,19 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
         </text>
       );
     });
-    return <g key={index}>{texts}</g>;
+    let mappedGroupAnimations = (element.animations ?? []).map(
+      (animation, aniamtionIndex) =>
+        mapSvgTextGroupAnimation(animation, aniamtionIndex)
+    );
+    return (
+      <g
+        key={index}
+        style={{ transformBox: "fill-box", transformOrigin: "center" }}
+      >
+        {texts}
+        {mappedGroupAnimations}
+      </g>
+    );
   } else if (isSvgCircleElement(element)) {
     let mappedAnimations = (element.animations ?? []).map(mapSvgAnimation);
     return (

@@ -9,6 +9,7 @@ export const mapSvgTextAnimation = (
   _elementIndex: number,
   textIndex: number
 ) => {
+  if (["rotate", "skewX", "skewY"].includes(animation.attributeName)) return;
   let from = animation.from;
   let to = animation.to;
   if ("dx" === animation.attributeName) {
