@@ -23,7 +23,9 @@ export const generateTextSettings = (
       />
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Position</h6>
+          <h6 className="text-lg font-bold dark:text-white inline">
+            Position & Size
+          </h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex flex-col gap-4">
@@ -42,6 +44,16 @@ export const generateTextSettings = (
               max={500}
               min={-500}
               onChange={(value: number) => onChange({ ...element, y: value })}
+            />
+            <NumberInput
+              keyVal={element.index + (element.name ?? "")}
+              value={element.fontSize ?? 0}
+              label="Size"
+              max={100}
+              min={1}
+              onChange={(value: number) =>
+                onChange({ ...element, fontSize: value })
+              }
             />
           </div>
           <div className="flex flex-row gap-4">
@@ -107,16 +119,6 @@ export const generateTextSettings = (
                 ...element,
                 fontFamily: value,
               })
-            }
-          />
-          <NumberInput
-            keyVal={element.index + (element.name ?? "")}
-            value={element.fontSize ?? 0}
-            label="Size"
-            max={100}
-            min={1}
-            onChange={(value: number) =>
-              onChange({ ...element, fontSize: value })
             }
           />
         </div>

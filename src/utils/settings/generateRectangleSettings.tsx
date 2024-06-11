@@ -20,7 +20,9 @@ export const generateRectangleSettings = (
       />
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Position</h6>
+          <h6 className="text-lg font-bold dark:text-white inline">
+            Position & Size
+          </h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <NumberInput
@@ -39,13 +41,6 @@ export const generateRectangleSettings = (
             min={-500}
             onChange={(value: number) => onChange({ ...element, y: value })}
           />
-        </div>
-      </details>
-      <details>
-        <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Size</h6>
-        </summary>
-        <div className="flex flex-col gap-4 mt-4">
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.width ?? 0}
@@ -64,15 +59,6 @@ export const generateRectangleSettings = (
               onChange({ ...element, height: value })
             }
           />
-        </div>
-      </details>
-      <details>
-        <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">
-            Corner Radius
-          </h6>
-        </summary>
-        <div className="flex flex-col gap-4 mt-4">
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.rx ?? 0}

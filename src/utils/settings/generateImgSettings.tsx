@@ -19,7 +19,9 @@ export const generateImgSettings = (
       />
       <details>
         <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Scale</h6>
+          <h6 className="text-lg font-bold dark:text-white inline">
+            Position & Scale
+          </h6>
         </summary>
         <div className="flex flex-col gap-4 mt-4">
           <div className="flex flex-row gap-4">
@@ -65,11 +67,6 @@ export const generateImgSettings = (
             />
           </div>
         </div>
-      </details>
-      <details>
-        <summary className="cursor-pointer">
-          <h6 className="text-lg font-bold dark:text-white inline">Position</h6>
-        </summary>
         <div className="flex flex-col gap-4 mt-4">
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
