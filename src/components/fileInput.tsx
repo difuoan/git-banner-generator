@@ -8,6 +8,7 @@ const FileInput = ({
   keyVal: string | number;
 }) => {
   const getBase64 = (file: Blob) => {
+    if (!file) return;
     var reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = function () {
