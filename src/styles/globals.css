@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 input,
-textArea {
+textArea,
+select {
   background: transparent;
 }
