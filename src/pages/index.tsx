@@ -269,6 +269,13 @@ export default function Home() {
               color="slate"
             />
             <Button
+              label="&#43; Pattern"
+              onClick={() =>
+                addElement({ ...defaultPattern, index: elementIndex })
+              }
+              color="slate"
+            />
+            <Button
               label="&#43; Circle"
               onClick={() =>
                 addElement({ ...defaultCircle, index: elementIndex })
@@ -279,13 +286,6 @@ export default function Home() {
               label="&#43; Rectangle"
               onClick={() =>
                 addElement({ ...defaultRectangle, index: elementIndex })
-              }
-              color="slate"
-            />
-            <Button
-              label="&#43; Pattern"
-              onClick={() =>
-                addElement({ ...defaultPattern, index: elementIndex })
               }
               color="slate"
             />
