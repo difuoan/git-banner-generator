@@ -7,7 +7,6 @@ export const generateRectangleSettings = (
   onChange: Function,
   _onDelete: Function
 ) => {
-  let elementName = "Rectangle";
   return (
     <>
       <ColorInput

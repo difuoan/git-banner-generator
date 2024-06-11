@@ -7,7 +7,6 @@ export const generateCircleSettings = (
   onChange: Function,
   _onDelete: Function
 ) => {
-  let elementName = "Circle";
   return (
     <>
       <ColorInput
