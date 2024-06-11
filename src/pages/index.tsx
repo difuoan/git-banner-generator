@@ -12,9 +12,7 @@ import { debounce } from "lodash";
 import { convertSVGToGIF } from "@/utils/downloadGif";
 import Overlay from "@/components/overlay";
 import Header from "@/components/header";
-import StringInput from "@/components/stringInput";
 import ColorInput from "@/components/colorInput";
-import { SvgCircleElement } from "@/types/svgCircleElement";
 import { defaultCircle } from "@/data/defaultCircle";
 import { defaultText } from "@/data/defaultText";
 import { defaultImg } from "@/data/defaultImg";
@@ -98,7 +96,7 @@ export default function Home() {
     setSvgWidth(histEle.width);
     setHistoryIndex(index);
   };
-  const addHistoryElement = (historyElement: HistoryElement) => {
+  const addHistoryElement = (historyElement: Partial<HistoryElement>) => {
     setDebouncing(true);
     addHistoryElementDebounced({
       elements: elements,

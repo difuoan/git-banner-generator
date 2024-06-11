@@ -1,8 +1,9 @@
 import { SvgCircleElement } from "./svgCircleElement"
 import { SvgImgElement, isSvgImgElement } from "./svgImgElement"
+import { SvgRectangleElement } from "./svgRectangleElement"
 import { SvgTextElement, isSvgTextElement } from "./svgTextElement"
 
-export type SvgElement = SvgImgElement | SvgTextElement | SvgCircleElement
+export type SvgElement = SvgImgElement | SvgTextElement | SvgCircleElement | SvgRectangleElement
 
 export const isSvgElement = (element: any): element is SvgElement => {
     if (typeof element !== "object") return false
