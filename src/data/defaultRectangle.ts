@@ -9,4 +9,5 @@ export const defaultRectangle: SvgRectangleElement = {
     width: 100,
     height: 100,
     fill: "#ff0000",
+    isRect: true
 }

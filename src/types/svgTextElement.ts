@@ -4,12 +4,13 @@ import { SvgBaseElement } from "./svgBaseElement";
 export type SvgTextElement = {
     text: string;
     color: string;
-    fontSize: number
-    fontFamily: Font
-    x: number
-    y: number
-    dx?: number,
-    dy?: number
+    fontSize: number;
+    fontFamily: Font;
+    x: number;
+    y: number;
+    dx?: number;
+    dy?: number;
+    isText: true;
 } & SvgBaseElement;
 
 export const isSvgTextElement = (element: any): element is SvgTextElement => {

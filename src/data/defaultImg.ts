@@ -6,4 +6,5 @@ export const defaultImg: SvgImgElement = {
     x: 0,
     index: 0,
     y: 0,
+    isImage: true
 }

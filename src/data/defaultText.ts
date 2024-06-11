@@ -8,4 +8,5 @@ export const defaultText: SvgTextElement = {
     text: "Enter your text here!",
     x: 0,
     y: 50,
+    isText: true
 }

@@ -12,6 +12,8 @@ import { generateImgSettings } from "./generateImgSettings";
 import { generateTextSettings } from "./generateTextSettings";
 import { generateCircleSettings } from "./generateCircleSettings";
 import NumberInput from "@/components/numberInput";
+import { isSvgPatternElement } from "@/types/svgPatternElement";
+import { generatePatternSettings } from "./generatePatternSettings";
 
 export const mapSettingsElement = (
   element: SvgElement,
@@ -28,6 +30,10 @@ export const mapSettingsElement = (
     elementName = "Image";
     animAttr = animatableAttributes["img"];
     typeSpecificInput = generateImgSettings(element, onChange, onDelete);
+  } else if (isSvgPatternElement(element)) {
+    animAttr = animatableAttributes["pattern"];
+    elementName = "Pattern";
+    typeSpecificInput = generatePatternSettings(element, onChange, onDelete);
   } else if (isSvgTextElement(element)) {
     elementName = "Text";
     animAttr = animatableAttributes["text"];

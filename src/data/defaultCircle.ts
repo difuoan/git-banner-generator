@@ -6,4 +6,5 @@ export const defaultCircle: SvgCircleElement = {
     index: 0,
     x: 50,
     y: 50,
+    isCircle: true
 }

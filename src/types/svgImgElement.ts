@@ -6,12 +6,15 @@ export type SvgImgElement = {
   height?: number;
   x: number;
   y: number;
+  isImage: true
 } & SvgBaseElement;
 
 export const isSvgImgElement = (element: any): element is SvgImgElement => {
   if (typeof element !== "object") return false;
   if (
     ![
+      "isImage" in element,
+      typeof element.isImage === "boolean",
       "src" in element,
       typeof element.src === "string",
       "x" in element,

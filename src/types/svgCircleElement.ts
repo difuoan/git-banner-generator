@@ -5,6 +5,7 @@ export type SvgCircleElement = {
     y: number;
     r: number;
     fill: string;
+    isCircle: true;
 } & SvgBaseElement;
 
 export const isSvgCircleElement = (
@@ -13,6 +14,8 @@ export const isSvgCircleElement = (
     if (typeof element !== "object") return false;
     if (
         ![
+            "isCircle" in element,
+            typeof element.isCircle === "boolean",
             "x" in element,
             typeof element.x === "number",
             "y" in element,

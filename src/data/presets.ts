@@ -10,6 +10,7 @@ export const presets: Preset[] = [
   {
     elements: [
       {
+        isImage: true,
         index: 1,
         src: ljvBackground,
         name: "Background",
@@ -17,6 +18,7 @@ export const presets: Preset[] = [
         y: 0,
       },
       {
+        isText: true,
         dx: 0,
         dy: 0,
         text: "Hello World!",
@@ -49,6 +51,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isImage: true,
         x: 0,
         y: 0,
         index: 2,
@@ -76,6 +79,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isText: true,
         dx: 0,
         dy: 0,
         text: "I'm Lucas",
@@ -108,6 +112,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isText: true,
         dx: 0,
         dy: 0,
         text: "J. Venturini",
@@ -140,6 +145,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isImage: true,
         x: 0,
         y: 0,
         index: 3,
@@ -177,6 +183,7 @@ export const presets: Preset[] = [
     background: "#000000",
     elements: [
       {
+        isImage: true,
         x: 0,
         y: 0,
         name: "venturini.codes",
@@ -204,6 +211,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isImage: true,
         x: 0,
         y: 0,
         name: "thomasventurini.com",
@@ -231,6 +239,7 @@ export const presets: Preset[] = [
         ],
       },
       {
+        isImage: true,
         x: 0,
         y: 0,
         name: "edward",

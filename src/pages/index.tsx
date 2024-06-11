@@ -17,6 +17,7 @@ import { defaultCircle } from "@/data/defaultCircle";
 import { defaultText } from "@/data/defaultText";
 import { defaultImg } from "@/data/defaultImg";
 import { defaultRectangle } from "@/data/defaultRectangle";
+import { defaultPattern } from "@/data/defaultPattern";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -274,6 +275,13 @@ export default function Home() {
               label="&#43; Rectangle"
               onClick={() =>
                 addElement({ ...defaultRectangle, index: elementIndex })
+              }
+              color="slate"
+            />
+            <Button
+              label="&#43; Pattern"
+              onClick={() =>
+                addElement({ ...defaultPattern, index: elementIndex })
               }
               color="slate"
             />

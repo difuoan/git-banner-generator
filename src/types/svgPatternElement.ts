@@ -1,24 +1,24 @@
 import { SvgBaseElement } from "./svgBaseElement";
 
-export type SvgRectangleElement = {
+export type SvgPatternElement = SvgBaseElement & {
+    isPattern: true;
+    src: string;
     width: number;
     height: number;
-    fill: string;
     x: number;
     y: number;
     rx: number;
     ry: number;
-    isRect: true
-} & SvgBaseElement;
+    initialWidth: number;
+    initialHeight: number;
+};
 
-export const isSvgRectangleElement = (element: any): element is SvgRectangleElement => {
+export const isSvgPatternElement = (element: any): element is SvgPatternElement => {
     if (typeof element !== "object") return false;
     if (
         ![
-            "isRect" in element,
-            typeof element.isRect === "boolean",
-            "fill" in element,
-            typeof element.fill === "string",
+            "isPattern" in element,
+            typeof element.isPattern === "boolean",
             "x" in element,
             typeof element.x === "number",
             "y" in element,

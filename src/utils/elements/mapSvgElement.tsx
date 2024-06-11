@@ -8,6 +8,7 @@ import { fontFamilies } from "@/types/fonts";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
 import { testImg } from "@/data/testImg";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
+import { isSvgPatternElement } from "@/types/svgPatternElement";
 
 export const mapSvgElement = (element: SvgElement, index: number) => {
   let transformString: string = "";
@@ -47,6 +48,38 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
       >
         {mappedAnimations}
       </image>
+    );
+  } else if (isSvgPatternElement(element)) {
+    let mappedAnimations = (element.animations ?? []).map((ele, eleInde) =>
+      mapSvgAnimation(ele, eleInde, element, index)
+    );
+    return (
+      <g key={index}>
+        <defs>
+          <pattern
+            id={`pattern${element.index}`}
+            x="0"
+            y="0"
+            width={element.initialWidth}
+            height={element.initialHeight}
+            patternUnits="userSpaceOnUse"
+          >
+            <image href={element.src ?? testImg}></image>
+          </pattern>
+        </defs>
+        <rect
+          width={element.width}
+          height={element.height}
+          rx={element.rx}
+          ry={element.ry}
+          x={element.x}
+          y={element.y}
+          fill={`url(#pattern${element.index})`}
+          transform={transformString}
+        >
+          {mappedAnimations}
+        </rect>
+      </g>
     );
   } else if (isSvgTextElement(element)) {
     const texts = element.text.split("\n").map((text, txtidx) => {
