@@ -107,32 +107,36 @@ export const mapSettingsElement = (
         </div>
       </details>
       {animationSettings}
-      <Button
-        label="+ Animation"
-        onClick={() =>
-          onChange({
-            ...element,
-            animations: [
-              ...(element.animations ?? []),
-              {
-                attributeName: animAttr[0],
-                from: 0,
-                to: 0,
-                dur: 1,
-                begin: 0,
-                repeatCount: 1,
-                keySplines: "ease-in-out",
-              },
-            ],
-          })
-        }
-        color="slate"
-      />
-      <Button
-        label="&#128465; Delete Element"
-        onClick={() => onDelete(element.index)}
-        color="rose"
-      />
+      <div className="flex flex-row gap-4 w-full">
+        <Button
+          className="w-full"
+          label="+ Animation"
+          onClick={() =>
+            onChange({
+              ...element,
+              animations: [
+                ...(element.animations ?? []),
+                {
+                  attributeName: animAttr[0],
+                  from: 0,
+                  to: 0,
+                  dur: 1,
+                  begin: 0,
+                  repeatCount: 1,
+                  keySplines: "ease-in-out",
+                },
+              ],
+            })
+          }
+          color="slate"
+        />
+        <Button
+          className="w-full"
+          label="&#128465; Delete Element"
+          onClick={() => onDelete(element.index)}
+          color="rose"
+        />
+      </div>
     </form>
   );
 };

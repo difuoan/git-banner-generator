@@ -280,7 +280,7 @@ export default function Home() {
           </div>
           {/* SETTINGS */}
           <form className="border border-gray-400 p-8 rounded w-full">
-            <details open>
+            <details>
               <summary className="cursor-pointer">
                 <h6 className="text-lg font-bold inline">SVG</h6>
               </summary>
