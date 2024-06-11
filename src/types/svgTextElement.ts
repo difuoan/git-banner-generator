@@ -1,10 +1,11 @@
+import { Font } from "./fonts";
 import { SvgBaseElement } from "./svgBaseElement";
 
 export type SvgTextElement = {
     text: string;
     color: string;
     fontSize: number
-    fontFamily: string
+    fontFamily: Font
     x: number
     y: number
     dx: number,

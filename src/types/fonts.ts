@@ -46,7 +46,9 @@ export type Font =
     | "Papyrus"
     | "Brush Script MT";
 
-export const fontFamilies: { [name: Font]: string } = {
+export type Fonts = Record<Font, string>
+
+export const fontFamilies: Fonts = {
     "Brush Script MT": `"Brush Script MT", cursive`,
     Papyrus: `Papyrus, fantasy`,
     Copperplate: `Copperplate, "Copperplate Gothic Light", fantasy`,
@@ -63,7 +65,7 @@ export const fontFamilies: { [name: Font]: string } = {
     Perpetua: `Perpetua, Baskerville, "Big Caslon", "Palatino Linotype", Palatino, "URW Palladio L", "Nimbus Roman No9 L", serif`,
     Palatino: `Palatino, "Palatino Linotype", "Palatino LT STD", "Book Antiqua", Georgia, serif`,
     Arial: "Arial, 'Helvetica Neue', Helvetica, sans-serif",
-    ArialBlack: `"Arial Black", "Arial Bold", Gadget, sans-serif`,
+    "Arial Black": `"Arial Black", "Arial Bold", Gadget, sans-serif`,
     "Arial Narrow": `"Arial Narrow", Arial, sans-serif`,
     "Arial Rounded MT Bold": `"Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif`,
     "Avant Garde": `"Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, AppleGothic, sans-serif`,
