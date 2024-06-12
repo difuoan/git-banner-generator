@@ -176,7 +176,7 @@ export const presets: Preset[] = [
     height: 500,
     width: 1500,
     src: "/ljvBanner.svg",
-    background: "#ffffff",
+    background: "#ffba42",
   },
   {
     elements: [

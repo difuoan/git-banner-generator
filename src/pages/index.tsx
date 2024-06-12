@@ -72,7 +72,7 @@ export default function Home() {
       height: svgHeight,
       width: svgWidth,
       src: "",
-      background: "#ffffff",
+      background: svgBackground,
     };
     navigator.clipboard.writeText(JSON.stringify(newPres));
   };
