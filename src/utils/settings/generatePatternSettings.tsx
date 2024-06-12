@@ -32,7 +32,7 @@ export const generatePatternSettings = (
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.x ?? 0}
-            label="X"
+            label="Position X"
             max={1500}
             min={-1500}
             onChange={(value: number) => onChange({ ...element, x: value })}
@@ -40,7 +40,7 @@ export const generatePatternSettings = (
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.y ?? 0}
-            label="Y"
+            label="Position Y"
             max={500}
             min={-500}
             onChange={(value: number) => onChange({ ...element, y: value })}

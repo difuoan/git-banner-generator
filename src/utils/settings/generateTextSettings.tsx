@@ -30,7 +30,7 @@ export const generateTextSettings = (
             <NumberInput
               keyVal={element.index + (element.name ?? "")}
               value={element.x ?? 0}
-              label="X"
+              label="Position X"
               max={1500}
               min={-1500}
               onChange={(value: number) => onChange({ ...element, x: value })}
@@ -38,7 +38,7 @@ export const generateTextSettings = (
             <NumberInput
               keyVal={element.index + (element.name ?? "")}
               value={element.y ?? 0}
-              label="Y"
+              label="Position Y"
               max={500}
               min={-500}
               onChange={(value: number) => onChange({ ...element, y: value })}
@@ -58,7 +58,7 @@ export const generateTextSettings = (
             <NumberInput
               keyVal={element.index + (element.name ?? "")}
               value={element.dx ?? 0}
-              label="DX"
+              label="Line Offset X"
               max={500}
               min={-500}
               onChange={(value: number) => onChange({ ...element, dx: value })}
@@ -77,7 +77,7 @@ export const generateTextSettings = (
             <NumberInput
               keyVal={element.index + (element.name ?? "")}
               value={element.dy ?? 0}
-              label="DY"
+              label="Line Offset Y"
               max={100}
               min={-100}
               onChange={(value: number) => onChange({ ...element, dy: value })}

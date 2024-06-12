@@ -18,7 +18,7 @@ const TextArea = ({
         id={label + keyVal}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="block p-2.5 w-full text-sm rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+        className="block p-2.5 grow text-sm rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
       ></textarea>
     </div>
   );

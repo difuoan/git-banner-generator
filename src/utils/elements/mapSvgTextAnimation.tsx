@@ -1,6 +1,8 @@
+import { AnimatableAttributeValue } from "@/data/animatableAttributes";
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
 import { SvgTextElement } from "@/types/svgTextElement";
+import { getAnimatableAttributes } from "../getAnimatableAttributes";
 
 export const mapSvgTextAnimation = (
   animation: SvgAnimation,
@@ -9,20 +11,23 @@ export const mapSvgTextAnimation = (
   _elementIndex: number,
   textIndex: number
 ) => {
-  if (["rotate", "skewX", "skewY"].includes(animation.attributeName)) return;
+  let animAttr: AnimatableAttributeValue[] = getAnimatableAttributes(element);
+  const attibuteNameToUse =
+    animAttr.find((val) => val.text === animation.attributeName)?.value ?? "";
+  if (["rotate", "skewX", "skewY"].includes(attibuteNameToUse)) return;
   let from = animation.from;
   let to = animation.to;
-  if ("dx" === animation.attributeName) {
+  if ("dx" === attibuteNameToUse) {
     from = (animation.from ?? 0) * textIndex;
     to = (animation.to ?? 0) * textIndex;
-  } else if ("dy" === animation.attributeName) {
+  } else if ("dy" === attibuteNameToUse) {
     from = (animation.from ?? element.fontSize * 1.4) * textIndex;
     to = (animation.to ?? element.fontSize * 1.4) * textIndex;
   }
   return (
     <animate
       key={animationIndex}
-      attributeName={animation.attributeName}
+      attributeName={attibuteNameToUse}
       from={from}
       to={to}
       dur={animation.dur + "s"}

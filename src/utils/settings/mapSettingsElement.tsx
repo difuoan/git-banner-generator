@@ -5,7 +5,7 @@ import Button from "@/components/button";
 import { mapSettingAnimation } from "./mapSettingAnimation";
 import { isSvgTextElement } from "@/types/svgTextElement";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
-import { animatableAttributes } from "@/data/animatableAttributes";
+import { AnimatableAttributeValue } from "@/data/animatableAttributes";
 import { isSvgRectangleElement } from "@/types/svgRectangleElement";
 import { generateRectangleSettings } from "./generateRectangleSettings";
 import { generateImgSettings } from "./generateImgSettings";
@@ -14,13 +14,14 @@ import { generateCircleSettings } from "./generateCircleSettings";
 import NumberInput from "@/components/numberInput";
 import { isSvgPatternElement } from "@/types/svgPatternElement";
 import { generatePatternSettings } from "./generatePatternSettings";
+import { getAnimatableAttributes } from "../getAnimatableAttributes";
 
 export const mapSettingsElement = (
   element: SvgElement,
   onChange: Function,
   onDelete: Function
 ) => {
-  let animAttr: string[] = [];
+  let animAttr: AnimatableAttributeValue[] = getAnimatableAttributes(element);
   let typeSpecificInput = null;
   let elementName = "Element";
   const animationSettings = (element.animations ?? []).map((animation, index) =>
@@ -28,22 +29,17 @@ export const mapSettingsElement = (
   );
   if (isSvgImgElement(element)) {
     elementName = "Image";
-    animAttr = animatableAttributes["img"];
     typeSpecificInput = generateImgSettings(element, onChange, onDelete);
   } else if (isSvgPatternElement(element)) {
-    animAttr = animatableAttributes["pattern"];
     elementName = "Pattern";
     typeSpecificInput = generatePatternSettings(element, onChange, onDelete);
   } else if (isSvgTextElement(element)) {
     elementName = "Text";
-    animAttr = animatableAttributes["text"];
     typeSpecificInput = generateTextSettings(element, onChange, onDelete);
   } else if (isSvgCircleElement(element)) {
-    animAttr = animatableAttributes["circle"];
     elementName = "Circle";
     typeSpecificInput = generateCircleSettings(element, onChange, onDelete);
   } else if (isSvgRectangleElement(element)) {
-    animAttr = animatableAttributes["rectangle"];
     elementName = "Rectangle";
     typeSpecificInput = generateRectangleSettings(element, onChange, onDelete);
   }
@@ -97,7 +93,7 @@ export const mapSettingsElement = (
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.skewX ?? 0}
-            label="skewX"
+            label="Skew X"
             max={90}
             min={-90}
             onChange={(value: number) => onChange({ ...element, skewX: value })}
@@ -105,7 +101,7 @@ export const mapSettingsElement = (
           <NumberInput
             keyVal={element.index + (element.name ?? "")}
             value={element.skewY ?? 0}
-            label="skewY"
+            label="Skew Y"
             max={90}
             min={-90}
             onChange={(value: number) => onChange({ ...element, skewY: value })}
@@ -123,7 +119,7 @@ export const mapSettingsElement = (
               animations: [
                 ...(element.animations ?? []),
                 {
-                  attributeName: animAttr[0],
+                  attributeName: animAttr[0].text,
                   from: 0,
                   to: 0,
                   dur: 1,

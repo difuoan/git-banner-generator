@@ -27,6 +27,7 @@ const NumberInput = ({
         max={max}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
+        className="grow"
       />
       <input
         type="number"
@@ -36,7 +37,7 @@ const NumberInput = ({
         step={1}
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
-        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        className="border border-gray-300 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
       />
     </div>
   );

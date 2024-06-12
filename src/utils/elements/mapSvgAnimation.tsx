@@ -1,8 +1,10 @@
+import { AnimatableAttributeValue } from "@/data/animatableAttributes";
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
 import { isSvgCircleElement } from "@/types/svgCircleElement";
 import { SvgElement } from "@/types/svgElement";
 import { isSvgTextElement } from "@/types/svgTextElement";
+import { getAnimatableAttributes } from "../getAnimatableAttributes";
 
 export const mapSvgAnimation = (
   animation: SvgAnimation,
@@ -11,7 +13,10 @@ export const mapSvgAnimation = (
   _elementIndex: number
 ) => {
   if (isSvgTextElement(element)) return;
-  if (["rotate", "skewX", "skewY"].includes(animation.attributeName)) {
+  let animAttr: AnimatableAttributeValue[] = getAnimatableAttributes(element);
+  const attibuteNameToUse =
+    animAttr.find((val) => val.text === animation.attributeName)?.value ?? "";
+  if (["rotate", "skewX", "skewY"].includes(attibuteNameToUse)) {
     let x = 0;
     let y = 0;
     if (isSvgCircleElement(element)) {
@@ -21,15 +26,21 @@ export const mapSvgAnimation = (
       x = (element.x ?? 0) + (element.width ?? 0) / 2;
       y = (element.y ?? 0) + (element.height ?? 0) / 2;
     }
+    let from: string = animation.from.toString();
+    let to: string = animation.to.toString();
+    if (attibuteNameToUse === "rotate") {
+      from += ` ${x} ${y}`;
+      to += ` ${x} ${y}`;
+    }
     return (
       <animateTransform
         key={animationIndex}
         attributeName="transform"
-        from={`${animation.from} ${x} ${y}`}
-        to={`${animation.to} ${x} ${y}`}
+        from={from}
+        to={to}
         dur={animation.dur + "s"}
         begin={animation.begin + "s"}
-        type={animation.attributeName}
+        type={attibuteNameToUse}
         attributeType="XML"
         repeatCount={animation.repeatCount}
         calcMode="spline"
@@ -42,7 +53,7 @@ export const mapSvgAnimation = (
   return (
     <animate
       key={animationIndex}
-      attributeName={animation.attributeName}
+      attributeName={attibuteNameToUse}
       from={animation.from}
       to={animation.to}
       dur={animation.dur + "s"}

@@ -1,7 +1,8 @@
+import { AnimatableAttributeValue } from "@/data/animatableAttributes";
 import { splines } from "@/data/splines";
 import { SvgAnimation } from "@/types/svgAnimation";
 import { SvgElement } from "@/types/svgElement";
-import { isSvgTextElement } from "@/types/svgTextElement";
+import { getAnimatableAttributes } from "../getAnimatableAttributes";
 
 export const mapSvgTextGroupAnimation = (
   animation: SvgAnimation,
@@ -9,9 +10,12 @@ export const mapSvgTextGroupAnimation = (
   element: SvgElement,
   _elementIndex: number
 ) => {
-  if (!["rotate", "skewX", "skewY"].includes(animation.attributeName)) return;
+  let animAttr: AnimatableAttributeValue[] = getAnimatableAttributes(element);
+  const attibuteNameToUse =
+    animAttr.find((val) => val.text === animation.attributeName)?.value ?? "";
+  if (!["rotate", "skewX", "skewY"].includes(attibuteNameToUse)) return;
   let transformSuffix: string = "";
-  if (animation.attributeName === "rotate") {
+  if (attibuteNameToUse === "rotate") {
     transformSuffix += `  ${element.x + (element.rotationOffsetX ?? 0)} ${
       element.y + (element.rotationOffsetY ?? 0)
     }`;
@@ -20,7 +24,7 @@ export const mapSvgTextGroupAnimation = (
     <animateTransform
       key={animationIndex}
       attributeName="transform"
-      type={animation.attributeName}
+      type={attibuteNameToUse}
       attributeType="XML"
       from={`${animation.from}${transformSuffix}`}
       to={`${animation.to}${transformSuffix}`}
