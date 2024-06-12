@@ -1,4 +1,5 @@
 import { SvgElement } from "@/types/svgElement";
+import { mapSvgDefinitions } from "@/utils/elements/mapSvgDefinitions";
 import { mapSvgElement } from "@/utils/elements/mapSvgElement";
 import { JSX, SVGProps, useEffect, useState } from "react";
 
@@ -10,8 +11,8 @@ const SVGComponent = (
     svgbackground: string;
   }
 ) => {
+  const definitions = props.elements.map(mapSvgDefinitions);
   const elementHtml = props.elements.map(mapSvgElement);
-
   return (
     <svg
       id="generated-banner"
@@ -21,6 +22,7 @@ const SVGComponent = (
       preserveAspectRatio="xMidYMid"
       {...props}
     >
+      {definitions}
       <rect
         width={props.svgwidth}
         height={props.svgheight}

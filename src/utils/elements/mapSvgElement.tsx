@@ -96,7 +96,7 @@ export const mapSvgElement = (element: SvgElement, index: number) => {
           key={txtidx}
           fill={element.color}
           fontSize={element.fontSize}
-          fontFamily={fontFamilies[element.fontFamily]}
+          fontFamily={element.fontFamily}
         >
           {text}
           {mappedAnimations}
