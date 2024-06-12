@@ -1,7 +1,8 @@
 import { SvgElement } from "@/types/svgElement";
+import { isSvgTextElement } from "@/types/svgTextElement";
 import { mapSvgDefinitions } from "@/utils/elements/mapSvgDefinitions";
 import { mapSvgElement } from "@/utils/elements/mapSvgElement";
-import { JSX, SVGProps, useEffect, useState } from "react";
+import { JSX, SVGProps } from "react";
 
 const SVGComponent = (
   props: Partial<JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>> & {
@@ -11,7 +12,15 @@ const SVGComponent = (
     svgbackground: string;
   }
 ) => {
-  const definitions = props.elements.map(mapSvgDefinitions);
+  const uniqueDefs: string[] = [];
+  const definitions = props.elements
+    .filter(isSvgTextElement)
+    .filter((ele) => {
+      if (uniqueDefs.includes(ele.fontFamily)) return false;
+      uniqueDefs.push(ele.fontFamily);
+      return true;
+    })
+    .map(mapSvgDefinitions);
   const elementHtml = props.elements.map(mapSvgElement);
   return (
     <svg
