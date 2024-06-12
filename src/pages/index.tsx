@@ -19,6 +19,7 @@ import { defaultImg } from "@/data/defaultImg";
 import { defaultRectangle } from "@/data/defaultRectangle";
 import { defaultPattern } from "@/data/defaultPattern";
 import UsefulLinks from "@/components/usefulLinks";
+import { changeElementPosition } from "@/utils/changeElementPosition";
 
 export default function Home() {
   const svgContainer = useRef<HTMLDivElement>(null);
@@ -46,6 +47,9 @@ export default function Home() {
   // FUNCTIONS
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+  };
+  const onChangePos = (element: SvgElement, shift: number) => {
+    setElements(changeElementPosition(element, elements, shift));
   };
   const resetState = (index = presetToUse) => {
     const pre = presets[index];
@@ -139,9 +143,11 @@ export default function Home() {
   };
 
   // HTML
-  const settings = elements.map((ele, inde) =>
-    mapSettingsElement(ele, onElementChange, onElementDelete)
-  );
+  const settings = elements
+    .map((ele, _inde) =>
+      mapSettingsElement(ele, onElementChange, onElementDelete, onChangePos)
+    )
+    .reverse();
   const presetHtml = presets.map((preset: Preset, index: number) => {
     return (
       // eslint-disable-next-line @next/next/no-img-element

@@ -11,7 +11,7 @@ export const mapSvgDefinitions = (element: SvgElement, index: number) => {
     src: url("data:application/x-font-ttf;base64,${base64}");
 }`;
     definition = (
-      <defs>
+      <defs key={element.index}>
         <style type="text/css">{fontFace}</style>
       </defs>
     );

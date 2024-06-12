@@ -19,7 +19,8 @@ import { getAnimatableAttributes } from "../getAnimatableAttributes";
 export const mapSettingsElement = (
   element: SvgElement,
   onChange: Function,
-  onDelete: Function
+  onDelete: Function,
+  onChangePos: Function
 ) => {
   let animAttr: AnimatableAttributeValue[] = getAnimatableAttributes(element);
   let typeSpecificInput = null;
@@ -111,7 +112,12 @@ export const mapSettingsElement = (
       {animationSettings}
       <div className="flex flex-row gap-4 w-full">
         <Button
-          className="w-full"
+          label="↥ Up"
+          color="slate"
+          onClick={() => onChangePos(element, 1)}
+        />
+        <Button
+          className="grow"
           label="+ Animation"
           onClick={() =>
             onChange({
@@ -133,10 +139,15 @@ export const mapSettingsElement = (
           color="slate"
         />
         <Button
-          className="w-full"
+          className="grow"
           label="&#128465; Delete Element"
           onClick={() => onDelete(element.index)}
           color="rose"
+        />
+        <Button
+          label="Down ↧"
+          color="slate"
+          onClick={() => onChangePos(element, -1)}
         />
       </div>
     </form>
