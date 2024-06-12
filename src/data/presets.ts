@@ -26,7 +26,7 @@ export const presets: Preset[] = [
         y: 85,
         color: "#ffffff",
         fontSize: 60,
-        fontFamily: "Courier New",
+        fontFamily: "Bitter",
         index: 4,
         name: "Hello World!",
         animations: [
@@ -87,7 +87,7 @@ export const presets: Preset[] = [
         y: 177,
         color: "#ffffff",
         fontSize: 100,
-        fontFamily: "Courier New",
+        fontFamily: "Bitter",
         index: 5,
         name: "I'm Lucas",
         animations: [
@@ -120,7 +120,7 @@ export const presets: Preset[] = [
         y: 252,
         color: "#ffffff",
         fontSize: 60,
-        fontFamily: "Courier New",
+        fontFamily: "Bitter",
         index: 6,
         name: "J. Venturini",
         animations: [
