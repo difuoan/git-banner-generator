@@ -22,8 +22,8 @@ export const presets: Preset[] = [
         dx: 0,
         dy: 0,
         text: "Hello World!",
-        x: 60,
-        y: 40,
+        x: 57,
+        y: 85,
         color: "#ffffff",
         fontSize: 60,
         fontFamily: "Courier New",
@@ -31,7 +31,7 @@ export const presets: Preset[] = [
         name: "Hello World!",
         animations: [
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: -100,
             to: -100,
             dur: 1,
@@ -40,9 +40,9 @@ export const presets: Preset[] = [
             keySplines: "ease-out",
           },
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: -100,
-            to: 40,
+            to: 85,
             dur: 1,
             begin: 1,
             repeatCount: 1,
@@ -59,20 +59,20 @@ export const presets: Preset[] = [
         name: "Izzy",
         animations: [
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -1500,
             to: -1500,
-            dur: 6,
+            dur: 5,
             begin: 0,
             repeatCount: 1,
             keySplines: "ease-out",
           },
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -1500,
             to: 0,
             dur: 2,
-            begin: 6,
+            begin: 5,
             repeatCount: 1,
             keySplines: "ease-out",
           },
@@ -83,8 +83,8 @@ export const presets: Preset[] = [
         dx: 0,
         dy: 0,
         text: "I'm Lucas",
-        x: 52,
-        y: 100,
+        x: 49,
+        y: 177,
         color: "#ffffff",
         fontSize: 100,
         fontFamily: "Courier New",
@@ -92,7 +92,7 @@ export const presets: Preset[] = [
         name: "I'm Lucas",
         animations: [
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -600,
             to: -600,
             dur: 3,
@@ -101,7 +101,7 @@ export const presets: Preset[] = [
             keySplines: "ease-in-out",
           },
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -600,
             to: 52,
             dur: 1,
@@ -116,8 +116,8 @@ export const presets: Preset[] = [
         dx: 0,
         dy: 0,
         text: "J. Venturini",
-        x: 60,
-        y: 210,
+        x: 57,
+        y: 252,
         color: "#ffffff",
         fontSize: 60,
         fontFamily: "Courier New",
@@ -125,20 +125,20 @@ export const presets: Preset[] = [
         name: "J. Venturini",
         animations: [
           {
-            attributeName: "y",
-            from: 500,
-            to: 500,
-            dur: 5,
+            attributeName: "Y",
+            from: 600,
+            to: 600,
+            dur: 4,
             begin: 0,
             repeatCount: 1,
             keySplines: "ease-in-out",
           },
           {
-            attributeName: "y",
-            from: 500,
-            to: 210,
+            attributeName: "Y",
+            from: 600,
+            to: 252,
             dur: 1,
-            begin: 5,
+            begin: 4,
             repeatCount: 1,
             keySplines: "ease-in-out",
           },
@@ -153,20 +153,20 @@ export const presets: Preset[] = [
         name: "venturini.codes",
         animations: [
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: 200,
             to: 200,
-            dur: 8,
+            dur: 7,
             begin: 0,
             repeatCount: 1,
             keySplines: "ease-out",
           },
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: 200,
             to: 0,
             dur: 1,
-            begin: 8,
+            begin: 7,
             repeatCount: 1,
             keySplines: "ease-out",
           },
@@ -179,8 +179,6 @@ export const presets: Preset[] = [
     background: "#ffffff",
   },
   {
-    src: "/tjvBanner.svg",
-    background: "#000000",
     elements: [
       {
         isImage: true,
@@ -191,7 +189,7 @@ export const presets: Preset[] = [
         src: tjv1,
         animations: [
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: -500,
             to: -500,
             dur: 1,
@@ -200,7 +198,7 @@ export const presets: Preset[] = [
             keySplines: "ease-out",
           },
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: -500,
             to: 0,
             dur: 1,
@@ -219,7 +217,7 @@ export const presets: Preset[] = [
         src: tjv2,
         animations: [
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -1500,
             to: -1500,
             dur: 2,
@@ -228,7 +226,7 @@ export const presets: Preset[] = [
             keySplines: "ease-out",
           },
           {
-            attributeName: "x",
+            attributeName: "X",
             from: -1500,
             to: 0,
             dur: 1,
@@ -242,12 +240,12 @@ export const presets: Preset[] = [
         isImage: true,
         x: 0,
         y: 0,
-        name: "edward",
+        name: "Edward Wong Hau Pepelu Tivruski IV",
         index: 3,
         src: tjv3,
         animations: [
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: 500,
             to: 500,
             dur: 3,
@@ -256,7 +254,7 @@ export const presets: Preset[] = [
             keySplines: "ease-out",
           },
           {
-            attributeName: "y",
+            attributeName: "Y",
             from: 500,
             to: 0,
             dur: 1,
@@ -269,5 +267,7 @@ export const presets: Preset[] = [
     ],
     height: 500,
     width: 1500,
+    src: "/tjvBanner.svg",
+    background: "#000000",
   },
 ];
